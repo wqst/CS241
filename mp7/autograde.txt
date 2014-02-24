@@ -1,0 +1,173 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== MP7 Autograder Summary ===
+Program Execution Score (90% weight): 31.0/31.0 (100.0%)
+Program Heap Freed (5% weight): PASSED (100%)
+Correct Memory Usage (5% weight): PASSED (100%)
+
+
+=== MP7 Scoring Breakdown ===
+--- Details for "MP7" ---
+Total "MP7" Sub-Score: 31.0
+	... Details for "MP7", "test1 (given as part of assignment) /2 points"...
+	Total "MP7", "test1 (given as part of assignment) /2 points" Sub-Score: 2.0
+		test1
+	... Details for "MP7", "test3 (given as part of assignment) /8 points"...
+	Total "MP7", "test3 (given as part of assignment) /8 points" Sub-Score: 8.0
+		test3
+	... Details for "MP7", "test4 (given as part of assignment) /8 points"...
+	Total "MP7", "test4 (given as part of assignment) /8 points" Sub-Score: 8.0
+		test4
+	... Details for "MP7", "test6x (a better test5, testing that map_all() does not block) /5 points"...
+	Total "MP7", "test6x (a better test5, testing that map_all() does not block) /5 points" Sub-Score: 5.0
+		test6x
+	... Details for "MP7", "test7x (do you only use one thread?) /4 points"...
+	Total "MP7", "test7x (do you only use one thread?) /4 points" Sub-Score: 4.0
+		test7x
+	... Details for "MP7", "test6 (your map() and reduce() functions) /4 points"...
+	Total "MP7", "test6 (your map() and reduce() functions) /4 points" Sub-Score: 4.0
+		test6
+
+
+
+
+=== MP7 Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp7"...
+[config]: Initializing the SegmentGrader class "mp7_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "../../svn/fa13-cs241/smwalto2" for assignment "mp7" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "MP7"...
+[fine]: Launching assignment-specific code for "MP7", "MP7"...
+[finer]: Running command [make] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -c -g -W -Wall -I. -Ilibds/ libds/libds.c -o libds.o -lpthread
+[finest]: [stdout:2]: gcc -c -g -W -Wall -I. -Ilibds/ libmapreduce.c -o libmapreduce.o -lpthread
+[finest]: [stdout:3]: gcc -g -W -Wall libds.o libmapreduce.o test1.c -o test1 -lpthread
+[finest]: [stdout:4]: gcc -g -W -Wall libds.o libmapreduce.o test2.c -o test2 -lpthread
+[finest]: [stdout:5]: gcc -g -W -Wall libds.o libmapreduce.o test3.c -o test3 -lpthread
+[finest]: [stdout:6]: gcc -g -W -Wall test4.c libds.o libmapreduce.o -o test4 -lpthread
+[finest]: [stdout:7]: gcc -g -W -Wall libds.o libmapreduce.o test5.c -o test5 -lpthread
+[finest]: [stdout:8]: gcc -g -W -Wall libds.o libmapreduce.o test6x.c -o test6x -lpthread
+[finest]: [stdout:9]: gcc -g -W -Wall libds.o libmapreduce.o test7x.c -o test7x -lpthread
+[finest]: [stdout:10]: gcc -g -W -Wall libds.o libmapreduce.o test6.c -o test6 -lpthread
+[finest]: [stderr:1]: test7x.c: In function âmapâ:
+[finest]: [stderr:2]: test7x.c:10: warning: unused parameter âdataâ
+[fine]: Launching segment-specific code for "MP7", "MP7", "MP7"...
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test1 (given as part of assignment) /2 points"...
+[finer]: Running command [mp7-autograde/test1] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test1" with exit code = 0.
+[finest]: [stdout:1]: letters: 8
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test3 (given as part of assignment) /8 points"...
+[finer]: Running command [mp7-autograde/test3] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test3" with exit code = 0.
+[finest]: [stdout:1]: a: 10
+[finest]: [stdout:2]: b: 2
+[finest]: [stdout:3]: c: 2
+[finest]: [stdout:4]: d: 12
+[finest]: [stdout:5]: e: 10
+[finest]: [stdout:6]: f: 1
+[finest]: [stdout:7]: g: 2
+[finest]: [stdout:8]: h: 1
+[finest]: [stdout:9]: i: 5
+[finest]: [stdout:10]: j: 0
+[finest]: [stdout:11]: k: 1
+[finest]: [stdout:12]: l: 8
+[finest]: [stdout:13]: m: 0
+[finest]: [stdout:14]: n: 9
+[finest]: [stdout:15]: o: 18
+[finest]: [stdout:16]: p: 0
+[finest]: [stdout:17]: q: 0
+[finest]: [stdout:18]: r: 8
+[finest]: [stdout:19]: s: 5
+[finest]: [stdout:20]: t: 6
+[finest]: [stdout:21]: u: 2
+[finest]: [stdout:22]: v: 3
+[finest]: [stdout:23]: w: 4
+[finest]: [stdout:24]: x: 0
+[finest]: [stdout:25]: y: 2
+[finest]: [stdout:26]: z: 0
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test4 (given as part of assignment) /8 points"...
+[finer]: Running command [mp7-autograde/test4] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test4" with exit code = 0.
+[finest]: [stdout:1]: the: 1804
+[finest]: [stdout:2]: and: 912
+[finest]: [stdout:3]: alice: 385
+[finest]: [stdout:4]: some-word-that-wont-exist: (null)
+[finer]: Testing for string "the: 1804" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Testing for string "and: 912" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "alice: 385" in process output.
+[finer]: String found in line 3 of standard output.
+[finer]: Testing for string "some-word-that-wont-exist: (null)" in process output.
+[finer]: String found in line 4 of standard output.
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test6x (a better test5, testing that map_all() does not block) /5 points"...
+[finer]: Running command [mp7-autograde/test6x] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test6x" with exit code = 0.
+[finest]: [stdout:1]: Sleeping for 2 seconds...
+[finest]: [stdout:2]: Sleeping for 4 seconds...
+[finest]: [stdout:3]: Sleeping for 6 seconds...
+[finest]: [stdout:4]: Sleeping for 8 seconds...
+[finest]: [stdout:5]: value: (null)
+[finest]: [stdout:6]: value: (null)
+[finest]: [stdout:7]: value: (null)
+[finest]: [stdout:8]: value: 1
+[finest]: [stdout:9]: value: 1
+[finest]: [stdout:10]: value: 2
+[finest]: [stdout:11]: value: 2
+[finest]: [stdout:12]: value: 3
+[finest]: [stdout:13]: value: 4
+[finest]: [stdout:14]: value: 4
+[finer]: Testing for string "value: (null)" in process output.
+[finer]: String found in line 5 of standard output.
+[finer]: Testing for string "value: 4" in process output.
+[finer]: String found in line 13 of standard output.
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test7x (do you only use one thread?) /4 points"...
+[finer]: Running command [mp7-autograde/test7x] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test7x" with exit code = 0.
+[finest]: [stdout:1]: Thread ID: 977600
+[finest]: [stdout:2]: Thread ID: 977600
+[finest]: [stdout:3]: Thread ID: 977600
+[finest]: [stdout:4]: Thread ID: 977600
+[finest]: [stdout:5]: Thread ID: 977600
+[finest]: [stdout:6]: Thread ID: 977600
+[finest]: [stdout:7]: Thread ID: 977600
+[finest]: [stdout:8]: Thread ID: 977600
+[finest]: [stdout:9]: Thread ID: 977600
+[finest]: [stdout:10]: Thread ID: 977600
+[finest]: [stdout:11]: Thread ID: 977600
+[finest]: [stdout:12]: Thread ID: 977600
+[finest]: [stdout:13]: Thread ID: 977600
+[finest]: [stdout:14]: Thread ID: 977600
+[finest]: [stdout:15]: Thread ID: 977600
+[finest]: [stdout:16]: Thread ID: 977600
+[finest]: [stdout:17]: Thread ID: 977600
+[finest]: [stdout:18]: threadid: 977600
+[finer]: Testing for string "threadid: (null)" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "threadid: -1" in process output.
+[finer]: String was not found in process output.
+[fine]: Launching element-specific code for "MP7", "MP7", "MP7", "test6 (your map() and reduce() functions) /4 points"...
+[finer]: Running command [mp7-autograde/test6] with a timeout of 40000ms.
+[finer]: Completed execution of "mp7-autograde/test6" with exit code = 0.
+[finest]: [stdout:1]: Longest Word: unenforceability
+[finer]: Testing for string "important--unimportant--unimportant--important--" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "unenforceability" in process output.
+[finer]: String found in line 1 of standard output.
+[fine]: Launching memory grader code for "MP7"...
+[fine]: Launching memory grader code for "MP7"...
+[finer]: Running command [make clean] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: rm -f *.o *.d test1 test2 test3 test4 test5 test6 test6x test7x *~
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "../../svn/fa13-cs241/smwalto2" for assignment "mp7" has finished grading. Running final tasks...

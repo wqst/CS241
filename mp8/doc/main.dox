@@ -1,0 +1,8 @@
+/**
+
+  @mainpage CS 241 MP8 Web Server
+  @htmlinclude doc/webserver.html
+
+  @page CS 241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS 241</title>
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    </style>
+</head>
+<body>
+  <h3><b>Part 1</b> Due: Monday, Sep. 16th, 11:59pm</h3>
+  <h3><b>Part 2</b> Due: Monday, Sep. 23th, 11:59pm</h3>
+    <hr />
+
+
+<h2>Introduction</h2>
+    <p>In this MP, you will re-implement the function heap-memory function calls <tt>malloc()</tt>, <tt>calloc()</tt>, <tt>realloc()</tt>, and <tt>free()</tt> in much the same way that valgrind re-implements
+    many C-calls to understand how your program is using memory.  Just like valgrind, you will be able to use almost any existing program with your new memory functions:
+    this includes utility programs such as &quot;ls&quot; text editors like &quot;vi&quot;, or any other programs that runs on Linux.
+    </p>
+
+	<p>Your first goal will be a basic correct solution.  Then, you can move on to improving your allocator's speed and/or efficiency of memory use.  And for fun, you'll be able to submit your malloc to a class contest.</p>
+
+    <h2>What you must do</h2>
+    In this MP, you will need to make working versions of <tt>malloc()</tt>, <tt>calloc()</tt>, <tt>realloc()</tt>, and <tt>free()</tt> <b>without using</b> the libc defined <tt>malloc()</tt>, <tt>calloc()</tt>,
+    <tt>realloc()</tt>, and <tt>free()</tt> calls.  Instead, you will interact directly with the heap via the <tt>sbrk()</tt> function call.
+    <span style="color: #880000">For the purpose of this MP, you are not allowed to use any other form of storage.  You may <b>not</b> use files, pipes, system shared
+    memory, mmap, a chunk of pre-defined static memory, a chunk of pre-defined stack memory, other external memory libraries
+    found on the Internet, or any of the various other external sources of memory that
+    exist on a modern operating system. Your re-implement of malloc() must allocate heap memory using the sbrk() call.</span><br />
+
+    <br />
+
+
+    We provide two types of files:
+    <ul>
+        <li>
+            <b>mreplace.c / mcontest.c / alloc-contest.c / debug.h</b>: <span style="color: #880000;">Don't edit these file!</span><br />
+            These files create the system environment to ensure that calls to <tt>malloc()</tt> and related memory functions are passed on to <b>your</b> memory functions and not the standard libc ones. You should not edit this file, as we will replace it with a new, clean copy when we run your program.<br />
+            <br />
+        </li>
+
+        <li>
+            <b>alloc.c</b>: <span style="color: #008800;">Edit this file!</span><br />
+            This file provides blank implementations of <tt>malloc()</tt>, <tt>realloc()</tt>, and <tt>free()</tt>.  Since <tt>calloc()</tt> is a trivial modification of <tt>malloc()</tt>, we provide a working version of <tt>calloc()</tt> that makes use of your <tt>malloc()</tt>.
+        </li>
+
+    </ul>
+
+    <p>That's it!  You now know the requirements for this MP.  Note that we haven't specified <i>how</i> you should implement your memory allocator.  You've learned a lot of different algorithms and data structures in CS 241 for how systems can manage memory and it's up to you to choose how to do it.</p>
+	
+	<p>But don't worry; we'll provide some guidance.  In the rest of this document we supply background to help you get started, and then discuss grading and the contest.</p>
+
+<h2>Deadlines</h2>
+<p>We will divide the work of this MP over two weeks as follows.  By the end of the first week your implementation of <tt>malloc()</tt> should pass all of the tests in the part1 directory.  These are relatively straightforward tests
+   designed to get you up and running quickly.  They will mostly work with a naive implementation that does a poor job of freeing memory.  Remember that later you will need to iterator on your solution so that it can pass
+   more complex tests.</p>
+ <p>In the second week of this MP you will focus on getting the remaining tests to run and improving your performance relative to the system implementation of <tt>malloc()</tt>.  In this portion of the MP you will need a more sophisticated
+ version of <tt>realloc()</tt> and <tt>free()</tt> capable of avoiding fragmentation in large allocations.</p>
+
+<h2>How to get started</h2>
+
+<h4>A bad malloc</h4>
+
+<p>Memory allocation might seem a bit magical.  But you might be surprised to find out how easy it is to write a memory allocator which actually works in some primitive way. Let's do it now.  First, <tt>malloc()</tt>:</p>
+
+    <blockquote>
+        void *malloc(size_t size)<br />
+        {<br />
+        &nbsp; return sbrk(size);<br />
+        }<br />
+    </blockquote>
+
+<p>How does that work?  Malloc gets a request for <tt>size</tt> bytes of memory.  It then calls <tt>sbrk(size)</tt>.  This is a system call that asks the operating system to increase the heap by <tt>size</tt> bytes.  <tt>sbrk()</tt> returns a pointer to this new memory, and away we go.  Now, how about free?</p>
+
+    <blockquote>
+        void free(void *ptr)<br />
+        {<br />
+        }<br />
+    </blockquote>
+
+<p>That's right!  It's empty.  In a very limited way, this is a "correct" implementation.  You could write programs that use this <tt>malloc</tt> and <tt>free</tt>.  So what's wrong with this implementation?</p>
+
+	<ul>
+	<li>We didn't check for errors when we called <tt>sbrk()</tt>.  OK, that seems straightforward to deal with.
+	<li>We haven't implemented <tt>calloc</tt> or <tt>realloc</tt>.  But let's not worry about that now.
+	<li>The big problem, as you have surely noticed, is that freed memory is never reused!  The heap will get bigger and bigger every time we call <tt>malloc()</tt>, even if we always <tt>free()</tt> the memory.  Pretty soon, we'll run out of memory in the computer.
+	</ul>
+
+<p>To sum up, it's actually quite easy to request new memory from the operating system. Your memory allocator's other task is harder:  do the necessary &quot;bookkeeping&quot; to track what chunks of memory are allocated, and where the free holes are.</p>
+
+<h4>Towards a better malloc</h4>
+
+<p>So how do we do this &quot;bookkeeping&quot;?  Let's see what information we need.  When <tt>free(ptr)</tt> is called, its job is to free the block of memory starting at <tt>ptr</tt>.  But how many bytes long was that block?  Sadly, we are told where the memory segment starts but not how big it is.  Similarly, take a look at <tt>realloc(ptr, size)</tt>: it must &quot;define a new memory segment, copy the old memory segment content to the new memory segment, free the old memory segment, and then return the new memory segment&quot;.  We find that to do that, we need three pieces of information:</p>
+
+    <ul>
+        <li>The old memory location</li>
+        <li>The old memory size</li>
+        <li>The new memory size</li>
+    </ul>
+
+<p>Sadly, <tt>realloc()</tt> has as arguments only the old memory location and the new memory size.  So to sum up, for both <tt>free()</tt> and <tt>realloc()</tt> we must store some bookkeeping information <i>behind the scenes</i> when the memory is first allocated with <tt>malloc()</tt>.  Specifically, we need some way to figure out the memory segment size given only the memory location <tt>ptr</tt>.</p>
+
+<p>Let's define some structure to correlate the old memory location to the old memory size; that way we can look it up later:</p>
+	
+    <blockquote>
+        typedef struct _mem_dictionary <br />
+        {<br />
+        &nbsp; void *addr;<br />
+        &nbsp; size_t size;<br />
+        } mem_dictionary;<br />
+    </blockquote>
+
+...and let's use global variables to keep a count of how many records are part of this structure, as well as a pointer to the first element of the dictionary:
+
+    <blockquote>
+        mem_dictionary *dictionary = NULL;<br />
+        int dictionary_ct = 0;<br />
+    </blockquote>
+
+With these data structures set up, we can make simple modifications to <tt>malloc()</tt> so it initalizes the dictionary array when it starts up and stores the (memory address)-&gt;(size) record every time <tt>malloc()</tt> is called:
+
+    <blockquote>
+        void *malloc(size_t size)<br />
+        {<br />
+        &nbsp; void *return_ptr = sbrk(size);<br />
+
+        &nbsp; <br />
+        &nbsp; if (dictionary == NULL)<br />
+        &nbsp; &nbsp; dictionary = sbrk(1024 * sizeof(mem_dictionary)); /* Note the use of sbrk() and not malloc(), since malloc() would create an infinite loop of calling malloc(). */<br />
+        &nbsp; dictionary[dictionary_ct].addr = return_ptr;<br />
+        &nbsp; dictionary[dictionary_ct].size = size;<br />
+
+        &nbsp; dictionary_ct++;<br />
+        &nbsp; <br />
+        &nbsp; return return_ptr;<br />
+        }<br />
+    </blockquote>
+    <br />
+
+Finally, we can create a <tt>realloc()</tt> function now that we have found a way to get access to the size of an existing memory segment:
+
+    <blockquote>
+        void *realloc(void *ptr, size_t size)<br />
+        {<br />
+        &nbsp; 	if (!size) { free(ptr); return NULL; }<br />
+        &nbsp; <br />
+
+        &nbsp; void *return_ptr = malloc(size);<br />
+        &nbsp; <br />
+
+        &nbsp; if (!ptr)<br />
+        &nbsp; &nbsp; return return_ptr;<br />
+        &nbsp; <br />
+
+        &nbsp; size_t old_size = 0;<br />
+        &nbsp; int i;<br />
+
+        &nbsp; for (i = 0; i < dictionary_ct; i++)<br />
+        &nbsp; &nbsp; if (dictionary[i].addr == ptr)<br />
+        &nbsp; &nbsp; &nbsp; old_size = dictionary[i].size;<br />
+        &nbsp; <br />
+
+        &nbsp; memcpy(return_ptr, ptr, old_size); <br />
+        &nbsp; free(ptr);<br />
+        &nbsp; <br />
+        &nbsp; return return_ptr;<br />
+        }<br />
+
+    </blockquote>
+
+    <p>...and, at this point, you have something closer to a working program.  One of the remaining problems is that <tt>free()</tt> still does not mark memory that was allocated to the expanding stack to be reused (eg: a program that grabs 1 MB and then frees the 1 MB will run out of memory since each 1 MB given isn't the same 1 MB, but a different 1 MB).  Also, the dictionary contains a fixed number of entries that will result in a segfault if <tt>malloc()</tt> is called over 1,024 times.  Also, <tt>malloc()</tt> has still done nothing to attempt to intelligently reuse memory&mdash;which is where algorithms like First Fit and Best Fit would be used.  Other inefficiencies exist in the code, too, that you may want to optimize as part of the contest element of this code.</p>
+
+<p>Note that we do <b>not</b> mean to imply that you should even begin with the dictionary-based strategy above.  For example, a common trick is to integrate the bookkeeping, or <i>metadata</i>, with the memory segments themselves.  Specifically, when you get an allocation request for <tt>size</tt> bytes you can instead reserve a few bytes more.  The first part of this memory is for your metadata; <tt>malloc</tt> then returns a pointer to the memory that comes after the metadata.  But when <tt>free(ptr)</tt> is called, it can figure out where the metadata is based on <tt>ptr</tt>.  You can then use the metadata space to, for example, store the length of the segment and pointers for a linked list of segments.</p>
+
+
+<h4>How to test your allocation functions</h4>
+
+To compile the launcher that we provide, along with your re-implementation of malloc, run:
+
+    <blockquote>
+        make clean<br />
+        make
+    </blockquote>
+
+After a successful make, you will have compiled your malloc() as a shared library object (.so) and can use the launcher to launch <b>any</b> Linux program using your allocation library.  To do so, run:
+
+    <blockquote>
+
+        ./mreplace &lt;Program Name&gt; [&lt;Program Args&gt; ...]
+    </blockquote>
+    
+For example:
+
+    <blockquote>
+        ./mreplace /bin/ls<br />
+        ./mreplace /bin/ps -aef<br />
+
+        ./mreplace anyprogram<br />
+        ...
+    </blockquote>
+
+You will find that valgrind <b>will not work</b> on this program!  The <tt>./mreplace</tt> program works in the exact same way as valgrind, so running a command
+like <tt>valgrind ./mreplace /bin/ls</tt> will result in <tt>./mreplace</tt> replacing the valgrind-defined <tt>malloc()</tt> call, just like valgrind replaced
+toe libc <tt>malloc()</tt> call. Since you control the entire memory allocation in this MP, it doesn't even make sense to even test if you've correctly free'd all
+of your memory. <b>Therefore, the grading of this MP will be based entirely on execution.</b>
+
+
+<h4>Suggested plan</h4>
+
+<p>Start by trying out the &quot;bad malloc&quot; above.  Then think about the data structures and algorithms you'll use for your bookkeeping.  We suggest you get a simple solution up and running first.  Then for more points, you can think about how to make your solution simultaneously fast and efficient with memory use.</p>
+
+<h4>Debugging Your Code with GDB</h4>
+
+<p>Those of you familiar with GDB may wish to use it to debug your code as well.  Unfortunately generating extra debugging information for GDB 
+will also slow down your code.  For this reason when we run the contest we disable symbols, which makes using GDB difficult.  If you wish to 
+generate this information at compile time you may use the following:</p>
+
+<blockquote>
+  make clean<br/>
+  FLAGS+="-g" make
+</blockquote>
+
+<p>You <b>MUST</b> make sure that your code will still run properly the way that we will make it for the contest, code is not
+considered correct until it works without the above debug flags:</p>
+
+<blockquote>
+  make clean<br/>
+  make
+</blockquote>
+
+<h2>Grading</h2>
+The grading on this MP will differ from all other MPs.  Since we're using the same hooks as <tt>valgrind</tt>, you'll find that running <tt>valgrind ./mcontest someprogram</tt> will end up with some rather weird behavior in some cases.
+
+Instead, we'll use several different programs to test your MP.  The breakdown of the points will be:
+
+<ul>
+  <li><b>2 points</b>: Correctness of your program against our <tt>part 1</tt> testers (each tester will be weighted evenely).  This will be due <b>1 week</b> after the MP is assigned, on September 16th.</li>
+  <li><b>2 points</b>: Correctness of your program against our <tt>part 2</tt> testers (each tester will be weighted evenely).  This will be due <b>2 weeks</b> after the MP is assigned, on September 23rd.</li>
+  <li><b>4 points</b>: Once your program runs completely correctly, the efficiency of your program against our provided malloc statistics (run against the <tt>part 2</tt> testers).</li>
+</ul>
+
+
+<h4>Grading for correctness</h4>
+To test the correctness of your program (4 points), we provided nine testers:
+<ul>
+    <li>
+        <tt>tester-1</tt>: A simple program that makes a single <tt>malloc()</tt> call, stores data in the returned memory, and <tt>free()</tt>s the memory.
+    </li>
+    
+    <li>
+        <tt>tester-2</tt>: A simple program that makes many, very small <tt>malloc()</tt> calls, stores data in the returned memory, ensures that the data
+        is not overridden by future <tt>malloc()</tt> calls, and <tt>free()</tt>s the memory.  This test case is the first test case that will break
+        by using our simple &quot;bad malloc&quot; that we provide here.
+    </li>
+
+    
+    <li>
+        <tt>tester-3</tt>: A simple program that makes many, somewhat large calls to to <tt>malloc()</tt>.  This test case is the first test case that
+        will require you to reuse memory that has been <tt>free()</tt>'d, rather than simply continuously adding to the stack for each <tt>malloc()</tt> request.
+    </li>
+    
+    <li>
+        <tt>tester-4</tt>: A simple program that generates a tree of increasingly smaller <tt>malloc()</tt> and <tt>realloc()</tt> requests. This test case is
+        the first test case to make calls to <tt>realloc()</tt>.
+    </li>
+
+    
+    <li>
+        <tt>tester-5</tt>: A randomly generated series of requests to <tt>malloc()</tt>, <tt>realloc()</tt>, and <tt>free()</tt>. This test case is the first
+        to make extremely unpredictable requests, allowing significant variation in performance with various algorithms.
+    </li>
+
+
+    <li>
+        <tt>tester-6</tt>: Allocates an extremely large chunk of memory and using <tt>realloc()</tt>, and <tt>free()</tt> attempts to cause fragmentation.
+    </li>
+
+    <li>
+        <tt>tester-7</tt>: The same as tester-6 but with a different allocation pattern.
+    </li>
+
+    <li>
+        <tt>tester-8</tt>: The same as tester-6 and tester-7 but fewer frees and a smaller number of iterations.
+    </li>
+
+    <li>
+        <tt>tester-9</tt>: The same as tester-5, but with small requests placed after each <tt>malloc()</tt> that are never free()'d.
+    </li>
+
+    <li>
+        Additionally, a few system programs will be used as testers.
+    </li>
+  </ul>
+
+  <p>In the first week you will need to have the first four working (2 points).  By the end of the second week all nine testers should work (2 points), for the second round
+  of testing some of the earlier testers will also be made to run longer and therefore allocate and free more memory over their lifetime.  This will make heap management very
+  important.</p>
+
+To run the testers to examine the expected output, simply run the testers from the command line:
+<blockquote>
+    % ./tester-1<br />
+    Memory was allocated, used, and freed!<br />
+</blockquote>
+
+A correct re-implementation of the functions required in the MP should result in running the same
+command inside <tt>./mreplace</tt> resulting in the same output:
+<blockquote>
+    % ./mreplace ./tester-1<br />
+    Memory was allocated, used, and freed!<br />
+</blockquote>
+
+Each output that matches correctly will award you an equal amount of points - for a total of 4 points.  <b>For your programs to be considered correct,
+they must PASS in the contest (see the specifics below); see the results for the offical results.</b>
+
+
+<h4>Grading for efficiency</h4>
+
+While there are a number of metrics that a system library designer must be concerned with, we have chosen to look
+at three of the most important metrics to measure the efficiency of your program:
+<ul>
+    <li>Maximum heap usage</li>
+    <li>Average heap usage</li>
+    <li>Time to run program</li>
+</ul>
+
+Instead of running with <tt>./mreplace</tt>, a second executable file has been provided for you to examine the efficiency
+of your program: <tt>./mcontest</tt>.  Rather than simply replacing <tt>malloc()</tt> and other calls with the ones you've programmed
+in <tt>alloc.c</tt>, <tt>./mcontest</tt> monitors your program's memory usage and records interesting statistics.  Using <tt>./mcontest</tt>
+works just like <tt>./mreplace</tt>, except <tt>./mcontest</tt> will print efficiency before it exits. For example:
+
+<blockquote>
+    % ./mcontest ./tester-4<br />
+    Memory was allocated, used, and freed!<br />
+    [mcontest]: STATUS: OK<br />
+    [mcontest]: MAX: 1359776200<br />
+    [mcontest]: AVG: 2191596.819109<br />
+    [mcontest]: TIME: 20.552874<br />
+</blockquote>
+
+As reported by <tt>./mcontest</tt>, the program makes use of 1,359,776,200 bytes, or 1.266 GB, of heap memory at its maximum and
+took a little over 20 seconds to run.  (<i>This would be a bad solution, you can certainly do better than these results!</i>)<br />
+<br />
+<b>Once your program runs correctly (you will get 0 points if you don't pass ALL the test cases)</b>, we will look at how well your program runs relative to libc. Specifically:
+
+<ul>
+    <li>If you program, on average, earns an averaged percentage performance relative (last row, bold number) to libc of 200% across our test cases, you will also earn the full 4 points.</li>
+    <li>For results below 200%, we'll apply the following formula <tt>score = 4 - ((OVERALL% - 200%) / 100)</tt>.
+    <ul>
+        <li>If you scored 300%, <tt>score = 4 - ((<b>300%</b> - 200%) / 100) = 4 - (100 / 100) = 4 - 1.0 = 3.0</tt></li>
+        <li>If you scored 350%, <tt>score = 4 - ((<b>350%</b> - 200%) / 100) = 4 - (150 / 100) = 4 - 1.5 = 2.5</tt></li>
+      </ul></li>
+</ul>
+
+...remember, you can see the results on the <a href="results.php">results page</a>.
+
+
+<h2>The malloc contest</h2>
+
+&quot;The malloc contest&quot; looks to pit your re-implementation of memory allocating functions against your fellow students.
+There are a few things to know:
+<ul>
+    <li>
+        <b>If we find our test cases aren't adequate, we will add new test cases that apply only to the contest. The test cases described above will be the ones used for grading.</b>
+    </li>
+
+    <li>
+        Your most recent SVN submission will be fetched somewhat frequently.  To submit your program into the contest, you simply commit your program!
+    </li>
+
+    <li>
+        We will run all submissions across various different test cases. Some of the test cases will be the testers we provide
+        for the grading of this MP, but some will be real-world applications.
+    </li>
+
+    <li>
+        We will assign a score to each of the three categories (max heap, average heap, and total time) based on how well
+        your program performs memory management relative to a standard.
+    </li>
+
+    <li>
+        We will look inside your SVN at <tt>ALLOCNAME.txt</tt>.  The file will be used to as your screen name to display
+        your results on the course website each time the contest updates.  Currently, everyone's name is set simply to
+        &quot;Anonymous&quot;.  (<i>Be nice; anything out of bounds here may get you removed from the contest entirely.</i>)
+    </li>
+
+    <li>
+        <span style="color: #880000;">
+            Using any form of methods of avoiding heap allocation for memory requested by malloc() will result in your submission
+            being removed from the results. <b>The goal of this MP isn't to break our contest</b> (believe me, it wouldn't be hard),
+            but to see how well you can write a memory allocation algorithm.  This includes mmap(), using files, etc, etc.
+        </span>
+    </li>
+
+    <li>
+        All the usual rules on cheating applies; basically, don't copy code from the Internet or others.
+    </li>
+
+    <li>
+    	Each program has 30 seconds and 2.000 GB to run; after 30 seconds or 2.000 GB alloc'd, your program will be killed.
+    </li>
+
+    <li>
+    	You can view the current standings from the <a href="results.php">results page</a>.
+    </li>    
+</ul>
+</body>
+
+</html>

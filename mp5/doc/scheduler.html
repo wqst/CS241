@@ -1,0 +1,260 @@
+<html>
+<head>
+    <title>CS 241: MP5 FALL 2013</title>
+    
+    <style type="text/css">
+    body, table { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    table { border: solid 1px black; margin-left: 20px; }
+    table tr td { text-align: center; }
+    table tr th { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h3>Due: Monday, Oct. 21, 2013 at 11:59pm</h3>
+    <hr />
+
+    <h2>Introduction</h2>
+    <p>
+        One piece of software that every modern operating system must contain in a scheduler: without one, only one task could be run at a time.  In this
+        MP, you will be writing a library to perform basic scheduling of tasks.  Rather than interacting directly with the operating system, we have provided
+        for you a discrete event simulator: we will simulate time, jobs arriving, and jobs running.  Your library will inform the scheduler which job should
+        run next.
+    </p>
+
+    <p>
+        You will find several files:
+    </p>
+
+    <ul>
+        <li>
+            Programming files:
+
+            <ul>
+                <li>
+                    <tt>simulator.c</tt>: <b>You should not edit this file.</b> This file is the discrete event simulator that, when ran, will interact with your library.
+                    You can find more information on how to run this at the end of this web page.  This file will be replaced by the autograder, so any changes you
+                    make will be ignored.
+                </li>
+
+                <li>
+                    <tt>libpriqueue/libpriqueue.c</tt> and <tt>libpriqueue/libpriqueue.h</tt>: Files related to the priority queue.  You will need to edit both of the
+                    files.  You can feel free to add any helper functions, but you must implement all the functions where we provide outlines. We have outlined a minimal amount of functions that you should implement, and we will grade those. However, you have the flexibility to implement whatever kind of priority queue you like, whether it is a array based heap implementation, a linked list based implementation or somethine else. 
+                </li>
+
+                <li>
+                    <tt>queuetest.c</tt>: A small test case to test your priority queue, independent of the simulator.  You may want to create more complex test
+                    cases in this file.  The file is not used by the autograder. 
+                </li>
+
+                <li>
+                    <tt>libscheduler/libscheduler.c</tt> and <tt>libscheduler/libscheduler.h</tt>: Files related to the scheduler.  You may need to edit both of the
+                    files.  You can feel free to add any helper functions, but you must implement all the functions where we provide outlines.
+                </li>
+
+                <li>
+                    <tt>examples.pl</tt>: A perl script of <tt>diff</tt> runs that tests your program aganist the 54 test output files.  This file will output
+                    differences between your program and the examples.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Example input files:
+
+            <ul>
+                <li><tt>examples/proc1.csv</tt></li>
+                <li><tt>examples/proc2.csv</tt></li>
+                <li><tt>examples/proc3.csv</tt></li>
+            </ul>
+        </li>
+        <li>
+            Example output files:
+
+            <ul>
+                <li><tt>examples/proc1-c1-fcfs.out</tt>: Sample output of the simulator, using proc1.csv, 1 core, and FCFS scheduling.</li>
+                <li><tt>examples/proc1-c2-fcfs.out</tt>: Sample output of the simulator, using proc1.csv, 2 cores, and FCFS scheduling.</li>
+                <li><tt>examples/proc1-c1-sjf.out</tt>: Sample output of the simulator, using proc1.csv, 1 core, and SJF scheduling.</li>
+                <li><tt>examples/proc1-c2-sjf.out</tt>: Sample output of the simulator, using proc1.csv, 2 cores, and SJF scheduling.</li>
+                <li><tt>examples/proc1-c1-sjf.out</tt>: Sample output of the simulator, using proc1.csv, 1 core, and PSJF scheduling.</li>
+                <li><tt>examples/proc1-c2-sjf.out</tt>: Sample output of the simulator, using proc1.csv, 2 cores, and PSJF scheduling.</li>
+                <li><tt>...</tt>  <i>(View the example directory for the full set.)</i></li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <h2>[Part 1]: Priority Queue</h2>
+    <p>
+        To build a scheduler, a fundamental data structure is a priority queue.  The first part of this MP requires you to complete <tt>libpriqueue</tt>, a priority
+        queue library.  You will be using this library in your scheduler.
+    </p>
+
+    <h3>libpriqueue API</h3>
+    <p>
+        To complete <tt>libpriqueue</tt>, you must implement the functions outlined in <tt>libpriqueue.c</tt>.
+        Full function descriptions are provided for each function.  <b>In every function</b>, you may assume that all pointers given will be valid,
+        non-<tt>NULL</tt> pointers.
+    </p>
+
+    <h2>[Part 2]: Scheduler</h2>
+    <p>
+        You will need to implement a multi-core scheduler in a simulated computer.  You will be provided with a set of cores to schedule a set of tasks on, much like a real Linux scheduler.
+    </p>
+
+    <p>
+        <b>You should use your priority queue you just built to help you complete this part of the MP.</b>
+    </p>
+
+    <p>
+        To complete this MP, you must implement the eight functions defined in <tt>libscheduler/libscheduler.c</tt>. These functions are self-descriptive, but a full function outline is
+        provided for you for each function.
+    </p>
+
+    <h2>Scheduler Details</h2>
+    
+    <p>
+        The simulator will always follow a few, very specific rules.  It's not important to understand the specifics of the simulator, but we provide these to help you
+        with debugging:
+    </p>
+
+    <ul>
+        <li>All execution of tasks will happen <b>at the very end of a time unit</b>.</li>
+
+        <li>
+            The events in a time unit will occur in this order:
+
+            <ol>
+                <li>If a job's last unit of execution occurred in the previous time unit, a <tt>scheduler_job_finished()</tt> call will be made as the first call in the new time unit.</li>
+                <li><i>If a job has finished, the quantum timer for the core will be reset. (Therefore, <tt>scheduler_quantum_expired()</tt> will never be called on a specific core at the same unit that a job has finished, no matter what scheme)</i></li>
+                <li>In <tt>RR</tt>, if the quantum timer has expired, a <tt>scheduler_quantum_expired()</tt> will be called. Please notice that if the job finished at the same time unit its quantum expired, this function will NOT be called. This is because its quantum is reset when the job finishes, and scheduler_job_finished() is always called in the first place.</li>
+                <li>If any job arrives at the time unit, the <tt>scheduler_new_job()</tt> function will be called.</li>
+                <li>Finally, the CPU will execute the active jobs on each core.</li>
+            </ol>
+        </li>
+
+    </ul>
+
+
+    There are a few specific cases where a scheduler needs to define behavior based on the scheduling policy provided.  In this MP, you should
+    apply the following rules:
+
+    <ul>
+        <li>
+            When multiple cores are available(have no job running) to take on a job, the core with the lowest id should take the job.
+        </li>
+
+        <li>
+            A job cannot be ran on multiple cores in the same time unit.  However, a job may start on one core, get preempted, and continue on a different core.
+        </li>
+
+        <li>
+            In <tt>PSJF</tt>, if the job has been partially executed, schedule the job based on its <b>remaining time</b> (not the full running time).
+        </li>
+
+        <li>
+            In <tt>RR</tt>, when a new job arrives, it must be placed at the end of the cycle of jobs. Every existing job must run some amount of time before the new job should run.
+        </li>
+
+        <li>
+            In all schemes except <tt>RR</tt>, if two or more jobs are tied (eg: if in <tt>PRI</tt> multiple jobs have the priority of <tt>1</tt>), use the job with the <b>earliest arrival time</b>.
+            In <tt>new_job()</tt>, we provided the assumption that all jobs will have a unique arrival time.  In <tt>RR</tt>, when a job is unscheduled as a result of the quantum timer expiring,
+            it must always be placed at the end of the queue.
+        </li>
+
+        <li>
+            In all non-preemptive schemes, a new job can never swap out any job that has already been put into the core.
+            Consider a schedule running <tt>PRI</tt> on a single core.  After some amount of time:
+            <ul>
+                <li>
+                    A job finished in the last time unit, resulting in a <tt>scheduler_job_finished()</tt> call to be made to your scheduler.  The scheduler returns that job(id=4) should run. job(id=4) has priority 3.
+                </li>
+                <li>
+                    In this time unit, a new job(id=5, priority 1) also arrived.  This results in a <tt>scheduler_new_job()</tt> call to be made to your scheduler.  Even though the new job(id=5) has greater
+                    priority(priority 1), it will NOT swap out job(id=4), which was already scheduled by <tt>scheduler_job_finished()</tt>.  Now, job(id=4) is scheduled to run.
+                </li>
+            </ul>
+        </li>
+        
+        <li>
+            In all preemptive schemes, a new job need to preempt the job that is 'worst'.
+            Consider a schedule running <tt>PPRI</tt> on 2 cores.  After some amount of time:
+            <ul>
+                <li>
+                    Core 1: job finished in the last time unit.
+                    Core 2: Job(id=3, priority 2, 5 seconds remaining)
+                </li>
+                <li>
+                    The job in core 1 finished in the last time unit, resulting in a <tt>scheduler_job_finished()</tt> call to be made to your scheduler.  The scheduler returns that job(id=4) should run on core 1. job(id=4) has priority 3.
+                </li>
+                <li>
+                    In this time unit, a new job(id=5, priority 1) also arrived.  This results in a <tt>scheduler_new_job()</tt> call to be made to your scheduler.
+                    Since the new job has greater priority than the worst job in 2 cores, it will preempt that worst job(id=4), which was scheduled by <tt>scheduler_job_finished()</tt>.  Now job(id=5) and job(id=3) are scheduled to run.
+                </li>
+                <li>
+                    Only after all jobs finished and any new job arrives will the CPU execute the task.  In this example, job(id=4) was never run on the CPU when it was scheduled
+                    by <tt>scheduler_job_finished()</tt>.  <b>When calculating response time, you should not consider job as responded until it runs a CPU cycle.</b>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Compile and Run</h2>
+
+    To compile this MP, run:
+    <blockquote>
+        make clean<br />
+        make
+    </blockquote>
+
+    To run the helper tester program for part1, run:
+    <blockquote>
+        ./queuetest
+    </blockquote>
+
+    To run the simulator, run:
+    <blockquote>
+        ./simulator -c &lt;cores&gt; -s &lt;scheme&gt; &lt;input file&gt;
+    </blockquote>
+    
+    For example:
+    <blockquote>
+        ./simulator -c 2 -s fcfs examples/proc1.csv
+    </blockquote>
+
+    The acceptable values for <tt>scheme</tt> (outlined above) are:
+    <ul>
+        <li><tt>FCFS</tt></li>
+        <li><tt>SJF</tt></li>
+        <li><tt>PSFJ</tt></li>
+        <li><tt>PRI</tt></li>
+        <li><tt>PPRI</tt></li>
+        <li><tt>RR#</tt>, where # indicates any numeric value</li>
+    </ul>
+
+    We provide three sample schedules: <tt>examples/proc1.csv</tt>, <tt>examples/proc2.csv</tt> and <tt>examples/proc3.csv</tt>.  We also provide the expected output of those schedules in the <tt>examples</tt> directory.
+    <b>It's only important that lines starting with <tt>FINAL TIMING DIAGRAM</tt> match.</b> We will not grade any output except the last few lines, as <tt>show_queue()</tt> is not required to be implemented
+    in the same way as we did.<br />
+    <br />
+    To test your program aganist all the test cases in an automated way, we provide a simple perl script.  To run all 54 tests, simply run:
+    <blockquote>
+        perl examples.pl
+    </blockquote>
+    All differences will be printed.  Therefore, if no data is printed, your program has passed the test cases in the <tt>examples</tt> directory.
+
+
+    <h2>Grading, Submission, and Other Details</h2>
+
+    The grading will be broken down by the following percentages:
+    <ul>
+        <li>30% for <tt>libpriqueue</tt></li>
+        <li>40% for <tt>libscheduler</tt> running with 1 core</li> 
+        <li>30% for <tt>libscheduler</tt> running with N core</li>
+    </ul>
+
+</body>
+
+</html>

@@ -1,0 +1,462 @@
+<html>
+<head>
+    <title>CS 241</title>
+    <style type="text/css">
+
+    body, table { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    
+    table { width: 100%; text-align: center; }
+    table tr td { border: solid 1px black; background-color: #eeeeee; }
+    
+    </style>
+</head>
+<body>
+    <h1>MP7: MapReduce</h1>
+    <h3>Due: Monday, November 18, 2013</h3>
+    <hr />
+
+    <div style="width: 800px; margin: 0px auto; border: solid 1px red; background-color: #ffcccc; text-align: center; padding: 5px 20px;">
+        <p style="font-size: 28px; font-weight: bold; margin: 0px; color: red;">IMPORTANT</p>
+        You will be using <tt>fork()</tt> in this MP.  You should understand what it means to <a href="http://en.wikipedia.org/wiki/Fork_bomb">fork bomb</a>.<br />
+        <br />
+        If you fork bomb the nightly autograder, you will be excluded from all future nightly autograders for this MP.  You will be notified of this.<br />
+        If you fork bomb the final autograder, you will get a 0 for this MP. No exceptions!<br />
+        Once a fork bomb is detected, the autograder and all the other processes die.  So nightly autograders may not always get out overnight.<br />
+        <br />
+        <b>Make sure to always run all five testers before committing your code.</b>
+    </div>
+
+
+    <h2>Introduction</h2>
+    <p>
+        In 2004, Google developed a general framework for processing large data sets on clusters of computers.  We recommend you read the link
+        <a href="http://en.wikipedia.org/wiki/MapReduce">MapReduce on Wikipedia</a> for some background information. However, we will explain everything you need to know below.
+    </p>
+
+    <p>
+        To explain what MapReduce does, we'll use a small dataset (the first few lines of a famous poem by Robert Frost):
+
+        <blockquote>
+	        Two roads diverged in a yellow wood,<br />
+	        And sorry I could not travel both<br />
+	        And be one traveler, long I stood<br />
+	        And looked down one as far as I could.
+        </blockquote>
+        <br />
+        <br />
+
+        To run MapReduce, we first split the dataset into small pieces.  For this example, we will split the dataset by the four lines of the poem:
+        <table>
+            <tr>
+                <td>
+                    <u>Data Set #1</u><br />
+                    <b>Input</b>: "Two roads diverged in a yellow wood,"
+                </td>
+                <td>
+                    <u>Data Set #2</u><br />
+                    <b>Input</b>: "And sorry I could not travel both"
+                </td>
+                <td>
+                    <u>Data Set #3</u><br />
+                    <b>Input</b>: "And be one traveler, long I stood"
+                </td>
+                <td>
+                    <u>Data Set #4</u><br />
+                    <b>Input</b>: "And looked down one as far as I could."
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        
+        As part of the input to any MapReduce program, a user will provide a <tt>map()</tt> function.  This function will map the input into a
+        series of <tt>(key, value)</tt> pairs.  For this example, let the <tt>map()</tt> function simply count the number of each letter (a-z) in the
+        data set.<br />
+        <br />
+
+        This MapReduce algorithm will spawn <b>1 process per data set</b> and run the <tt>map()</tt> function on each dataset:
+        <table>
+            <tr>
+                <td>
+                    <u>Data Set #1</u><br />
+                    <b>Input</b>: "Two roads diverged in a yellow wood,"<br />
+                    pid = 1001<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 0, c: 0, d: 4, e: 3, f: 0, g: 1, h: 0, i: 2, j: 0, k: 0, l: 2, m: 0, n: 1, o: 5, p: 0, q: 0, r: 2, s: 1, t: 1, u: 0, v: 1, w: 3, x: 0, y: 1, z: 0
+                </td>
+                <td>
+                    <u>Data Set #2</u><br />
+                    <b>Input</b>: "And sorry I could not travel both"<br />
+                    pid = 1002<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 1, c: 1, d: 2, e: 1, f: 0, g: 0, h: 1, i: 1, j: 0, k: 0, l: 2, m: 0, n: 2, o: 4, p: 0, q: 0, r: 3, s: 1, t: 3, u: 1, v: 1, w: 0, x: 0, y: 1, z: 0
+                </td>
+                <td>
+                    <u>Data Set #3</u><br />
+                    <b>Input</b>: "And be one traveler, long I stood"<br />
+                    pid = 1003<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 1, c: 0, d: 2, e: 4, f: 0, g: 1, h: 0, i: 1, j: 0, k: 0, l: 2, m: 0, n: 3, o: 4, p: 0, q: 0, r: 2, s: 1, t: 2, u: 0, v: 1, w: 0, x: 0, y: 0, z: 0
+                </td>
+                <td>
+                    <u>Data Set #4</u><br />
+                    <b>Input</b>: "And looked down one as far as I could."<br />
+                    pid = 1004<br />
+                    <tt>map()</tt> <b> Output</b>: a: 4, b: 0, c: 1, d: 4, e: 2, f: 1, g: 0, h: 0, i: 1, j: 0, k: 1, l: 2, m: 0, n: 3, o: 5, p: 0, q: 0, r: 1, s: 2, t: 0, u: 1, v: 0, w: 1, x: 0, y: 0, z: 0
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        
+        The <tt>map()</tt> processes produce its output.  And those output is the initial input of the <tt>reduce()</tt> fucntion.  By using MapReduce Algorithm, the <tt>reduce()</tt> function then collects and combine the output of each process to form a single
+        data set to return to the user.  The output of <tt>reduce()</tt> should be a collection of values in the same domain of its input.  In particular, for this example, the <tt>reduce()</tt> function is called every time the same key is seen from two different processes.  And
+        our reduce function will simply add the values of the two keys (eg: <tt>a: 2</tt> and <tt>a: 4</tt> will result in <tt>a: 6</tt>).<br />
+        <br />
+
+        All <tt>reduce()</tt> calls are run in a single worker thread, within the process that called the MapReduce framework initially.  The <tt>reduce()</tt> calls are not performed in a new or recycled <tt>map()</tt> process.
+        Adding to our diagram:
+        <table>
+            <tr>
+                <td>
+                    <u>Data Set #1</u><br />
+                    <b>Input</b>: "Two roads diverged in a yellow wood,"<br />
+                    pid = 1001<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 0, c: 0, d: 4, e: 3, f: 0, g: 1, h: 0, i: 2, j: 0, k: 0, l: 2, m: 0, n: 1, o: 5, p: 0, q: 0, r: 2, s: 1, t: 1, u: 0, v: 1, w: 3, x: 0, y: 1, z: 0
+                </td>
+                <td>
+                    <u>Data Set #2</u><br />
+                    <b>Input</b>: "And sorry I could not travel both"<br />
+                    pid = 1002<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 1, c: 1, d: 2, e: 1, f: 0, g: 0, h: 1, i: 1, j: 0, k: 0, l: 2, m: 0, n: 2, o: 4, p: 0, q: 0, r: 3, s: 1, t: 3, u: 1, v: 1, w: 0, x: 0, y: 1, z: 0
+                </td>
+                <td>
+                    <u>Data Set #3</u><br />
+                    <b>Input</b>: "And be one traveler, long I stood"<br />
+                    pid = 1003<br />
+                    <tt>map()</tt> <b>Output</b>: a: 2, b: 1, c: 0, d: 2, e: 4, f: 0, g: 1, h: 0, i: 1, j: 0, k: 0, l: 2, m: 0, n: 3, o: 4, p: 0, q: 0, r: 2, s: 1, t: 2, u: 0, v: 1, w: 0, x: 0, y: 0, z: 0
+                </td>
+                <td>
+                    <u>Data Set #4</u><br />
+                    <b>Input</b>: "And looked down one as far as I could."<br />
+                    pid = 1004<br />
+                    <tt>map()</tt> <b>Output</b>: a: 4, b: 0, c: 1, d: 4, e: 2, f: 1, g: 0, h: 0, i: 1, j: 0, k: 1, l: 2, m: 0, n: 3, o: 5, p: 0, q: 0, r: 1, s: 2, t: 0, u: 1, v: 0, w: 1, x: 0, y: 0, z: 0
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <u>pid = 1000, worker thread</u><br />
+                    <tt>reduce()</tt>, <tt>reduce()</tt>, <tt>reduce()</tt>, and more <tt>reduce()</tt>'ing<br />
+                    <tt>... ... ...</tt><br />
+                    <b>Result</b>: a: 10, b: 2, c: 2, d: 12, e: 10, f: 1, g: 2, h: 1, i: 5, j: 0, k: 1, l: 8, m: 0, n: 9, o: 18, p: 0, q: 0, r: 8, s: 5, t: 6, u: 2, v: 3, w: 4, x: 0, y: 2, z: 0
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+
+	For each unique key, <tt>reduce()</tt> will be called multiple times, until the multiple values outputted from the <tt>map()</tt>s are reduced down into a single value for that key.  As an example, consider the key 'a'.  The way the <tt>reduce()</tt> functions is called might depend on the timing of when the processes finish, but one possible sequence of operations is shown in the diagram below.  (<u>This depicts what happens only for the key 'a'; the other keys would be similar.</u>)<br />
+
+	<br />
+
+        <table border=0>
+            <tr>
+		<td>
+			<img src="reduce.jpg" width="400" height="400" />
+		</td>
+            </tr>
+        </table>
+
+<br />
+	In this MP, you will be provided the data sets (already split up for you) and several example <tt>map()</tt> and <tt>reduce()</tt> functions. You will need to:
+        <ul>
+            <li>Create the <tt>map()</tt> processes. <i>System call: fork()</i></li>
+            <li>Read the result of the <tt>map()</tt> processes over a pipe or fifo. <i>System call: pipe() or fifo()</i></li>
+            <li>Process the results of each process using only a single thread, by using I/O multiplexing. <i>System call: epoll()</i></li>
+            <li>Give the current set of completed results back to the user at any time, even if some of the <tt>map()</tt> processes are not yet finished.</li>
+        </ul>
+    </p>
+    <br />
+
+
+    <h2>The MP</h2>
+
+    <h4>What we provide for you:</h4>
+    <p>
+        Besides the tester programs, we provide you a data store <tt>libds</tt> that allows you to store the results of your MapReduce.
+        <tt>libds</tt> includes <tt>_get()</tt>, <tt>_put()</tt>, <tt>_update()</tt>, and <tt>_delete()</tt> operations that work
+        similarly to the dictionary you built in MP1.  However, these functions provide revision numbers to each key.  When you update
+        or delete a key, you are required to provide the latest revision number you know about.  If the revision number does not match
+        what is in the data store, the update or delete operation will notify you that it could not complete the operation because the
+        data your program knew about is out of date.
+        <a href="libds_8c.html">You can find the full API to <tt>libds</tt> here.</a>
+        <br />
+        <br />
+        You will find we also provide a <tt>read_from_fd()</tt> helper function, which we will explain later in this file.
+    </p>
+
+
+    <h4>What you must do for this MP:</h4>
+
+    <h4>[Part 1]</h4>
+
+    This MP is divided into two parts.  First, you must complete the five core functions that make up <tt>libmapreduce</tt>:
+
+    <ul>
+        <li>
+            <b>mapreduce_init()</b>
+            <blockquote>
+                void mapreduce_init(mapreduce_t *mr,<br />
+	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void (*mymap)(int, const char *),<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const char *(*myreduce)(const char *, const char *));            
+            </blockquote>
+
+            <p>
+                This function will be the first call made to the <tt>libmapreduce</tt> library.  You should put any initialization logic here.
+                (<i>You will likely want to store the <tt>mymap</tt> and <tt>myreduce</tt> functions inside <tt>mr</tt> for later use; <tt>mapreduce_init()</tt> should not call either of these functions.</i>)<br />
+                <br />
+                <br />
+
+                The <tt>mymap</tt> function pointer is a pointer to a function of the following format:
+                <blockquote>
+                void map(int fd, const char *data)
+                </blockquote>
+                ...where <tt>fd</tt> is the file descriptor to which <tt>map()</tt> will write the results of the <tt>map()</tt> operation on the dataset <tt>data</tt>.  The
+                <tt>map()</tt> function will always write the <tt>(key, value)</tt> result to <tt>fd</tt> in the format <tt>key: value\n</tt>.  As a <tt>printf()</tt>,
+                this would be:
+                <blockquote>
+                    printf("%s: %s\n", key, value);
+                </blockquote>
+                <b>You do not need to write <tt>mymap()</tt>, it is passed in as a function pointer to <tt>mapreduce_init()</tt>.</b>  You should note that <tt>map()</tt> will always close the fd passed to it before returning.<br />
+                <br />
+                <br />
+
+                <tt>myreduce</tt> is a pointer to a function of the following format:
+                <blockquote>
+                const char *reduce(const char *value1, const char *value2)
+                </blockquote>
+                ...where <tt>reduce()</tt> will return <b>a newly <tt>malloc()</tt>'d region of memory</b> that is the "reduction" of <tt>value1</tt> and <tt>value2</tt>.
+                Since this function will <tt>malloc()</tt> new memory, you will need to <tt>free()</tt> this memory at some later point.<br />
+                <br />
+                <b>You do not need to write <tt>myreduce</tt>, it is passed in as a function pointer to <tt>mapreduce_init()</tt>.</b><br />
+            </p>
+            <br />
+        </li>
+
+        <li>
+            <b>mapreduce_map_all()</b>
+            <blockquote>void mapreduce_map_all(mapreduce_t *mr, const char **values);</blockquote>
+
+            <p>
+                This is the main function of the first part of this MP. <b>This function will only be called once.</b><br />
+                <br />
+                As input to this function, <tt>values</tt> contains a NULL-terminated array of C-strings.  (If there are three values, <tt>values[0]</tt>,
+                <tt>values[1]</tt>, <tt>values[2]</tt> will point to C-strings of the data sets each of your <tt>map()</tt> processes should use and
+                <tt>value[3]</tt> will be equal to <tt>NULL</tt>.)  Each of the strings in <tt>values</tt> will be one data set.<br />
+                <br />
+
+                In this function, you must launch <b>one process per data set</b>, and one worker thread (<b>the worker is a thread within the process that called mapreduce_map_all()</b>).  Each new process will call <tt>map()</tt> on one data set.  The worker thread will use multiple calls to <tt>reduce()</tt> to process the data coming back from the <tt>map()</tt> processes you have launched.<br />
+                <br />
+                In the description of the <tt>map()</tt> function, you saw that you will need to pass a file descriptor <tt>fd</tt> into <tt>map()</tt>.  This
+                file descriptor should be the writing side of a pipe or fifo that you create in this function.  Once <tt>fork()</tt>'d and the pipe has been
+                set up, the child process should need to only run code similar to the following:
+                <blockquote>
+                {<br />
+                &nbsp; /* child */<br />
+                &nbsp; map(fd, values[i]);<br />
+                &nbsp; exit(0);   /* exit the child process */<br />
+                }<br />
+                </blockquote>
+                <br />
+                Since <tt>mapreduce_map_all()</tt> is only called once, you may find it easier to launch all the processes, set up all the pipes, and then launch the <b>one worker
+                thread</b> that will be reading the <tt>map()</tt> results from each of the child processes.  Since you have only a single thread, and <b>must</b>
+                read results as soon as they're available, you are unable to simply make a blocking <tt>read()</tt> call.<br />
+                <br />
+                Instead, you must use <tt>epoll()</tt> to query which of the file descriptors are ready to be read without blocking.  Since
+                you are reading from <tt>N</tt> different streams, it may be useful to create <tt>N</tt> buffers (one for each process).  If you create one
+                buffer per process, we have provided a helper function for to assist with reading the results of the <tt>map()</tt> processes:
+                <blockquote>
+                int read_from_fd(int fd, char *buffer, mapreduce_t *mr)
+                </blockquote>
+                ...this function will <tt>read()</tt> data from <tt>fd</tt> and make a call to <tt>process_key_value()</tt> for each <tt>(key, value)</tt>
+                that was read.  If a line was only partially read, this function will leave the un-processed data in <tt>buffer</tt> and expects it
+                to be read the next time the function is called.  This function expects <tt>buffer</tt> to initially be of size <tt>BUFFER_SIZE + 1</tt> and
+                for <tt>buffer[0] == '\0'</tt>.  Finally, the <tt>mr</tt> pointer is simply passed-through to <tt>process_key_value()</tt> as it
+                may be useful to you, as you will need to write the logic to process the key and the value.<br />
+                <br />
+                A call to <tt>read_from_fd()</tt> may look like <tt>read_from_fd(fds[i], buffer[i], mr)</tt>.  The return value of <tt>read_from_fd()</tt>
+                will be <tt>1</tt> if data was successfully read.  You'll notice that this function will
+                blindly attempt to <tt>read()</tt> from the <tt>fd</tt>.  <b>It's up to you to only call this function if data is available to be <tt>read()</tt>.</b>
+                <br />
+                <br />
+                <br />
+                <u>Regardless of whether you choose to use <tt>read_from_fd()</tt> or write your own function, each time a <tt>(key, value)</tt> pair is received, it must be updated
+                in your internal data structure.</u>  If the <tt>(key, value)</tt> contains a key you have never seen before, this <tt>(key, value)</tt> should
+                be stored.  If the <tt>(key, value)</tt> contains a key already stored, you must call <tt>reduce()</tt> on the stored value and the newly read
+                value and then update the value of <tt>key</tt> to the value returned by <tt>reduce()</tt>.<br />
+                <br />
+               <tt>mapreduce_map_all()</tt> <b>MUST NOT</b> block waiting for the thread or processes to finish.  In other words, typically,<tt>mapreduce_map_all()</tt> will return before the child processes and the worker thread have completed.
+            </p>
+            <br />
+        </li>
+    
+        <li>
+            <b>mapreduce_reduce_all()</b>
+            <blockquote>void mapreduce_reduce_all(mapreduce_t *mr)</blockquote>
+
+            <p>
+                <b>This function will always be called only once</b>, and will always be called sometime after <tt>mapreduce_map_all()</tt> is called.<br />
+                <br />
+                This function should block until all <tt>map()</tt>'ing and <tt>reduce()</tt>'ing has completed.
+            </p>
+            <br />
+        </li>
+    
+        <li>
+            <b>mapreduce_get_value()</b>
+            <blockquote>const char *mapreduce_get_value(mapreduce_t *mr, const char *result_key)</blockquote>
+
+            <p>
+                This function should return the current value of <tt>result_key</tt>.  If the <tt>result_key</tt> does not exist, return <tt>NULL</tt>.
+                If a string is returned, it should be a newly allocated string that will need to be freed by the caller.
+                This function may be called at any time, including while the <tt>map()</tt> processes are working
+                (<i>as more <tt>map()</tt>'s finish, the <tt>value</tt> for the same <tt>key</tt> will likely change between calls to this function).</i>
+            </p>
+            <br />
+        </li>
+    
+        <li>
+            <b>mapreduce_destroy()</b>
+            <blockquote>void mapreduce_destroy(mapreduce_t *mr)</blockquote>
+
+            <p>Free all your memory. :) &nbsp;Will always be called last.</p>
+        </li>
+     </ul>	
+
+    <h4>[Part 2]</h4>
+	
+	Secondly, you must complete the <tt>map()</tt> and <tt>reduce()</tt> functions for <tt>test6.c</tt>, which aims to find the longest word in the entire text of <i>Alice in Wonderland</i></tt>:
+     <ul>
+        <li>
+            <b>map()</b>
+            <blockquote>void map(int fd, const char *data)</blockquote>
+
+			<p>This function should take input from <tt>char *data</tt> and then  map the longest word to the key: <tt>long_key</tt>.  Finally, it should write the <tt>key: value</tt> pair into the file with the form of  <tt>long_key: XXXXXXXXX</tt>.  A word is defined as a contiguous block of alphabetic characters ([a-zA-Z]+).  You can use the function <tt>isalpha()</tt> to test a single character.</p>
+        </li>
+        
+        <li>
+            <b>reduce()</b>
+            <blockquote>const char *reduce(const char *value1, const char *value2)</blockquote>
+
+            <p>This function should take two words and reduce to the longer of the two.</p>
+        </li>
+    </ul>
+    For the second part, the test cases that we have provided are good examples for you to follow, especially <tt>test4.c</tt>
+
+    <h2>Compile and Run</h2>
+
+    As always, compile using:
+    <blockquote>
+        make clean<br />
+        make
+    </blockquote>
+
+    We provide five test cases:
+    <ul>
+        <li>
+            <tt>test1</tt>: One dataset and nothing to <tt>reduce()</tt>.
+        </li>
+        <li>
+            <tt>test2</tt>: Two datasets with only one key, resulting in one <tt>reduce()</tt>.
+        </li>
+        <li>
+            <tt>test3</tt>: A tester that runs the example in the beginning of this file (first four lines of Robert Frost's poem).
+        </li>
+        <li>
+            <tt>test4</tt>: A tester running MapReduce on the entire text of <i>Alice in Wonderland</i>.
+        </li>
+        <li>
+            <tt>test5</tt>: A tester testing if calls to <tt>mapreduce_get_value()</tt> update as <tt>map()</tt> processes finish at different times.
+        </li>
+    </ul>
+ <i>(NOTE: ./test5 may be slightly different depending on how you create your IPC mechanism.)</i><br><br>
+    From test1 to test 5, the expected outputs are:
+    <blockquote>
+        [netid@linux1 mp7]$ ./test1<br />
+        letters: 8<br />
+        [netid@linux1 mp7]$ ./test2<br />
+        letters: 21<br />
+        [netid@linux1 mp7]$ ./test3<br />
+        a: 10<br />
+        b: 2<br />
+        c: 2<br />
+        d: 12<br />
+        e: 10<br />
+        f: 1<br />
+        g: 2<br />
+        h: 1<br />
+        i: 5<br />
+        j: 0<br />
+        k: 1<br />
+        l: 8<br />
+        m: 0<br />
+        n: 9<br />
+        o: 18<br />
+        p: 0<br />
+        q: 0<br />
+        r: 8<br />
+        s: 5<br />
+        t: 6<br />
+        u: 2<br />
+        v: 3<br />
+        w: 4<br />
+        x: 0<br />
+        y: 2<br />
+        z: 0<br />
+        [netid@linux1 mp7]$ ./test4<br />
+        the: 1804<br />
+        and: 912<br />
+        alice: 385<br />
+        some-word-that-wont-exist: (null)<br />
+        [netid@linux1 mp7]$ ./test5<br />
+        Sleeping for 6 seconds (job #1)...<br />
+        Sleeping for 5 seconds (job #2)...<br />
+        Sleeping for 4 seconds (job #3)...<br />
+        Sleeping for 3 seconds (job #4)...<br />
+        value: (null)<br />
+        value: (null)<br />
+        value: (null)<br />
+        value: 1<br />
+        value: 2<br />
+        value: 3<br />
+        value: 4<br />
+        value: 4<br />
+        value: 4<br />
+        value: 4<br />
+    </blockquote>
+   
+    
+
+    <h2>Grading</h2>
+
+    <p>
+        For <tt>valgrind</tt> memory grading, we will only be testing if your program cleaned up all memory in your original, parent
+        process.  You should run:
+        <blockquote>
+            valgrind --child-silent-after-fork=yes --leak-check=full ./test#
+        </blockquote>
+        ...when running your valgrind tests.<br />
+        <br />
+        <b><u>Finally, remember that big red warning at the top of this page.    </u></b>
+    </p>
+
+
+    <h2>Grading, Submission, and Other Details</h2>
+
+    Please read <a href="https://courses.engr.illinois.edu/cs241/mp_policy.html" target="_top">policy on all MPs</a> on the course website for details
+    on grading, submission, and other topics that are shared between all MPs in CS 241. 
+</body>
+
+</html>

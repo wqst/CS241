@@ -1,0 +1,41 @@
+/**
+
+  @mainpage CS 241: Schedule Me! 
+  @htmlinclude doc/scheduler.html
+
+*/
+
+/**
+  @page comparer-page Compare Function
+Comparer, a function that compares two elements. The function shall follow this prototype
+
+    int comparer(const void *elem1, const void *elem2); 
+
+The function must accept two parameters that are pointers to elements, type-casted as void *. These parameters should be cast back to some data type and be compared.
+
+The return value of this function should represent whether elem1 is considered less than, equal to, or greater than elem2 by returning, respectively, a negative value, zero or a positive value. 
+*/
+
+/**
+  @page examplesPage Examples
+  - @subpage example1
+  - @subpage example2
+  - @subpage example3
+*/
+/**
+  @page example1 FCFS, 1 Core 
+  @htmlinclude example1.html
+*/
+
+/**
+  @page example2 FCFS, 2 Cores
+  @htmlinclude example2.html
+*/
+/**
+  @page example3 RR2, 1 Core
+  @htmlinclude example3.html
+*/
+/**
+  @page cs241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

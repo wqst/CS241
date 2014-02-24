@@ -1,0 +1,58 @@
+
+<!-- saved from url=(0043)file:///C:/Users/heechul/Downloads/ds5.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Discussion Section 5: Threads </title>
+    
+	<style type="text/css">
+	body { font-family: arial; font-size: 12px; }
+	h2 { font-size: 24px; }
+	h3 { font-size: 22px; }
+	h4 { font-size: 16px; }
+	blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+	tt { color: #000080; }
+	</style>
+</head>
+
+<body>
+	<h1>Discussion Section for Feb 21: Threads!</h1>
+	<hr>
+
+	<h2>In Discussion Section</h2>
+	<p>
+        In ds5, you will build a program a test if a number is prime.  The simplist way to test for a prime number, <tt>num</tt>, is:
+        </p><ul>
+            <li>create a set of all the numbers between <tt>2</tt> and <tt>num - 1</tt></li>
+            <li>divide <tt>num</tt> by each number in the set one-by-one, checking if the remainder of any of the divisions is 0</li>
+            <li><i>(There are far more optimal ways of doing this... but we won't worry about that here.)</i></li>
+        </ul>
+	<p></p>
+
+    <p>
+        To speed up this process, you should divide the set into <tt>t</tt> equal-sized sets.  In this MiniMP, you should launch <tt>t</tt> threads
+        that each test the if a canidate number is prime for a certain sub-set of the set established above.
+    </p>
+
+    <p>
+        We have provided example code to help you get started and your discussion section leader will help you with the rest!  In this MiniMP, you should see:
+        </p><ul>
+            <li>how to create a thread</li>
+            <li>how to join a thread</li>
+            <li>how to pass a data structure into a thread</li>
+            <li>how to return a data structure from a thread</li>
+        </ul>
+    <p></p>
+
+
+	<h2>Compiling and Running</h2>
+	<p>To compile and run your shell, run the following commands from a Terminal on a Linux machine:</p>
+	<blockquote>
+	$ make<br>
+    $ ./ptest &lt;prime canidate&gt; &lt;threads&gt;<br>
+    $ ./ptest 1234567 1<br>
+    $ ./ptest 1234567 6<br>
+	</blockquote>
+
+
+
+
+</body></html>

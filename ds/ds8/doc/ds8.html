@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>CS 241 - Semaphores</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1265">
+  <style type="text/css">
+    p.p2 {margin: 0.0px 0.0px 6.0px 0.0px; font: 12.0px Arial; min-height: 14.0px}
+    p.p4 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Arial}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Arial}
+    p.p6 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Arial; min-height: 14.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Courier; color: #000080; background-color: #dddddd}
+    li.li5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Arial}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Arial"><b>Discussion Section for October 23, 2013: Producer-Consumer problem using Semaphore!</b></h1>
+<p class="p2"><br></p>
+<h2 style="margin: 0.0px 0.0px 19.9px 0.0px; font: 24.0px Arial"><b>Introduction</b></h2>
+<p class="p4">The proposed problem is a classical producer-consumer scheme in which there is just 1 producer and one consumer manipulating the bytes in a shared circular buffer. In particular, the shared buffer will be a an array of chars in which the producer writes one byte at a time getting it from a default string. We are going to use sem_wait and sem_post as primitives to provide semaphore functionality.</p>
+<h2 style="margin: 0.0px 0.0px 19.9px 0.0px; font: 24.0px Arial"><b>Tasks</b></h2>
+<p class="p4">What has to be done is:</p>
+<ul class="ul1">
+  <li class="li5">Complete the initialization of the variables</li>
+  <li class="li5">Implement the Producer</li>
+  <li class="li5">Implement the Consumer</li>
+</ul>
+<p class="p5">That's all.</p>
+<p class="p6"><br></p>
+<h2 style="margin: 0.0px 0.0px 19.9px 0.0px; font: 24.0px Arial"><b>Compile and Run</b></h2>
+<p class="p5">To compile these programs, run:</p>
+<p class="p7">make clean</p>
+<p class="p7">make</p>
+<p class="p5">To run your own implementation (ds8.c):</p>
+<p class="p7">./prodcons</p>
+</body>
+</html>

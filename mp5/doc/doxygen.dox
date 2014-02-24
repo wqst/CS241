@@ -1,0 +1,15 @@
+/** @page doxygen Doxygen
+
+
+In your career you will be asked to document everything you do.  Many programmers
+will shun away from doing such activities.  It is our goal that this will not be
+you.  This document was generated using the open source tool Doxygen which shows
+how documentation can be automatically pulled from inline comments to produce
+a clean document.  We encourage you to add to the documentation we have given
+as you work on the machine problem.  These comments will NOT be graded.
+
+For more information on how to use Doxygen see the manual listed below.  Running
+'make' will create your own web document stored in 'doc/html'.
+
+<a href="http://www.stack.nl/~dimitri/doxygen/manual.html">Doxygen Manual</a>
+*/

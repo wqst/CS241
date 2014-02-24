@@ -1,0 +1,201 @@
+<html>
+<head>
+    <title>CS 241 Fall2013</title>
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    </style>
+</head>
+<body>
+    <h3>Due: Monday, September 9th, 11:59pm</h3>
+    <hr />
+
+    <h2>Introduction</h2>
+    <p>
+        In CS 125, CS 225, and other classes, you have used various languages that are considered to be &quot;C based&quot;, but up to now you may have very limited experience in C programming.  This MP will provide a short programming
+        introduction to pointers, strings, and functions in C.
+    </p>
+
+    <p>
+        This machine problem will be divided up into two pieces. In the first piece,
+        you will need to write some code to call some 'creatively defined' functions
+        so that those functions produce the desired output. In the second piece, you
+        will be creating a simple dictionary data structure to parse and hold the
+        values of the parsed strings. 
+    </p>
+
+    <p>
+        For this MP, you may modify:
+        <ul>
+            <li><tt>part1.c</tt></li>
+            <li><tt>part2.c</tt></li>
+            <li><tt>part2_hacker.c</tt></li>
+            <li><tt>libdictionary/libdictionary.c</tt></li>
+            <li><tt>libdictionary/libdictionary.h</tt></li>
+        </ul>
+
+        All other files will be replaced with new/different files for grading.  If you modify any other files for debugging purposes, please ensure you test your program with the original file.
+    </p>
+
+    <h2>What you must do...</h2>
+
+    <h4>...for Part 1:</h4>
+    <p>
+        We have pre-uploaded some files to your mp1 svn directory, including <tt>mp1-functions.c</tt>.  Inside <tt>mp1-functions.c</tt>, you will see ten different functions, including <tt>first_step()</tt> (re-printed below).
+    </p>
+
+    <blockquote>
+        void first_step(int value)<br />
+        {<br />
+	    &nbsp; if (value == 81)<br />
+		&nbsp; &nbsp; printf("1: Illinois\n");<br />
+        }
+    </blockquote>
+
+    <p>
+        To complete Part 1, you must complete the program <tt>part1.c</tt> so that <tt>part1.c</tt> makes calls to all ten functions in <tt>mp1-functions.c</tt> such that they print their &quot;Illinois&quot; line. Be aware that you are NOT allowed to write any <tt>printf</tt> statements yourself in <tt>part1.c</tt>. When running
+        <tt>./part1</tt>, your output should look exactly like:
+    </p>
+
+    <blockquote>
+        1: Illinois<br />
+        2: Illinois<br />
+        3: Illinois<br />
+        4: Illinois<br />
+        5: Illinois<br />
+        6: Illinois<br />
+        7: Illinois<br />
+        8: Illinois<br />
+        9: Illinois<br />
+        10: Illinois
+    </blockquote>
+
+    <p>
+        <span style="color: #800">
+            You should NOT edit the mp1-functions.c file. In fact, when we grade your
+            program, we will replace the mp1-functions.c file with a new version of
+            the file (and we'll change the &quot;Illinois&quot; string so printing out
+            &quot;Illinois&quot; in a for-loop will get you no credit).
+        </span>
+    </p>
+
+
+    <h4>...for Part 2:</h4>
+
+    <p>
+        Now that you have some review of pointers, we're ready to make a simple, but useful library.  This library will be a simple &quot;dictionary&quot; that associates a key with value, much like the
+        <tt>Map</tt> interface in Java (<a href="http://download.oracle.com/javase/6/docs/api/java/util/Map.html">Interface Map&lt;K, V&gt; in Java</a>).  While a true library may contain many useful functions,
+        we only require a few very basic functions to be completed in order to complete Part 2: <tt>_init()</tt>, <tt>_destroy()</tt>, <tt>_add()</tt>, <tt>_get()</tt>, <tt>_remove()</tt>, and <tt>_parse()</tt>.
+    </p>
+
+    <p>
+        In all six functions, the first parameter is a pointer to a <tt>dictionary_t</tt> <tt>struct</tt>.  You can find this <tt>struct</tt> defined in the <tt>libdictionary.h</tt> file inside
+        the <tt>/libdictionary/</tt> folder in MP1.  You will find the <tt>dictionary_t</tt> structure, with a single reference to a <tt>dictionary_entry_t</tt> <tt>struct</tt>.
+        You may want to add variables to <tt>dictionary_t</tt>, change it to a pointer, or anything else to work with your data structure.  It may be useful to add
+        variables inside the <tt>dictionary_entry_t</tt> <tt>struct</tt> in order to store state about your dictionary.  You may find that
+        the <tt>dictionary_entry_t</tt> <tt>struct</tt> is enough, or you may create any number of other <tt>struct</tt>s inside your <tt>.h</tt> file.  A pointer to the same <tt>dictionary_t</tt> will
+        be used through the entire use of a single dictionary.  Sample code of use of your library can be found in <tt>part2.c</tt>, re-printed (in part) below:
+    </p>
+
+    <blockquote>
+	dictionary_t dictionary;<br />
+	dictionary_init(&dictionary);<br />
+    <br />
+    result = dictionary_add(&dictionary, "key", "value");<br />
+    result = dictionary_add(&dictionary, "key2", "value");<br />
+    result = dictionary_parse(&dictionary, "Hello: World");<br />
+    [...]<br />
+    dictionary_remove(&dictionary, "key3");<br />
+    </blockquote>
+
+    <p>
+        <span style="color: #800"><b>You should modify <tt>part2.c</tt> to include more robust testing your library</b>.</span>
+
+        We will not use <tt>part2.c</tt> in grading, but our grader will use a custom file that makes use of your library -- it's up to you to robustly test your dictionary.
+    </p>
+
+    <p>
+        To complete Part 2, you must implement the six functions defined in <tt>libdictionary/libdictionary.c</tt>. These functions are self-descriptive, but a full function outline is
+        provided for in the links below.  In this MP, we are looking for correctness over efficiency -- all the test cases are small enough that even an O(n^3) algorithm will
+        run just fine. However, if you want to have more fun, continue reading and we will talk about the hacker version.
+    </p>
+
+    <ul>
+
+        <li>
+            <b>dictionary_init()</b>: [<a href="libdictionary_8c.html#a1f86ac9df5ca3409c71502a67024ad76">documentation</a>]
+        </li>
+
+        <li>
+            <b>dictionary_add()</b>: [<a href="libdictionary_8c.html#a768d2a2aa910e2f0ce948fcb608da7d5">documentation</a>]
+        </li>
+
+        <li>
+            <b>dictionary_parse()</b>: [<a href="libdictionary_8c.html#a49dfa9142e709f6751208b00eceebb92">documentation</a>]
+        </li>
+
+        <li>
+            <b>dictionary_get()</b>: [<a href="libdictionary_8c.html#a13027828a9b21a3e52a92f11f3e1318f">documentation</a>]
+        </li>
+
+        <li>
+            <b>dictionary_remove()</b>: [<a href="libdictionary_8c.html#a1a413996f0f3d226d8b677ecda190d2a">documentation</a>]
+        </li>
+
+        <li>
+            <b>dictionary_destroy()</b>: [<a href="libdictionary_8c.html#a507304bdd18f13d6fcef79e88d4b7214">documentation</a>]
+        </li>
+    </ul>
+
+
+    <h2>Compile and Run</h2>
+
+    To compile <tt>part1.c</tt> (Part 1), <tt>libdictionary</tt> (the dictionary itself), and <tt>part2.c</tt> (the dictionary tester), run:
+    <blockquote>
+        make clean<br />
+        make
+    </blockquote>
+
+    To run Part 1:
+    <blockquote>
+        ./part1
+    </blockquote>
+
+    To run Part 2:
+    <blockquote>
+        ./part2
+    </blockquote>
+
+    <h2>What you can do for fun...</h2>
+    Although we will score your mp for correctness over efficiency, we have provided you with a simple bench-mark to see how fast     your data structure can do. However, we highly suggest that you move on to increase your data structure efficiency after you 
+    have done extensive testing about its correctness. This part is for fun only, and slow implementation will not affect your sco    re.
+
+    We have provided <tt>part2_hacker.c</tt> The program will add MAX_ENTRIES unique entries into the dictionary, get each of the     entries added, try to add the same entries added just now again, and remove all the entries added. 
+
+    The <tt>part2_hacker.c</tt> is compiled along with the other files when you type <blockquote>make</blockquote>. 
+
+    To run part2_hacker:
+    <blockquote>
+        ./part2_hacker
+    </blockquote>
+
+    Your will see how fast your dictionary performs.
+
+    Our implementation of dictionary performs as below:
+    <blockquote>
+       MAX_ENTRIES 10000   , 0.01 second;<br />
+       MAX_ENTRIES 100000  , fastest: 0.23 second, slowest: 0.31 second;<br />
+       MAX_ENTRIES 1000000 , fastest: 1.72 second, slowest: 2.68 second;<br />
+       MAX_ENTRIES 10000000, fastest: 18.38 second, slowest: 21.63 second;<br />
+    </blockquote>
+
+    <h2>Grading, Submission, and Other Details</h2>
+    Please fully read <a href="CS.html">mp_grading.html</a> for more details on grading, submission, and other topics that are shared between all MPs in CS 241.
+</body>
+
+</html>

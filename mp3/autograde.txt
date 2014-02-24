@@ -1,0 +1,510 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== MP3 CS 241 Autograder Summary ===
+Program Execution Score (90% weight): 24.0/24.0 (100.0%)
+Program Heap Freed (5% weight): PASSED (100%)
+Correct Memory Usage (5% weight): FAILED (0%)
+
+
+=== MP3 CS 241 Scoring Breakdown ===
+--- Details for "MP3" ---
+Total "MP3" Sub-Score: 24.0
+	... Details for "MP3", "Does the shell start and exit?"...
+	Total "MP3", "Does the shell start and exit?" Sub-Score: 1.0
+		Shell was able to exit successfully.
+	... Details for "MP3", "Does the shell have the correct prompt?"...
+	Total "MP3", "Does the shell have the correct prompt?" Sub-Score: 1.0
+		Shell contains the correct prompt.
+	... Details for "MP3", "Test 'cd folder'"...
+	Total "MP3", "Test 'cd folder'" Sub-Score: 1.0
+		test successful.
+	... Details for "MP3", "Test 'cd xxx' into an invalid directory"...
+	Total "MP3", "Test 'cd xxx' into an invalid directory" Sub-Score: 1.0
+		'cd xxx' into invalid directory successful.
+	... Details for "MP3", "Attempt to list empty history"...
+	Total "MP3", "Attempt to list empty history" Sub-Score: 2.0
+		Shell displayed empty history correctly!
+	... Details for "MP3", "Attempt to list history"...
+	Total "MP3", "Attempt to list history" Sub-Score: 2.0
+		Shell displayed history entry correctly!
+	... Details for "MP3", "Attempt to list multiple history entries"...
+	Total "MP3", "Attempt to list multiple history entries" Sub-Score: 2.0
+		Shell displayed two history entries successfully!
+	... Details for "MP3", "Zero argument non built-in command."...
+	Total "MP3", "Zero argument non built-in command." Sub-Score: 2.0
+		Shell ran non built-in command successfully!
+	... Details for "MP3", "One argument non built-in command."...
+	Total "MP3", "One argument non built-in command." Sub-Score: 2.0
+		Shell ran non built-in command successfully!
+	... Details for "MP3", "Re-run one no-argument command via history"...
+	Total "MP3", "Re-run one no-argument command via history" Sub-Score: 2.0
+		Shell ran one non built-in command via history successfully!
+	... Details for "MP3", "PID print after successsful command execution"...
+	Total "MP3", "PID print after successsful command execution" Sub-Score: 2.0
+		Shell printed "Command executed by pid" correctly!
+	... Details for "MP3", "Detect usage of system() or fork()+exec()"...
+	Total "MP3", "Detect usage of system() or fork()+exec()" Sub-Score: 6.0
+		A call to fork and exec has been found. The shell is using fork()+exec()
+
+
+
+
+=== MP3 CS 241 Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp3"...
+[config]: Initializing the SegmentGrader class "mp3_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp3" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "MP3 CS 241"...
+[fine]: Launching assignment-specific code for "MP3 CS 241", "MP3 CS 241"...
+[finer]: Running command [make] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -o log.o log.c -c -g -Wall -W
+[finest]: [stdout:2]: gcc -o shell shell.c log.o -g -Wall -W
+[fine]: Launching segment-specific code for "MP3 CS 241", "MP3 CS 241", "MP3"...
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Does the shell start and exit?"...
+[finer]: Running command [mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "exit
+" to process and then waiting 100ms...
+[finer]: Completed execution of "mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4902)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4902
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Does the shell have the correct prompt?"...
+[finer]: Running command [mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "exit
+" to process and then waiting 100ms...
+[finer]: Completed execution of "mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4907)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4907
+[finer]: Testing for occurance 1 of "\d+.*/class/cs241/private/mp/ag-full" in process output.
+[finer]: Found pattern at line 1 of standard output. Returning gorup 0: "4907)/class/cs241/private/mp/ag-full".
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Test 'cd folder'"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "cd mp3-autograde
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4912)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4912
+[finest]: [stdout:2]: (pid=4912)/class/cs241/private/mp/ag-full-fa13/mp3-autograde$ Command executed by pid=4912
+[finer]: Testing for occurance 1 of "mp3-autograde" in process output.
+[finer]: Found pattern at line 2 of standard output. Returning gorup 0: "mp3-autograde".
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Test 'cd xxx' into an invalid directory"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "cd blahblahblah
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4917)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4917
+[finest]: [stdout:2]: blahblahblah: No such file or directory
+[finest]: [stdout:3]: (pid=4917)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4917
+[finer]: Testing for string "blahblahblah" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "No such file or directory" in process output.
+[finer]: String found in line 2 of standard output.
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Attempt to list empty history"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "!#
+" to process and then waiting 100ms...
+[finer]: Writing input line "exit
+" to process and then waiting 100ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4922)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4922
+[finest]: [stdout:2]: (pid=4922)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4922
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Attempt to list history"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "pwd
+" to process and then waiting 100ms...
+[finer]: Writing input line "!#
+" to process and then waiting 100ms...
+[finer]: Writing input line "exit
+" to process and then waiting 100ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4927)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:2]: Command executed by pid=4931
+[finest]: [stdout:3]: (pid=4927)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4927
+[finest]: [stdout:4]: pwd
+[finest]: [stdout:5]: (pid=4927)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4927
+[finer]: Testing for string "pwd" in process output.
+[finer]: String found in line 4 of standard output.
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Attempt to list multiple history entries"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "pwd
+" to process and then waiting 100ms...
+[finer]: Writing input line "hostname
+" to process and then waiting 100ms...
+[finer]: Writing input line "!#
+" to process and then waiting 100ms...
+[finer]: Writing input line "exit
+" to process and then waiting 100ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4933)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:2]: Command executed by pid=4937
+[finest]: [stdout:3]: (pid=4933)/class/cs241/private/mp/ag-full-fa13$ linux-v1.ews.illinois.edu
+[finest]: [stdout:4]: Command executed by pid=4938
+[finest]: [stdout:5]: (pid=4933)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4933
+[finest]: [stdout:6]: pwd
+[finest]: [stdout:7]: hostname
+[finest]: [stdout:8]: (pid=4933)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4933
+[finer]: Testing for string "pwd" in process output.
+[finer]: String found in line 6 of standard output.
+[finer]: Testing for string "hostname" in process output.
+[finer]: String found in line 7 of standard output.
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Zero argument non built-in command."...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "hostname
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4942)/class/cs241/private/mp/ag-full-fa13$ linux-v1.ews.illinois.edu
+[finest]: [stdout:2]: Command executed by pid=4946
+[finest]: [stdout:3]: (pid=4942)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4942
+[finer]: Testing for string "illinois" in process output.
+[finer]: String found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "One argument non built-in command."...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "echo Chicken
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4949)/class/cs241/private/mp/ag-full-fa13$ Chicken
+[finest]: [stdout:2]: Command executed by pid=4953
+[finest]: [stdout:3]: (pid=4949)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4949
+[finer]: Testing for string "Chicken" in process output.
+[finer]: String found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Re-run one no-argument command via history"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "hostname
+" to process and then waiting 10ms...
+[finer]: Writing input line "!h
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4956)/class/cs241/private/mp/ag-full-fa13$ linux-v1.ews.illinois.edu
+[finest]: [stdout:2]: Command executed by pid=4960
+[finest]: [stdout:3]: (pid=4956)/class/cs241/private/mp/ag-full-fa13$ linux-v1.ews.illinois.edu
+[finest]: [stdout:4]: Command executed by pid=4956
+[finest]: [stdout:5]: h matches hostname
+[finest]: [stdout:6]: Command executed by pid=4961
+[finest]: [stdout:7]: (pid=4956)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4956
+[finer]: Testing for occurance 2 of "illinois" in process output.
+[finer]: Found pattern at line 1 of standard output. Need 1 more occurance(s).
+[finer]: Found pattern at line 3 of standard output. Returning gorup 0: "illinois".
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "PID print after successsful command execution"...
+[fine]: Launching element-specific code for "MP3 CS 241", "MP3 CS 241", "MP3", "Detect usage of system() or fork()+exec()"...
+[finer]: Running command [./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "ls
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "./mp3-autograde/shell" with exit code = 0.
+[finest]: [stdout:1]: (pid=4964)/class/cs241/private/mp/ag-full-fa13$ alice.txt
+[finest]: [stdout:2]: cs241AssignmentGraderBase.class
+[finest]: [stdout:3]: cs241AssignmentGraderBase.java
+[finest]: [stdout:4]: cs241SegmentGraderBase.class
+[finest]: [stdout:5]: cs241SegmentGraderBase.java
+[finest]: [stdout:6]: edu
+[finest]: [stdout:7]: huq2
+[finest]: [stdout:8]: hyu34
+[finest]: [stdout:9]: jzwang2
+[finest]: [stdout:10]: killvg.sh
+[finest]: [stdout:11]: libdrm_1.class
+[finest]: [stdout:12]: libdrm_1.java
+[finest]: [stdout:13]: libdrm.class
+[finest]: [stdout:14]: libdrm-grade
+[finest]: [stdout:15]: libdrm.java
+[finest]: [stdout:16]: libdrm-src
+[finest]: [stdout:17]: log_diff
+[finest]: [stdout:18]: logs
+[finest]: [stdout:19]: logs_c89
+[finest]: [stdout:20]: logs_c99
+[finest]: [stdout:21]: mp0
+[finest]: [stdout:22]: mp0_1.class
+[finest]: [stdout:23]: mp0_1.java
+[finest]: [stdout:24]: mp0-autograde
+[finest]: [stdout:25]: mp0.class
+[finest]: [stdout:26]: mp0.java
+[finest]: [stdout:27]: mp1
+[finest]: [stdout:28]: mp1_1.class
+[finest]: [stdout:29]: mp1_1.java
+[finest]: [stdout:30]: mp1-autograde
+[finest]: [stdout:31]: mp1_c99_makefile
+[finest]: [stdout:32]: mp1.class
+[finest]: [stdout:33]: mp1.java
+[finest]: [stdout:34]: mp3
+[finest]: [stdout:35]: mp3_1.class
+[finest]: [stdout:36]: mp3_1.java
+[finest]: [stdout:37]: mp3_1.java~
+[finest]: [stdout:38]: mp3_1.java.bak
+[finest]: [stdout:39]: mp3-autograde
+[finest]: [stdout:40]: mp3.class
+[finest]: [stdout:41]: mp3.java
+[finest]: [stdout:42]: mp3.java~
+[finest]: [stdout:43]: mp4
+[finest]: [stdout:44]: mp4_1.class
+[finest]: [stdout:45]: mp4_1.java
+[finest]: [stdout:46]: mp4_1.java~
+[finest]: [stdout:47]: mp4-autograde
+[finest]: [stdout:48]: mp4.class
+[finest]: [stdout:49]: mp4.java
+[finest]: [stdout:50]: mp4.java~
+[finest]: [stdout:51]: mp5
+[finest]: [stdout:52]: mp5_1.class
+[finest]: [stdout:53]: mp5_1.java
+[finest]: [stdout:54]: mp5-autograde
+[finest]: [stdout:55]: mp5.class
+[finest]: [stdout:56]: mp5.java
+[finest]: [stdout:57]: mp5-sp12
+[finest]: [stdout:58]: mp6
+[finest]: [stdout:59]: mp6_1.class
+[finest]: [stdout:60]: #mp6_1.java#
+[finest]: [stdout:61]: mp6_1.java
+[finest]: [stdout:62]: mp6_1.java~
+[finest]: [stdout:63]: mp6.class
+[finest]: [stdout:64]: mp6.java
+[finest]: [stdout:65]: mp6.java~
+[finest]: [stdout:66]: mp7
+[finest]: [stdout:67]: mp7_1.class
+[finest]: [stdout:68]: mp7_1.java
+[finest]: [stdout:69]: mp7-autograde
+[finest]: [stdout:70]: mp7.class
+[finest]: [stdout:71]: mp7.java
+[finest]: [stdout:72]: mp8
+[finest]: [stdout:73]: mp8_1.class
+[finest]: [stdout:74]: mp8_1.java
+[finest]: [stdout:75]: mp8_1.java~
+[finest]: [stdout:76]: mp8_1$MakeServerRequestInThread.class
+[finest]: [stdout:77]: mp8_1$RunStudentProgramInThread.class
+[finest]: [stdout:78]: mp8-autograde
+[finest]: [stdout:79]: mp8.class
+[finest]: [stdout:80]: mp8.java
+[finest]: [stdout:81]: mp8.java~
+[finest]: [stdout:82]: mpx_client
+[finest]: [stdout:83]: mpx_client_1.class
+[finest]: [stdout:84]: mpx_client_1.java
+[finest]: [stdout:85]: mpx_client_1.java~
+[finest]: [stdout:86]: mpx_client_1$RunStudentProgramInThread.class
+[finest]: [stdout:87]: mpx_client-autograde
+[finest]: [stdout:88]: mpx_client.class
+[finest]: [stdout:89]: mpx_client.java
+[finest]: [stdout:90]: mpx_client.java~
+[finest]: [stdout:91]: mpx_server
+[finest]: [stdout:92]: mpx_server_1.class
+[finest]: [stdout:93]: mpx_server_1.java
+[finest]: [stdout:94]: mpx_server_1.java~
+[finest]: [stdout:95]: mpx_server_1$RunStudentProgramInThread.class
+[finest]: [stdout:96]: mpx_server-autograde
+[finest]: [stdout:97]: mpx_server.class
+[finest]: [stdout:98]: mpx_server.java
+[finest]: [stdout:99]: mpx_server.java~
+[finest]: [stdout:100]: org
+[finest]: [stdout:101]: server2
+[finest]: [stdout:102]: web
+[finest]: [stdout:103]: wget.html
+[finest]: [stdout:104]: xyuan12
+[finest]: [stdout:105]: yiboguo2
+[finest]: [stdout:106]: Command executed by pid=4968
+[finest]: [stdout:107]: (pid=4964)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4964
+[finer]: Testing for occurance 1 of "(pid=\d+)" in process output.
+[finer]: Found pattern at line 1 of standard output. Returning gorup 0: "pid=4964".
+[finer]: Testing for occurance 1 of "by pid\s*=\s*\d+" in process output.
+[finer]: Found pattern at line 106 of standard output. Returning gorup 0: "by pid=4968".
+[finer]: Testing for occurance 2 of "by pid\s*=\s*\d+" in process output.
+[finer]: Found pattern at line 106 of standard output. Need 1 more occurance(s).
+[finer]: Found pattern at line 107 of standard output. Returning gorup 0: "by pid=4964".
+[finer]: Testing for occurance 3 of "by pid\s*=\s*\d+" in process output.
+[finer]: Found pattern at line 106 of standard output. Need 2 more occurance(s).
+[finer]: Found pattern at line 107 of standard output. Need 1 more occurance(s).
+[finer]: Not enough occurances of the pattern was found; returning (null).
+[finer]: Running command [grep exec mp3-autograde/shell.c] with a timeout of 10000ms.
+[finer]: Completed execution of "grep" with exit code = 0.
+[finest]: [stdout:1]: 			printf("Command executed by pid=%d\n", getpid());
+[finest]: [stdout:2]: 			printf("Command executed by pid=%d\n", getpid());
+[finest]: [stdout:3]: 			printf("Command executed by pid=%d\n", getpid());
+[finest]: [stdout:4]: 			printf("Command executed by pid=%d\n", getpid());
+[finest]: [stdout:5]: 			if(execvp(args[0], args) == -1)
+[finest]: [stdout:6]: 			printf("Command executed by pid=%d\n", child_pid);
+[finer]: Running command [grep fork mp3-autograde/shell.c] with a timeout of 10000ms.
+[finer]: Completed execution of "grep" with exit code = 0.
+[finest]: [stdout:1]: 		pid_t child_pid = fork();
+[finer]: Running command [grep system mp3-autograde/shell.c] with a timeout of 10000ms.
+[finer]: Completed execution of "grep" with exit code = 1.
+[fine]: Launching memory grader code for "MP3"...
+[finer]: Running command [valgrind ./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "pwd
+" to process and then waiting 10ms...
+[finer]: Writing input line "!p
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: (pid=4985)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:2]: Command executed by pid=4989
+[finest]: [stdout:3]: (pid=4985)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:4]: Command executed by pid=4985
+[finest]: [stdout:5]: p matches pwd
+[finest]: [stdout:6]: Command executed by pid=4990
+[finest]: [stdout:7]: (pid=4985)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4985
+[finest]: [stderr:1]: ==4985== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==4985== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==4985== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==4985== Command: ./mp3-autograde/shell
+[finest]: [stderr:5]: ==4985== 
+[finest]: [stderr:6]: ==4985== Invalid write of size 1
+[finest]: [stderr:7]: ==4985==    at 0x4A08DAF: memcpy (mc_replace_strmem.c:882)
+[finest]: [stderr:8]: ==4985==    by 0x3C2B667F72: getdelim (in /lib64/libc-2.12.so)
+[finest]: [stderr:9]: ==4985==    by 0x400BA0: main (shell.c:47)
+[finest]: [stderr:10]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:11]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:12]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:13]: ==4985== 
+[finest]: [stderr:14]: ==4985== Invalid write of size 1
+[finest]: [stderr:15]: ==4985==    at 0x3C2B667F84: getdelim (in /lib64/libc-2.12.so)
+[finest]: [stderr:16]: ==4985==    by 0x400BA0: main (shell.c:47)
+[finest]: [stderr:17]: ==4985==  Address 0x4c35245 is 1 bytes after a block of size 4 alloc'd
+[finest]: [stderr:18]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:19]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:20]: ==4985== 
+[finest]: [stderr:21]: ==4985== Invalid read of size 1
+[finest]: [stderr:22]: ==4985==    at 0x4A07F64: strlen (mc_replace_strmem.c:403)
+[finest]: [stderr:23]: ==4985==    by 0x400BC6: main (shell.c:53)
+[finest]: [stderr:24]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:25]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:26]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:27]: ==4985== 
+[finest]: [stderr:28]: ==4985== Invalid write of size 1
+[finest]: [stderr:29]: ==4985==    at 0x400BE2: main (shell.c:56)
+[finest]: [stderr:30]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:31]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:32]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:33]: ==4985== 
+[finest]: [stderr:34]: ==4985== Invalid read of size 1
+[finest]: [stderr:35]: ==4985==    at 0x4A07F64: strlen (mc_replace_strmem.c:403)
+[finest]: [stderr:36]: ==4985==    by 0x401034: log_push (log.c:61)
+[finest]: [stderr:37]: ==4985==    by 0x400D03: main (shell.c:80)
+[finest]: [stderr:38]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:39]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:40]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:41]: ==4985== 
+[finest]: [stderr:42]: ==4985== Invalid read of size 1
+[finest]: [stderr:43]: ==4985==    at 0x4A07FB2: strcpy (mc_replace_strmem.c:442)
+[finest]: [stderr:44]: ==4985==    by 0x401060: log_push (log.c:62)
+[finest]: [stderr:45]: ==4985==    by 0x400D03: main (shell.c:80)
+[finest]: [stderr:46]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:47]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:48]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:49]: ==4985== 
+[finest]: [stderr:50]: ==4985== Invalid read of size 1
+[finest]: [stderr:51]: ==4985==    at 0x4A084A8: strcmp (mc_replace_strmem.c:729)
+[finest]: [stderr:52]: ==4985==    by 0x400D14: main (shell.c:82)
+[finest]: [stderr:53]: ==4985==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:54]: ==4985==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:55]: ==4985==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:56]: ==4985== 
+[finest]: [stderr:57]: ==4985== 
+[finest]: [stderr:58]: ==4985== HEAP SUMMARY:
+[finest]: [stderr:59]: ==4985==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:60]: ==4985==   total heap usage: 10 allocs, 10 frees, 209 bytes allocated
+[finest]: [stderr:61]: ==4985== 
+[finest]: [stderr:62]: ==4985== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:63]: ==4985== 
+[finest]: [stderr:64]: ==4985== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:65]: ==4985== ERROR SUMMARY: 8 errors from 7 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "All heap blocks were freed -- no leaks are possible" in process output.
+[finer]: String found in line 62 of standard error.
+[fine]: Launching memory grader code for "MP3"...
+[finer]: Running command [valgrind ./mp3-autograde/shell] with a timeout of 10000ms.
+[finer]: Writing input line "pwd
+" to process and then waiting 10ms...
+[finer]: Writing input line "!p
+" to process and then waiting 10ms...
+[finer]: Writing input line "exit
+" to process and then waiting 10ms...
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: (pid=4993)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:2]: Command executed by pid=4999
+[finest]: [stdout:3]: (pid=4993)/class/cs241/private/mp/ag-full-fa13$ /class/cs241/private/mp/ag-full-fa13
+[finest]: [stdout:4]: Command executed by pid=4993
+[finest]: [stdout:5]: p matches pwd
+[finest]: [stdout:6]: Command executed by pid=5000
+[finest]: [stdout:7]: (pid=4993)/class/cs241/private/mp/ag-full-fa13$ Command executed by pid=4993
+[finest]: [stderr:1]: ==4993== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==4993== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==4993== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==4993== Command: ./mp3-autograde/shell
+[finest]: [stderr:5]: ==4993== 
+[finest]: [stderr:6]: ==4993== Invalid write of size 1
+[finest]: [stderr:7]: ==4993==    at 0x4A08DAF: memcpy (mc_replace_strmem.c:882)
+[finest]: [stderr:8]: ==4993==    by 0x3C2B667F72: getdelim (in /lib64/libc-2.12.so)
+[finest]: [stderr:9]: ==4993==    by 0x400BA0: main (shell.c:47)
+[finest]: [stderr:10]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:11]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:12]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:13]: ==4993== 
+[finest]: [stderr:14]: ==4993== Invalid write of size 1
+[finest]: [stderr:15]: ==4993==    at 0x3C2B667F84: getdelim (in /lib64/libc-2.12.so)
+[finest]: [stderr:16]: ==4993==    by 0x400BA0: main (shell.c:47)
+[finest]: [stderr:17]: ==4993==  Address 0x4c35245 is 1 bytes after a block of size 4 alloc'd
+[finest]: [stderr:18]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:19]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:20]: ==4993== 
+[finest]: [stderr:21]: ==4993== Invalid read of size 1
+[finest]: [stderr:22]: ==4993==    at 0x4A07F64: strlen (mc_replace_strmem.c:403)
+[finest]: [stderr:23]: ==4993==    by 0x400BC6: main (shell.c:53)
+[finest]: [stderr:24]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:25]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:26]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:27]: ==4993== 
+[finest]: [stderr:28]: ==4993== Invalid write of size 1
+[finest]: [stderr:29]: ==4993==    at 0x400BE2: main (shell.c:56)
+[finest]: [stderr:30]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:31]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:32]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:33]: ==4993== 
+[finest]: [stderr:34]: ==4993== Invalid read of size 1
+[finest]: [stderr:35]: ==4993==    at 0x4A07F64: strlen (mc_replace_strmem.c:403)
+[finest]: [stderr:36]: ==4993==    by 0x401034: log_push (log.c:61)
+[finest]: [stderr:37]: ==4993==    by 0x400D03: main (shell.c:80)
+[finest]: [stderr:38]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:39]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:40]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:41]: ==4993== 
+[finest]: [stderr:42]: ==4993== Invalid read of size 1
+[finest]: [stderr:43]: ==4993==    at 0x4A07FB2: strcpy (mc_replace_strmem.c:442)
+[finest]: [stderr:44]: ==4993==    by 0x401060: log_push (log.c:62)
+[finest]: [stderr:45]: ==4993==    by 0x400D03: main (shell.c:80)
+[finest]: [stderr:46]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:47]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:48]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:49]: ==4993== 
+[finest]: [stderr:50]: ==4993== Invalid read of size 1
+[finest]: [stderr:51]: ==4993==    at 0x4A084A8: strcmp (mc_replace_strmem.c:729)
+[finest]: [stderr:52]: ==4993==    by 0x400D14: main (shell.c:82)
+[finest]: [stderr:53]: ==4993==  Address 0x4c35244 is 0 bytes after a block of size 4 alloc'd
+[finest]: [stderr:54]: ==4993==    at 0x4A06BE0: realloc (vg_replace_malloc.c:662)
+[finest]: [stderr:55]: ==4993==    by 0x400CD6: main (shell.c:76)
+[finest]: [stderr:56]: ==4993== 
+[finest]: [stderr:57]: ==4993== 
+[finest]: [stderr:58]: ==4993== HEAP SUMMARY:
+[finest]: [stderr:59]: ==4993==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:60]: ==4993==   total heap usage: 10 allocs, 10 frees, 209 bytes allocated
+[finest]: [stderr:61]: ==4993== 
+[finest]: [stderr:62]: ==4993== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:63]: ==4993== 
+[finest]: [stderr:64]: ==4993== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:65]: ==4993== ERROR SUMMARY: 8 errors from 7 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "ERROR SUMMARY: 0 errors from 0 contexts" in process output.
+[finer]: String was not found in process output.
+[warning]: Not all memory was freed by target program!
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp3" has finished grading. Running final tasks...

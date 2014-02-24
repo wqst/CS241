@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>CS 241</title>
+
+
+    
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    </style></head><body>
+    <h3>Due: Monday, October 1st, 11:59pm</h3>
+    <hr>
+<ol style="color: red; font-weight: bold;">
+  <li>If your code fork bombs during grading, the autograder
+will not be able to continue. This often results in the grader
+unable to record meaningful output from your program and will be a 0 if
+the autograder does not record output! </li>
+  <li>Please make doubly sure that your fork() code is correct before committing your code for the nightly autograder.</li>
+</ol>
+<h2>Introduction</h2>
+
+	<p>
+In this MP, you will implement a simple Unix shell interpreter (e.g.,
+bash, csh etc.) called Shell. The basic function of a shell is to
+accept commands as inputs and execute the corresponding programs in
+response. </p>
+
+	<p>The purpose of this MP is to help you learn the basics of
+system calls for creating and managing processes as you implement your
+Shell
+program. You will write the code for your Shell program in <tt>shell.c</tt> inside your mp3 directory. The two other files you will write inside your mp3 directory: <tt>log.c</tt> and <tt>log.h</tt> will provide the implementation of a generic data structure <tt>log_t</tt> that you will use to implement the history feature of your Shell.
+	</p>
+
+    <h1>Part 1: Log</h1>
+             <p>You will implement the data structure: <tt>log_t</tt>.  You can find details on this data structure in the source code or the generated documentation.
+             
+            </p>    
+	<h1>Part 2: Shell</h1>
+To execute multiple commands, your shell should run in a loop where each iteration performs the following actions:
+	<ul>
+		<li>Print a command prompt</li>
+		<li>Read the command from standard input</li>
+  <li>Print the PID of the process executing the command</li>
+
+		<li>Decide which actions to take based on the command (exit, run program, etc.)</li>
+	</ul>
+
+	<h3>Task 1: Printing the Command Prompt</h3>
+	<p>Your shell prompt MUST use the following format:</p>
+	<blockquote>
+	(pid=x)/path/to/cwd$ 
+	</blockquote>
+	You can use <tt>printf("(pid=%d)%s$ ", pid, cwd)</tt> to print out this prompt. Here pid is the current process ID and cwd is the current working directory. Use <tt>getpid()</tt> to determine the process ID of the current process and <tt>getcwd()</tt> to lookup the current working directory. 
+
+
+	<h3>Task 2: Reading the Command from <tt>stdin</tt></h3>
+	<p>
+	Read a line from standard input. This line will be your command.  The function <tt>getline()</tt> can be used to accomplish this easily.  Beware that <tt>getline()</tt> may allocate memory that the user must free.
+	</p>
+
+	
+<h3>Task 3: Printing the PID of the Process Executing the Command<br>
+</h3>Shell must use the following format:
+	
+<blockquote>Command executed by pid=x 
+	</blockquote>
+
+	You can use <tt>printf("</tt><tt>Command executed by pid=%d\n", pid)</tt> to print out this process information. Here pid is the PID of the process that executes the command. <br>
+<br>
+Depending on the type of the command, shell may either execute the
+command by itself or may require to spawn a child process to execute
+the command.&nbsp; Hence, for the built-in commands, this pid would be
+the same as the shell pid. However, for the non built-in commands, this
+pid would be the PID of the child process that executes the command. 
+
+
+	 
+<h3>Task 4: Decipher the Command</h3>
+
+	<p> Shell supports two types of commands: built-in and non built-in.
+While built-in commands are executed without creating a new process, a
+non built-in command MUST create a new process to execute the program
+for that particular command. </p>
+	
+	<p> For the purpose of simplicity, all commands we will test
+will contain no extra whitespace anywhere in the command (or extra junk
+that doesn't make sense like the <tt>" abc"</tt> in <tt>"!# abc"</tt>).  This includes before the command, after the command,
+    or between different arguments.  We also will not test a blank line (though your program should not crash on a blank line).
+    </p>
+
+	<h4>BUILT-IN COMMANDS</h4>
+	<p>Your
+Shell will support four built-in commands: cd, exit and two commands
+(!# and !) based on a history feature. You should use the log from Part
+1 to implement the history functionality.</p>
+
+	<p>
+	</p><ul>
+		<li>
+			<p><b>cd xxx</b></p>
+			<p>Changes the Shell's current working directory to 'xxx'. [Hint: See function <tt>chdir()</tt>.]</p>
+			<p>If
+for some reason (for example, xxx is not a valid directory) the command
+"cd" does not end successfully, Shell should retain its current working
+directory and should print (without the quotes): <tt>"xxx: No such file or directory\n"</tt> to indicate the error.
+			</p>
+		</li>
+		<li>
+			<p><b>exit</b></p>
+			<p>Terminates the Shell.</p>
+		</li>
+		<li>
+			<p><b>!#</b></p>
+			<p>Prints
+a list of all the commands saved in the history separated by newlines.
+Oldest commands should print first. Do not store !# in the history
+(this is the only command that will never store data in the history).
+For example:</p>
+			<blockquote>
+			ls -l
+			<br>pwd
+			<br>ps
+			<br>
+			</blockquote>
+		</li>
+		<li>
+			<p><b>!query</b></p>
+			<p>Re-executes the last command whose prefix matches query.  Query can be any combination of characters.  Print the match  with <tt>printf("%s matches %s\n", query, match)</tt> before executing the command.
+			
+	If no match is found print <tt>"No Match"</tt>.
+Re-executed commands should be stored in the history. Nothing will be
+stored in the history if no match is made. For example:</p>
+			<blockquote>
+				$ ls -l<br>
+                ...<br>
+				$ ls<br>
+                ...<br>
+				$ !l  (re-executes "ls" and stores "ls" in history, not "!1")<br>
+                ...<br>
+				!ls -  (re-executes "ls -l" and stores "ls -l" in history)<br>
+                ...<br>
+				!d  (no match, does nothing and stores nothing in history)<br>
+                No Match
+			</blockquote>
+		</li>
+	</ul>
+	<p></p>
+	
+	
+
+<h4>NON BUILT-IN COMMANDS</h4>
+
+<p>If the command is not a Shell built-in (i.e., any command other than
+cd, exit, !# and !query), Shell should consider the command name to be
+the name of a file that contains executable binary code. Such a code
+must be executed in a process different from the one executing the
+shell. There are two ways to execute these commands in your shell: you
+can either use <tt>system()</tt>, or you can use <tt>fork(), exec(), wait(). </tt><br>
+</p>
+<p>While using <tt>system() </tt>does not have the risk of creating a fork bomb, your shell would fail to print out the correct PID (in Task 3) when executing a non built-in command.<span style="font-weight: bold;">&nbsp;</span><span style="color: red; font-weight: bold;"> Hence, with </span><tt style="color: red; font-weight: bold;">system()<span style="font-family: arial;"></span></tt><span style="color: red; font-weight: bold;">, you can receive only upto 75% of the total program execution score. In order to receive full credit, you must use </span><tt style="color: red; font-weight: bold;">fork(), exec(), wait().</tt></p>
+
+<p> </p>
+<p>When implementing the second option, your shell must&nbsp; <tt>fork() </tt>a child process. The child process must execute the command with <tt>exec(), </tt>while the parent must <tt>wait()</tt> for the child to terminate before printing the next prompt. It is important to note that, upon a successful execution of the
+command, <tt>exec()</tt> never returns to the child process. <tt>exec() </tt>only returns to the child process when the command fails
+to execute successfully.
+In that case, shell should print (without the quotes):&nbsp; <tt>"xxx: not found\n"</tt>, where xxx is the command. <br>
+
+</p>
+<p>Failure to terminate the child process after an invalid command may
+result in a fork bomb. You can find information about cleaning a system
+after a fork bomb <a href="forkbomb.html">here</a>.&nbsp; <span style="color: red; font-weight: bold;">If your code fork bombs during grading, the autograder
+will not be able to continue. This often results in the grader
+unable to record meaningful output from your program and will be a 0 if
+the autograder does not record output!</span><br>
+
+</p>
+
+
+<p>Some non built-in commands that you may try to see whether your Shell works as it should are: <tt>ls</tt>, <tt>/bin/ls,pwd</tt>, <tt>ps</tt>, <tt>echo hello</tt>.<br>
+</p><h2>Compiling and Running</h2>
+
+	<p>To compile and run your shell, run the following commands from a Terminal on a Linux machine:</p>
+	<blockquote>
+	$ make<br>
+	$ ./shell<br>
+	</blockquote>
+
+	<p>Type "exit" to exit from Shell (or if this has not yet been implemented, Ctrl+C will work).
+
+</p><h2>Grading, Submission and Other Details</h2>
+
+<p>Please fully read <a href="cs241.html">cs241.html</a> for more details on grading, submission, and other topics that are shared between all MPs in CS 241.</p>
+</body></html>

@@ -1,0 +1,347 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== mp0 Autograder Summary ===
+Program Execution Score (90% weight): 19.0/19.0 (100.0%)
+Program Heap Freed (5% weight): PASSED (100%)
+Correct Memory Usage (5% weight): PASSED (100%)
+
+
+=== mp0 Scoring Breakdown ===
+--- Details for "MP0" ---
+Total "MP0" Sub-Score: 19.0
+	... Details for "MP0", "MP0 Grader (1 point /test * 19 functions = 19 total points) /19pts"...
+	Total "MP0", "MP0 Grader (1 point /test * 19 functions = 19 total points) /19pts" Sub-Score: 19.0
+		one() passed, +1 pt
+		two() passed, +1 pt
+		three() passed, +1 pt
+		four() passed, +1 pt
+		five() passed, +1 pt
+		six() passed, +1 pt
+		seven() passed, +1 pt
+		eight() passed, +1 pt
+		nine() passed, +1 pt
+		ten() passed, +1 pt
+		eleven() passed, +1 pt
+		twelve() passed, +1 pt
+		thirteen() passed, +1 pt
+		fourteen() passed, +1 pt
+		fifteen() passed, +1 pt
+		sixteen() passed, +1 pt
+		seventeen() passed, +1 pt
+		eighteen() passed, +1 pt
+		clear_bits() passed, +1 pt
+
+
+
+
+=== mp0 Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp0"...
+[config]: Initializing the SegmentGrader class "mp0_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp0" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "mp0"...
+[fine]: Launching assignment-specific code for "mp0", "mp0"...
+[finer]: Running command [make] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -W -Wall -g main.c part1.c part2.c part3.c part4.c -o mp0
+[finest]: [stdout:2]: gcc -W -Wall -g main_1.c part1.c part2.c part3.c part4.c -o mp0_1
+[finest]: [stdout:3]: gcc -W -Wall -g main_2.c part1.c part2.c part3.c part4.c -o mp0_2
+[finest]: [stdout:4]: gcc -W -Wall -g main_3.c part1.c part2.c part3.c part4.c -o mp0_3
+[finest]: [stdout:5]: gcc -W -Wall -g main_4.c part1.c part2.c part3.c part4.c -o mp0_4
+[fine]: Launching segment-specific code for "mp0", "mp0", "MP0"...
+[fine]: Launching element-specific code for "mp0", "mp0", "MP0", "MP0 Grader (1 point /test * 19 functions = 19 total points) /19pts"...
+[finer]: Running command [mp0-autograde/mp0_1] with a timeout of 5000ms.
+[finer]: Completed execution of "mp0-autograde/mp0_1" with exit code = 0.
+[finest]: [stdout:1]: == one() ==
+[finest]: [stdout:2]: 3^2 + 4^2 = 25
+[finest]: [stdout:3]: 10^2 + 10^2 = 200
+[finest]: [stdout:4]: == two() ==
+[finest]: [stdout:5]: You passed!
+[finest]: [stdout:6]: == three() ==
+[finest]: [stdout:7]: The value of p is: 4
+[finest]: [stdout:8]: == four() ==
+[finest]: [stdout:9]: The value is between zero and one.
+[finest]: [stdout:10]: The value is not between zero and one.
+[finest]: [stdout:11]: == five() ==
+[finest]: [stdout:12]: x and y are equal.
+[finest]: [stdout:13]: x and y are different.
+[finer]: Testing for string "3^2 + 4^2 = 25" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "You passed!" in process output.
+[finer]: String found in line 5 of standard output.
+[finer]: Testing for string "The value of p is: 4" in process output.
+[finer]: String found in line 7 of standard output.
+[finer]: Testing for string "The value is between zero and one." in process output.
+[finer]: String found in line 9 of standard output.
+[finer]: Testing for string "The value is not between zero and one." in process output.
+[finer]: String found in line 10 of standard output.
+[finer]: Testing for string "x and y are equal." in process output.
+[finer]: String found in line 12 of standard output.
+[finer]: Testing for string "x and y are different." in process output.
+[finer]: String found in line 13 of standard output.
+[finer]: Running command [mp0-autograde/mp0_2] with a timeout of 5000ms.
+[finer]: Completed execution of "mp0-autograde/mp0_2" with exit code = 0.
+[finest]: [stdout:1]: == six() ==
+[finest]: [stdout:2]: 4 == 4.000000
+[finest]: [stdout:3]: 432 == 432.000000
+[finest]: [stdout:4]: == seven() ==
+[finest]: [stdout:5]: 12 is now equal to 12
+[finest]: [stdout:6]: 20 is now equal to 20
+[finest]: [stdout:7]: == eight() ==
+[finest]: [stdout:8]: Hello
+[finest]: [stdout:9]: == nine() ==
+[finest]: [stdout:10]: The value of p is: 12.500000
+[finest]: [stdout:11]: == ten() ==
+[finest]: [stdout:12]: 0 == 0?
+[finer]: Testing for string "4 == 4.000000" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "432 == 432.000000" in process output.
+[finer]: String found in line 3 of standard output.
+[finer]: Testing for string "12 is now equal to 12" in process output.
+[finer]: String found in line 5 of standard output.
+[finer]: Testing for string "20 is now equal to 20" in process output.
+[finer]: String found in line 6 of standard output.
+[finer]: Testing for string "Hello" in process output.
+[finer]: String found in line 8 of standard output.
+[finer]: Testing for string "The value of p is: 12.500000" in process output.
+[finer]: String found in line 10 of standard output.
+[finer]: Testing for string "0 == 0?" in process output.
+[finer]: String found in line 12 of standard output.
+[finer]: Running command [mp0-autograde/mp0_3] with a timeout of 5000ms.
+[finer]: Completed execution of "mp0-autograde/mp0_3" with exit code = 0.
+[finest]: [stdout:1]: == eleven() ==
+[finest]: [stdout:2]: Hello World!
+[finest]: [stdout:3]: == twelve() ==
+[finest]: [stdout:4]: 0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000 
+[finest]: [stdout:5]: == thirteen() ==
+[finest]: [stdout:6]: 0 1 4 9 16 25 36 49 64 81 
+[finest]: [stdout:7]: == fourteen() ==
+[finest]: [stdout:8]: orange and blue!
+[finest]: [stdout:9]: ORANGE and blue!
+[finest]: [stdout:10]: Orange and BLUE!
+[finest]: [stdout:11]: orange and blue!
+[finest]: [stdout:12]: == fifteen() ==
+[finest]: [stdout:13]: You passed in the value of one!
+[finest]: [stdout:14]: You passed in the value of two!
+[finest]: [stdout:15]: You passed in some other value!
+[finer]: Testing for string "Hello World!" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000" in process output.
+[finer]: String found in line 4 of standard output.
+[finer]: Testing for string "0 1 4 9 16 25 36 49 64 81" in process output.
+[finer]: String found in line 6 of standard output.
+[finer]: Testing for string "orange and blue!" in process output.
+[finer]: String found in line 8 of standard output.
+[finer]: Testing for string "ORANGE and blue!" in process output.
+[finer]: String found in line 9 of standard output.
+[finer]: Testing for string "Orange and BLUE!" in process output.
+[finer]: String found in line 10 of standard output.
+[finer]: Testing for string "You passed in the value of one!" in process output.
+[finer]: String found in line 13 of standard output.
+[finer]: Testing for string "You passed in the value of two!" in process output.
+[finer]: String found in line 14 of standard output.
+[finer]: Testing for string "You passed in some other value!" in process output.
+[finer]: String found in line 15 of standard output.
+[finer]: Running command [mp0-autograde/mp0_4] with a timeout of 5000ms.
+[finer]: Completed execution of "mp0-autograde/mp0_4" with exit code = 0.
+[finest]: [stdout:1]: == sixteen() ==
+[finest]: [stdout:2]: Hello
+[finest]: [stdout:3]: == seventeen() ==
+[finest]: [stdout:4]: The radius of the circle is: 17.500000.
+[finest]: [stdout:5]: The radius of the circle is: 10.000000.
+[finest]: [stdout:6]: == eighteen() ==
+[finest]: [stdout:7]: Result: 323
+[finest]: [stdout:8]: Result: 2499
+[finest]: [stdout:9]: == clear_bits() ==
+[finest]: [stdout:10]: 170
+[finest]: [stdout:11]: 0
+[finest]: [stdout:12]: 171
+[finest]: [stdout:13]: 0
+[finest]: [stdout:14]: 20
+[finest]: [stdout:15]: 0
+[finer]: Testing for string "Hello" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "The radius of the circle is: 17.500000." in process output.
+[finer]: String found in line 4 of standard output.
+[finer]: Testing for string "The radius of the circle is: 10.000000." in process output.
+[finer]: String found in line 5 of standard output.
+[finer]: Testing for string "Result: 323" in process output.
+[finer]: String found in line 7 of standard output.
+[finer]: Testing for string "Result: 2499" in process output.
+[finer]: String found in line 8 of standard output.
+[finer]: Testing for string "170" in process output.
+[finer]: String found in line 10 of standard output.
+[finer]: Testing for string "171" in process output.
+[finer]: String found in line 12 of standard output.
+[finer]: Testing for string "20" in process output.
+[finer]: String found in line 14 of standard output.
+[finer]: Testing for string "0" in process output.
+[finer]: String found in line 4 of standard output.
+[fine]: Launching memory grader code for "MP0"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes mp0-autograde/mp0] with a timeout of 30000ms.
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: == one() ==
+[finest]: [stdout:2]: 3^2 + 4^2 = 25
+[finest]: [stdout:3]: 10^2 + 10^2 = 200
+[finest]: [stdout:4]: == two() ==
+[finest]: [stdout:5]: You passed!
+[finest]: [stdout:6]: == three() ==
+[finest]: [stdout:7]: The value of p is: 4
+[finest]: [stdout:8]: == four() ==
+[finest]: [stdout:9]: The value is between zero and one.
+[finest]: [stdout:10]: The value is not between zero and one.
+[finest]: [stdout:11]: == five() ==
+[finest]: [stdout:12]: x and y are equal.
+[finest]: [stdout:13]: x and y are different.
+[finest]: [stdout:14]: == six() ==
+[finest]: [stdout:15]: 4 == 4.000000
+[finest]: [stdout:16]: 432 == 432.000000
+[finest]: [stdout:17]: == seven() ==
+[finest]: [stdout:18]: 12 is now equal to 12
+[finest]: [stdout:19]: 20 is now equal to 20
+[finest]: [stdout:20]: == eight() ==
+[finest]: [stdout:21]: Hello
+[finest]: [stdout:22]: == nine() ==
+[finest]: [stdout:23]: The value of p is: 12.500000
+[finest]: [stdout:24]: == ten() ==
+[finest]: [stdout:25]: 0 == 0?
+[finest]: [stdout:26]: == eleven() ==
+[finest]: [stdout:27]: Hello World!
+[finest]: [stdout:28]: == twelve() ==
+[finest]: [stdout:29]: 0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000 
+[finest]: [stdout:30]: == thirteen() ==
+[finest]: [stdout:31]: 0 1 4 9 16 25 36 49 64 81 
+[finest]: [stdout:32]: == fourteen() ==
+[finest]: [stdout:33]: orange and blue!
+[finest]: [stdout:34]: ORANGE and blue!
+[finest]: [stdout:35]: Orange and BLUE!
+[finest]: [stdout:36]: orange and blue!
+[finest]: [stdout:37]: == fifteen() ==
+[finest]: [stdout:38]: You passed in the value of one!
+[finest]: [stdout:39]: You passed in the value of two!
+[finest]: [stdout:40]: You passed in some other value!
+[finest]: [stdout:41]: == sixteen() ==
+[finest]: [stdout:42]: Hello
+[finest]: [stdout:43]: == seventeen() ==
+[finest]: [stdout:44]: The radius of the circle is: 17.500000.
+[finest]: [stdout:45]: The radius of the circle is: 10.000000.
+[finest]: [stdout:46]: == eighteen() ==
+[finest]: [stdout:47]: Result: 323
+[finest]: [stdout:48]: Result: 2499
+[finest]: [stdout:49]: == clear_bits() ==
+[finest]: [stdout:50]: 170
+[finest]: [stdout:51]: 0
+[finest]: [stdout:52]: 171
+[finest]: [stdout:53]: 0
+[finest]: [stdout:54]: 20
+[finest]: [stdout:55]: 0
+[finest]: [stderr:1]: ==18979== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==18979== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==18979== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==18979== Command: mp0-autograde/mp0
+[finest]: [stderr:5]: ==18979== 
+[finest]: [stderr:6]: ==18979== 
+[finest]: [stderr:7]: ==18979== HEAP SUMMARY:
+[finest]: [stderr:8]: ==18979==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:9]: ==18979==   total heap usage: 19 allocs, 19 frees, 561 bytes allocated
+[finest]: [stderr:10]: ==18979== 
+[finest]: [stderr:11]: ==18979== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:12]: ==18979== 
+[finest]: [stderr:13]: ==18979== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:14]: ==18979== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "All heap blocks were freed -- no leaks are possible" in process output.
+[finer]: String found in line 11 of standard error.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[fine]: Launching memory grader code for "MP0"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes mp0-autograde/mp0] with a timeout of 30000ms.
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: == one() ==
+[finest]: [stdout:2]: 3^2 + 4^2 = 25
+[finest]: [stdout:3]: 10^2 + 10^2 = 200
+[finest]: [stdout:4]: == two() ==
+[finest]: [stdout:5]: You passed!
+[finest]: [stdout:6]: == three() ==
+[finest]: [stdout:7]: The value of p is: 4
+[finest]: [stdout:8]: == four() ==
+[finest]: [stdout:9]: The value is between zero and one.
+[finest]: [stdout:10]: The value is not between zero and one.
+[finest]: [stdout:11]: == five() ==
+[finest]: [stdout:12]: x and y are equal.
+[finest]: [stdout:13]: x and y are different.
+[finest]: [stdout:14]: == six() ==
+[finest]: [stdout:15]: 4 == 4.000000
+[finest]: [stdout:16]: 432 == 432.000000
+[finest]: [stdout:17]: == seven() ==
+[finest]: [stdout:18]: 12 is now equal to 12
+[finest]: [stdout:19]: 20 is now equal to 20
+[finest]: [stdout:20]: == eight() ==
+[finest]: [stdout:21]: Hello
+[finest]: [stdout:22]: == nine() ==
+[finest]: [stdout:23]: The value of p is: 12.500000
+[finest]: [stdout:24]: == ten() ==
+[finest]: [stdout:25]: 0 == 0?
+[finest]: [stdout:26]: == eleven() ==
+[finest]: [stdout:27]: Hello World!
+[finest]: [stdout:28]: == twelve() ==
+[finest]: [stdout:29]: 0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000 
+[finest]: [stdout:30]: == thirteen() ==
+[finest]: [stdout:31]: 0 1 4 9 16 25 36 49 64 81 
+[finest]: [stdout:32]: == fourteen() ==
+[finest]: [stdout:33]: orange and blue!
+[finest]: [stdout:34]: ORANGE and blue!
+[finest]: [stdout:35]: Orange and BLUE!
+[finest]: [stdout:36]: orange and blue!
+[finest]: [stdout:37]: == fifteen() ==
+[finest]: [stdout:38]: You passed in the value of one!
+[finest]: [stdout:39]: You passed in the value of two!
+[finest]: [stdout:40]: You passed in some other value!
+[finest]: [stdout:41]: == sixteen() ==
+[finest]: [stdout:42]: Hello
+[finest]: [stdout:43]: == seventeen() ==
+[finest]: [stdout:44]: The radius of the circle is: 17.500000.
+[finest]: [stdout:45]: The radius of the circle is: 10.000000.
+[finest]: [stdout:46]: == eighteen() ==
+[finest]: [stdout:47]: Result: 323
+[finest]: [stdout:48]: Result: 2499
+[finest]: [stdout:49]: == clear_bits() ==
+[finest]: [stdout:50]: 170
+[finest]: [stdout:51]: 0
+[finest]: [stdout:52]: 171
+[finest]: [stdout:53]: 0
+[finest]: [stdout:54]: 20
+[finest]: [stdout:55]: 0
+[finest]: [stderr:1]: ==18984== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==18984== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==18984== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==18984== Command: mp0-autograde/mp0
+[finest]: [stderr:5]: ==18984== 
+[finest]: [stderr:6]: ==18984== 
+[finest]: [stderr:7]: ==18984== HEAP SUMMARY:
+[finest]: [stderr:8]: ==18984==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:9]: ==18984==   total heap usage: 19 allocs, 19 frees, 561 bytes allocated
+[finest]: [stderr:10]: ==18984== 
+[finest]: [stderr:11]: ==18984== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:12]: ==18984== 
+[finest]: [stderr:13]: ==18984== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:14]: ==18984== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "ERROR SUMMARY: 0 errors from 0 contexts" in process output.
+[finer]: String found in line 14 of standard error.
+[finer]: Running command [make clean] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: rm -f *.o *.d test1 test2 test3 test4 test5 test6 test6x test7x *~
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp0" has finished grading. Running final tasks...

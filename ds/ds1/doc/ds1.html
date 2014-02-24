@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS 241</title>
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    </style>
+</head>
+<body>
+    <h2>Introduction</h2>
+    <p>
+        These problems are designed to help familiarize you with the C standard library functions
+        for manipulating strings.  These functions differ from those you have seen in C++, unlike 
+        std::string in C++, strings in C are merely NULL-terminated byte arrays.
+    </p>
+
+    <p>
+        The second part of this task is to construct a list of integers that supports some basic
+        operations including insert, average, min, max, and clear.  The point of this part of the
+        assignment is to familiarize you with the way that many datastructures are implemented in
+        C.  It should be very useful as you work on MP1.
+
+        Finally, there is a file containing additional standard library functions that you can try
+        to implement in your spare time.  They are also tested by part1-test.c and they are more
+        difficult than those found in part1.c.
+    </p>
+
+    <h2>Tasks</h2>
+    <p>
+        To begin working on this project you first make the project use the make command.  This will 
+        create three executables, part1, part1-std, and part2.  The part1 executable is compiled using
+        the functions implemented in part1.c, and part1-extra.c, and the unit tests in part1-test.c.
+        Initially the executable will run and indicate that most of the unit test have failed, it is
+        your task to modify part1.c (and optionally part1-extra.c) to properly implement the string functions
+        called from part1-test.c (you are encouraged to look at this file too).  As an example of a
+        fully functional implementation you may run part1-std, it contains the part1-test.c file compiled
+        against the C standard library string functions.
+    </p>
+
+    <p>
+        The second part of the assignment compiles to part2 and contains the datastructure implemented
+        in part2.c and part2.h, the tests for this datastructure that execute when you run part2 are
+        found in part2-test.c.  You should pay careful attention to this file as it is an excellent
+        example of how good tests are written and should be of some guidance when crafting tests for
+        MP1.
+    </p>
+
+    <h2>Compile and Run</h2>
+
+    To compile these programs, run:
+    <blockquote>
+        make clean<br />
+        make
+    </blockquote>
+
+    To run your own implementation (ds1.c):
+    <blockquote>
+      ./part1
+      ./part2
+    </blockquote>
+
+    To run the standard library implementation:
+    <blockquote>
+      ./part1-std
+    </blockquote>
+
+</body>
+
+</html>

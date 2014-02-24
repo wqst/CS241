@@ -1,0 +1,8 @@
+/**
+
+  @mainpage CS 241: Parallel Make
+  @htmlinclude doc/parmake.html
+
+  @page cs241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

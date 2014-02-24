@@ -1,0 +1,607 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== MP8: Web Server Autograder Summary ===
+Program Execution Score (90% weight): 45.0/45.0 (100.0%)
+Program Heap Freed (5% weight): FAILED (0%)
+Correct Memory Usage (5% weight): FAILED (0%)
+
+
+=== MP8: Web Server Scoring Breakdown ===
+--- Details for "mp8_1" ---
+Total "mp8_1" Sub-Score: 45.0
+	... Details for "mp8_1", "10pts: Can you load a request to "/somepage.html"?"...
+	Total "mp8_1", "10pts: Can you load a request to "/somepage.html"?" Sub-Score: 10.0
+		[+10]: Expected output found!
+	... Details for "mp8_1", "5pts: Can you load a request to "/"?  Should be index.html."...
+	Total "mp8_1", "5pts: Can you load a request to "/"?  Should be index.html." Sub-Score: 5.0
+		[+5]: Expected output found!
+	... Details for "mp8_1", "10pts: Can you load the PNG image?"...
+	Total "mp8_1", "10pts: Can you load the PNG image?" Sub-Score: 10.0
+		[+10]: Expected output found!
+	... Details for "mp8_1", "10pts: Can you load the JPG image?"...
+	Total "mp8_1", "10pts: Can you load the JPG image?" Sub-Score: 10.0
+		[+10]: Expected output found!
+	... Details for "mp8_1", "5pts: 404"...
+	Total "mp8_1", "5pts: 404" Sub-Score: 5.0
+		[+5]: Expected output found!
+	... Details for "mp8_1", "5pts: 501"...
+	Total "mp8_1", "5pts: 501" Sub-Score: 5.0
+		[+5]: Expected output found!
+
+
+
+
+=== MP8: Web Server Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp8"...
+[config]: Initializing the SegmentGrader class "mp8_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "/srv/local/cs241grader/svn/cs241/fa13-cs241/smwalto2" for assignment "mp8" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "MP8: Web Server"...
+[fine]: Launching assignment-specific code for "MP8: Web Server", "MP8: Web Server"...
+[finer]: Running command [make] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -c -g -W -Wall -I. -Ilibs libdictionary.c -o libdictionary.o -lpthread
+[finest]: [stdout:2]: gcc -c -g -W -Wall -I. -Ilibs libhttp.c -o libhttp.o -lpthread
+[finest]: [stdout:3]: gcc -c -g -W -Wall -I. -Ilibs queue.c -o queue.o -lpthread
+[finest]: [stdout:4]: gcc -g -W -Wall -I. -Ilibs libdictionary.o libhttp.o queue.o server.c -o server -lpthread
+[fine]: Launching segment-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1"...
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "10pts: Can you load a request to "/somepage.html"?"...
+[finer]: Running command [mp8-autograde/server 28492] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O wget.html -t 1 localhost:28492/sample.html] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:32--  http://localhost:28492/sample.html
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:28492... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:28492... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x000000000265a9a0 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET /sample.html HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:28492
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 341
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 341 [text/html]
+[finest]: [stderr:33]: Saving to: âwget.htmlâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K                                                       100% 50.3M=0s
+[finest]: [stderr:36]: 
+[finest]: [stderr:37]: 2013-12-12 21:47:32 (50.3 MB/s) - âwget.htmlâ saved [341/341]
+[finest]: [stderr:38]: 
+[finer]: Running command [diff -sq wget.html web/sample.html] with a timeout of 1000ms.
+[finer]: Completed execution of "diff" with exit code = 0.
+[finest]: [stdout:1]: Files wget.html and web/sample.html are identical
+[finer]: Testing for string "identical" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 28492
+[finest]: [stdout:2]: =======data received, http_read returned 124
+[finest]: [stdout:3]: received request, analyzing "GET /sample.html HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/sample.html"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "5pts: Can you load a request to "/"?  Should be index.html."...
+[finer]: Running command [mp8-autograde/server 14142] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O wget.html -t 1 localhost:14142] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:33--  http://localhost:14142/
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:14142... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:14142... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x00000000024d1790 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET / HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:14142
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 1096
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 1096 (1.1K) [text/html]
+[finest]: [stderr:33]: Saving to: âwget.htmlâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K .                                                     100%  148M=0s
+[finest]: [stderr:36]: 
+[finest]: [stderr:37]: 2013-12-12 21:47:33 (148 MB/s) - âwget.htmlâ saved [1096/1096]
+[finest]: [stderr:38]: 
+[finer]: Running command [diff -sq wget.html web/index.html] with a timeout of 1000ms.
+[finer]: Completed execution of "diff" with exit code = 0.
+[finest]: [stdout:1]: Files wget.html and web/index.html are identical
+[finer]: Testing for string "identical" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 14142
+[finest]: [stdout:2]: =======data received, http_read returned 113
+[finest]: [stdout:3]: received request, analyzing "GET / HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "10pts: Can you load the PNG image?"...
+[finer]: Running command [mp8-autograde/server 15294] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O wget.png -t 1 localhost:15294/images/kodim20.png] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.png
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:35--  http://localhost:15294/images/kodim20.png
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:15294... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:15294... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x0000000001e389d0 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET /images/kodim20.png HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:15294
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: image/png
+[finest]: [stderr:26]: Content-Length: 492462
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 492462 (481K) [image/png]
+[finest]: [stderr:33]: Saving to: âwget.pngâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K .......... .......... .......... .......... .......... 10%  256M 0s
+[finest]: [stderr:36]:     50K .......... .......... .......... .......... .......... 20%  358M 0s
+[finest]: [stderr:37]:    100K .......... .......... .......... .......... .......... 31%  357M 0s
+[finest]: [stderr:38]:    150K .......... .......... .......... .......... .......... 41%  268M 0s
+[finest]: [stderr:39]:    200K .......... .......... .......... .......... .......... 51%  430M 0s
+[finest]: [stderr:40]:    250K .......... .......... .......... .......... .......... 62%  413M 0s
+[finest]: [stderr:41]:    300K .......... .......... .......... .......... .......... 72%  414M 0s
+[finest]: [stderr:42]:    350K .......... .......... .......... .......... .......... 83%  429M 0s
+[finest]: [stderr:43]:    400K .......... .......... .......... .......... .......... 93%  312M 0s
+[finest]: [stderr:44]:    450K .......... .......... ..........                      100%  384M=0.001s
+[finest]: [stderr:45]: 
+[finest]: [stderr:46]: 2013-12-12 21:47:35 (349 MB/s) - âwget.pngâ saved [492462/492462]
+[finest]: [stderr:47]: 
+[finer]: Running command [diff -sq wget.png web/images/kodim20.png] with a timeout of 1000ms.
+[finer]: Completed execution of "diff" with exit code = 0.
+[finest]: [stdout:1]: Files wget.png and web/images/kodim20.png are identical
+[finer]: Testing for string "identical" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 15294
+[finest]: [stdout:2]: =======data received, http_read returned 131
+[finest]: [stdout:3]: received request, analyzing "GET /images/kodim20.png HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/images/kodim20.png"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "10pts: Can you load the JPG image?"...
+[finer]: Running command [mp8-autograde/server 14375] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O wget.jpg -t 1 localhost:14375/images/kodim20.jpg] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.jpg
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:36--  http://localhost:14375/images/kodim20.jpg
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:14375... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:14375... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x0000000000bbb9d0 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET /images/kodim20.jpg HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:14375
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: image/jpeg
+[finest]: [stderr:26]: Content-Length: 105000
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 105000 (103K) [image/jpeg]
+[finest]: [stderr:33]: Saving to: âwget.jpgâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K .......... .......... .......... .......... .......... 48%  269M 0s
+[finest]: [stderr:36]:     50K .......... .......... .......... .......... .......... 97%  410M 0s
+[finest]: [stderr:37]:    100K ..                                                    100% 4843G=0s
+[finest]: [stderr:38]: 
+[finest]: [stderr:39]: 2013-12-12 21:47:36 (333 MB/s) - âwget.jpgâ saved [105000/105000]
+[finest]: [stderr:40]: 
+[finer]: Running command [diff -sq wget.jpg web/images/kodim20.jpg] with a timeout of 1000ms.
+[finer]: Completed execution of "diff" with exit code = 0.
+[finest]: [stdout:1]: Files wget.jpg and web/images/kodim20.jpg are identical
+[finer]: Testing for string "identical" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 14375
+[finest]: [stdout:2]: =======data received, http_read returned 131
+[finest]: [stdout:3]: received request, analyzing "GET /images/kodim20.jpg HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/images/kodim20.jpg"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "5pts: 404"...
+[finer]: Running command [mp8-autograde/server 28788] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O error.html -t 1 localhost:28788/images/kodim20.gif] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 8.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to error.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:37--  http://localhost:28788/images/kodim20.gif
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:28788... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:28788... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x00000000012ae9d0 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET /images/kodim20.gif HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:28788
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 404 Not Found
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 324
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 404 Not Found
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Skipping 324 bytes of body: [<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1>The requested resource could not be found but may be available again in the future.<div style="color: #eeeeee; font-size: 8pt;">Actually, it probably won't ever be available unless this is showing up because of a bug in your program. :(</div></html>] done.
+[finest]: [stderr:33]: 2013-12-12 21:47:37 ERROR 404: Not Found.
+[finest]: [stderr:34]: 
+[finer]: Testing for string "404" in process output.
+[finer]: String found in line 24 of standard error.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 28788
+[finest]: [stdout:2]: =======data received, http_read returned 131
+[finest]: [stdout:3]: received request, analyzing "GET /images/kodim20.gif HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/images/kodim20.gif"
+[finest]: [stdout:5]: file not found, triggering 404 error
+[finest]: [stdout:6]: caught signal 2
+[finest]: [stdout:7]: closing sockets
+[finest]: [stdout:8]: joining threads
+[fine]: Launching element-specific code for "MP8: Web Server", "MP8: Web Server", "mp8_1", "5pts: 501"...
+[finer]: Running command [mp8-autograde/server 16506] with a timeout of 15000ms.
+[finer]: Running command [wget -d -O error.html -t 1 localhost:16506/images/kodim20.....gif] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 8.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to error.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:39--  http://localhost:16506/images/kodim20.....gif
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:16506... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:16506... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x0000000000bfc9d0 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET /images/kodim20.....gif HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:16506
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 501 Not Implemented
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 205
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 501 Not Implemented
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Skipping 205 bytes of body: [<html><head><title>501 Not Implemented</title></head><body><h1>501 Not Implemented</h1>The server either does not recognise the request method, or it lacks the ability to fulfill the request.</body></html>] done.
+[finest]: [stderr:33]: 2013-12-12 21:47:39 ERROR 501: Not Implemented.
+[finest]: [stderr:34]: 
+[finer]: Testing for string "501" in process output.
+[finer]: String found in line 24 of standard error.
+[finer]: Running command [pkill -INT -x server] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "mp8-autograde/server" with exit code = 2.
+[finest]: [stdout:1]: listening on port 16506
+[finest]: [stdout:2]: =======data received, http_read returned 135
+[finest]: [stdout:3]: received request, analyzing "GET /images/kodim20.....gif HTTP/1.0"
+[finest]: [stdout:4]: filename invalid, triggering 501 error
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[fine]: Launching memory grader code for "mp8_1"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes mp8-autograde/server 28223] with a timeout of 10000ms.
+[finer]: Running command [wget -d -O wget.html -t 1 localhost:28223] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:40--  http://localhost:28223/
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:28223... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:28223... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x0000000001f92790 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET / HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:28223
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 1096
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 1096 (1.1K) [text/html]
+[finest]: [stderr:33]: Saving to: âwget.htmlâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K .                                                     100%  341M=0s
+[finest]: [stderr:36]: 
+[finest]: [stderr:37]: 2013-12-12 21:47:40 (341 MB/s) - âwget.htmlâ saved [1096/1096]
+[finest]: [stderr:38]: 
+[finer]: Running command [pkill -INT -f mp8-autograde] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "valgrind" with exit code = 2.
+[finest]: [stdout:1]: listening on port 28223
+[finest]: [stdout:2]: =======data received, http_read returned 113
+[finest]: [stdout:3]: received request, analyzing "GET / HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[finest]: [stderr:1]: ==24470== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==24470== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==24470== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==24470== Command: mp8-autograde/server 28223
+[finest]: [stderr:5]: ==24470== 
+[finest]: [stderr:6]: ==24470== 
+[finest]: [stderr:7]: ==24470== HEAP SUMMARY:
+[finest]: [stderr:8]: ==24470==     in use at exit: 1,313 bytes in 3 blocks
+[finest]: [stderr:9]: ==24470==   total heap usage: 12,655 allocs, 12,652 frees, 12,936,233 bytes allocated
+[finest]: [stderr:10]: ==24470== 
+[finest]: [stderr:11]: ==24470== 16 bytes in 1 blocks are still reachable in loss record 1 of 3
+[finest]: [stderr:12]: ==24470==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+[finest]: [stderr:13]: ==24470==    by 0x4029C2: main (server.c:310)
+[finest]: [stderr:14]: ==24470== 
+[finest]: [stderr:15]: ==24470== 272 bytes in 1 blocks are possibly lost in loss record 2 of 3
+[finest]: [stderr:16]: ==24470==    at 0x4A0577B: calloc (vg_replace_malloc.c:593)
+[finest]: [stderr:17]: ==24470==    by 0x329AA118A2: _dl_allocate_tls (in /lib64/ld-2.12.so)
+[finest]: [stderr:18]: ==24470==    by 0x329BA071E8: pthread_create@@GLIBC_2.2.5 (in /lib64/libpthread-2.12.so)
+[finest]: [stderr:19]: ==24470==    by 0x4029FD: main (server.c:313)
+[finest]: [stderr:20]: ==24470== 
+[finest]: [stderr:21]: ==24470== 1,025 bytes in 1 blocks are still reachable in loss record 3 of 3
+[finest]: [stderr:22]: ==24470==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+[finest]: [stderr:23]: ==24470==    by 0x401849: http_read (libhttp.c:41)
+[finest]: [stderr:24]: ==24470==    by 0x402325: process (server.c:144)
+[finest]: [stderr:25]: ==24470==    by 0x329BA079D0: start_thread (in /lib64/libpthread-2.12.so)
+[finest]: [stderr:26]: ==24470==    by 0x5A366FF: ???
+[finest]: [stderr:27]: ==24470== 
+[finest]: [stderr:28]: ==24470== LEAK SUMMARY:
+[finest]: [stderr:29]: ==24470==    definitely lost: 0 bytes in 0 blocks
+[finest]: [stderr:30]: ==24470==    indirectly lost: 0 bytes in 0 blocks
+[finest]: [stderr:31]: ==24470==      possibly lost: 272 bytes in 1 blocks
+[finest]: [stderr:32]: ==24470==    still reachable: 1,041 bytes in 2 blocks
+[finest]: [stderr:33]: ==24470==         suppressed: 0 bytes in 0 blocks
+[finest]: [stderr:34]: ==24470== 
+[finest]: [stderr:35]: ==24470== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:36]: ==24470== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "All heap blocks were freed -- no leaks are possible" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String found in line 18 of standard error.
+[finer]: Testing for string "still reachable: 1,584 bytes in 5 blocks" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String found in line 18 of standard error.
+[finer]: Testing for string "still reachable: 0 bytes in 0 blocks" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String found in line 18 of standard error.
+[finer]: Testing for string "still reachable: 1,528 bytes in 4 blocks" in process output.
+[finer]: String was not found in process output.
+[warning]: Not all memory was freed by target program!
+[fine]: Launching memory grader code for "mp8_1"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes mp8-autograde/server 24857] with a timeout of 10000ms.
+[finer]: Running command [wget -d -O wget.html -t 1 localhost:24857] with a timeout of 1000ms.
+[finer]: Completed execution of "wget" with exit code = 0.
+[finest]: [stderr:1]: Setting --output-document (outputdocument) to wget.html
+[finest]: [stderr:2]: Setting --tries (tries) to 1
+[finest]: [stderr:3]: DEBUG output created by Wget 1.12 on linux-gnu.
+[finest]: [stderr:4]: 
+[finest]: [stderr:5]: --2013-12-12 21:47:41--  http://localhost:24857/
+[finest]: [stderr:6]: Resolving localhost... ::1, 127.0.0.1
+[finest]: [stderr:7]: Caching localhost => ::1 127.0.0.1
+[finest]: [stderr:8]: Connecting to localhost|::1|:24857... Closed fd 4
+[finest]: [stderr:9]: failed: Connection refused.
+[finest]: [stderr:10]: Connecting to localhost|127.0.0.1|:24857... connected.
+[finest]: [stderr:11]: Created socket 4.
+[finest]: [stderr:12]: Releasing 0x0000000001b03790 (new refcount 1).
+[finest]: [stderr:13]: 
+[finest]: [stderr:14]: ---request begin---
+[finest]: [stderr:15]: GET / HTTP/1.0
+[finest]: [stderr:16]: User-Agent: Wget/1.12 (linux-gnu)
+[finest]: [stderr:17]: Accept: */*
+[finest]: [stderr:18]: Host: localhost:24857
+[finest]: [stderr:19]: Connection: Keep-Alive
+[finest]: [stderr:20]: 
+[finest]: [stderr:21]: ---request end---
+[finest]: [stderr:22]: HTTP request sent, awaiting response... 
+[finest]: [stderr:23]: ---response begin---
+[finest]: [stderr:24]: HTTP/1.1 200 OK
+[finest]: [stderr:25]: Content-Type: text/html
+[finest]: [stderr:26]: Content-Length: 1096
+[finest]: [stderr:27]: Connection: Keep-Alive
+[finest]: [stderr:28]: 
+[finest]: [stderr:29]: ---response end---
+[finest]: [stderr:30]: 200 OK
+[finest]: [stderr:31]: Registered socket 4 for persistent reuse.
+[finest]: [stderr:32]: Length: 1096 (1.1K) [text/html]
+[finest]: [stderr:33]: Saving to: âwget.htmlâ
+[finest]: [stderr:34]: 
+[finest]: [stderr:35]:      0K .                                                     100%  298M=0s
+[finest]: [stderr:36]: 
+[finest]: [stderr:37]: 2013-12-12 21:47:41 (298 MB/s) - âwget.htmlâ saved [1096/1096]
+[finest]: [stderr:38]: 
+[finer]: Running command [pkill -INT -f mp8-autograde] with a timeout of 1000ms.
+[finer]: Completed execution of "pkill" with exit code = 0.
+[finer]: Completed execution of "valgrind" with exit code = 2.
+[finest]: [stdout:1]: listening on port 24857
+[finest]: [stdout:2]: =======data received, http_read returned 113
+[finest]: [stdout:3]: received request, analyzing "GET / HTTP/1.0"
+[finest]: [stdout:4]: client requested file "/"
+[finest]: [stdout:5]: caught signal 2
+[finest]: [stdout:6]: closing sockets
+[finest]: [stdout:7]: joining threads
+[finest]: [stderr:1]: ==24488== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==24488== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==24488== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==24488== Command: mp8-autograde/server 24857
+[finest]: [stderr:5]: ==24488== 
+[finest]: [stderr:6]: ==24488== 
+[finest]: [stderr:7]: ==24488== HEAP SUMMARY:
+[finest]: [stderr:8]: ==24488==     in use at exit: 1,313 bytes in 3 blocks
+[finest]: [stderr:9]: ==24488==   total heap usage: 12,658 allocs, 12,655 frees, 12,939,308 bytes allocated
+[finest]: [stderr:10]: ==24488== 
+[finest]: [stderr:11]: ==24488== 16 bytes in 1 blocks are still reachable in loss record 1 of 3
+[finest]: [stderr:12]: ==24488==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+[finest]: [stderr:13]: ==24488==    by 0x4029C2: main (server.c:310)
+[finest]: [stderr:14]: ==24488== 
+[finest]: [stderr:15]: ==24488== 272 bytes in 1 blocks are possibly lost in loss record 2 of 3
+[finest]: [stderr:16]: ==24488==    at 0x4A0577B: calloc (vg_replace_malloc.c:593)
+[finest]: [stderr:17]: ==24488==    by 0x329AA118A2: _dl_allocate_tls (in /lib64/ld-2.12.so)
+[finest]: [stderr:18]: ==24488==    by 0x329BA071E8: pthread_create@@GLIBC_2.2.5 (in /lib64/libpthread-2.12.so)
+[finest]: [stderr:19]: ==24488==    by 0x4029FD: main (server.c:313)
+[finest]: [stderr:20]: ==24488== 
+[finest]: [stderr:21]: ==24488== 1,025 bytes in 1 blocks are still reachable in loss record 3 of 3
+[finest]: [stderr:22]: ==24488==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+[finest]: [stderr:23]: ==24488==    by 0x401849: http_read (libhttp.c:41)
+[finest]: [stderr:24]: ==24488==    by 0x402325: process (server.c:144)
+[finest]: [stderr:25]: ==24488==    by 0x329BA079D0: start_thread (in /lib64/libpthread-2.12.so)
+[finest]: [stderr:26]: ==24488==    by 0x5A366FF: ???
+[finest]: [stderr:27]: ==24488== 
+[finest]: [stderr:28]: ==24488== LEAK SUMMARY:
+[finest]: [stderr:29]: ==24488==    definitely lost: 0 bytes in 0 blocks
+[finest]: [stderr:30]: ==24488==    indirectly lost: 0 bytes in 0 blocks
+[finest]: [stderr:31]: ==24488==      possibly lost: 272 bytes in 1 blocks
+[finest]: [stderr:32]: ==24488==    still reachable: 1,041 bytes in 2 blocks
+[finest]: [stderr:33]: ==24488==         suppressed: 0 bytes in 0 blocks
+[finest]: [stderr:34]: ==24488== 
+[finest]: [stderr:35]: ==24488== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:36]: ==24488== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "ERROR SUMMARY: 0 errors from 0 contexts" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "ERROR SUMMARY: 1 errors from 1 contexts" in process output.
+[finer]: String found in line 36 of standard error.
+[finer]: Testing for string "Syscall param timer_create(evp) points to uninitialised byte(s)" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String found in line 18 of standard error.
+[finer]: Testing for string "still reachable: 1,584 bytes in 5 blocks" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String found in line 18 of standard error.
+[finer]: Testing for string "still reachable: 0 bytes in 0 blocks" in process output.
+[finer]: String was not found in process output.
+[warning]: Not all memory was freed by target program!
+[finer]: Running command [make clean] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: rm -f -r *.o server
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "/srv/local/cs241grader/svn/cs241/fa13-cs241/smwalto2" for assignment "mp8" has finished grading. Running final tasks...

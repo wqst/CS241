@@ -1,0 +1,8 @@
+/**
+
+  @mainpage CS 241: Multi-threaded Merge Sort
+  @htmlinclude doc/mergesort.html
+
+  @page CS 241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

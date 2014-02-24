@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Discussion Section 8: Synchronization problems</title>
+    
+	<style type="text/css">
+	body { font-family: arial; font-size: 12px; }
+	h2 { font-size: 24px; }
+	h3 { font-size: 22px; }
+	h4 { font-size: 16px; }
+	blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+	tt { color: #000080; }
+	</style>
+</head>
+
+<body>
+	<h1>Discussion Section for March 14, 2013: Dining Philosophers!</h1>
+	<hr />
+
+	<h2>In Discussion Section</h2>
+	<p>
+        In ds8, you will solve a dining philosopher problem. Basically, A fork is placed between each pair of adjacent philosophers. Each philosopher must alternately think and eat. However, a philosopher can only eat when he has both his left and right forks.
+	</p>
+  <p>      
+        In this miniMP, we are going to solve the problem with the following approach; A philosopher can only eat whenever both forks are available. There are three functions that you need to implement <tt>pickup</tt> and <tt>putdown</tt>.
+	</p>
+
+	<p>
+	      To help you with this miniMP, there are a couple of structures that are provided. The first is the <tt>global_state</tt> variable in <tt>dphil.h</tt> which describes the number of philosophers, the state of each philosophers and also provide you with the necessary synchronization variables. You may also find the variable id in <tt>phil_t</tt> to be useful too.
+	</p>
+
+	<h2>Compiling and Running</h2>
+	<p>To compile and run your shell, run the following commands from a Terminal on a Linux machine:</p>
+	<blockquote>
+	$ make<br />
+    $ ./dphil num_philosopher<br/>
+	</blockquote>
+
+
+</body>
+</html>

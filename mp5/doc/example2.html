@@ -1,0 +1,220 @@
+<html>
+<head>
+    <title>CS 241: MP4: Spring 2011</title>
+    
+    <style type="text/css">
+    body, table { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    table { border: solid 1px black; margin-left: 20px; }
+    table tr td { text-align: center; }
+    table tr th { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <p>
+        Consider the following simple schedule:
+    </p>
+
+    <table>
+        <tr>
+            <th>job number</th>
+            <th>arrival time</th>
+            <th>running time</th>
+            <th>priority</th>
+        </tr>
+        <tr>
+            <td>0</td>
+
+            <td>0</td>
+            <td>8</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+
+            <td>8</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+
+            <td>2</td>
+        </tr>
+    </table>
+
+    <p>
+        The flow of execution of functions calls is as follows:
+    </p>
+
+    <blockquote>
+        scheduler_start_up(cores = 2, scheme = FCFS)<br />
+        &nbsp; &nbsp; --> scheduler initialized<br />
+        <br />
+        new_job(job_number = 0, time = 0, running_time = 8, priority = 1)<br />
+        &nbsp; &nbsp; --> returns 0, indicating job(id=0) should run on core(id=0)<br />
+        <br />
+        new_job(job_number = 1, time = 1, running_time = 8, priority = 1)<br />
+        &nbsp; &nbsp; --> returns 1, indicating that job(id=1) should run on core(id=1).<br />
+        <br />
+        new_job(job_number = 2, time = 3, running_time = 4, priority = 2)<br />
+        &nbsp; &nbsp; --> returns -1, indicating that job(id=2) will not be scheduled at this time.<br />
+        <br />
+        job_finished(core_id = 0, job_number = 0, time = 8)<br />
+        &nbsp; &nbsp; --> returns 2, indicating job(id=2) should run next on core(id=0).<br />
+        <br />
+        job_finished(core_id = 1, job_number = 1, time = 9)<br />
+        &nbsp; &nbsp; --> returns -1, indicating that core(id=1) should remain idle.<br />
+        <br />
+        job_finished(core_id = 0, job_number = 2, time = 12)<br />
+        &nbsp; &nbsp; --> returns -1, indicating that core(id=0) should remain idle.<br />
+        <br />
+        scheduler_average_waiting_time()<br />
+        &nbsp; &nbsp; --> returns (5/3) == 1.67.<br />
+        <br />
+        scheduler_average_turnaround_time()<br />
+        &nbsp; &nbsp; --> returns (25/3) == 8.33.<br />
+        <br />
+        scheduler_average_response_time()<br />
+        &nbsp; &nbsp; --> returns (5/3) == 1.67.<br />
+        <br />
+        scheduler_clean_up()<br />
+        &nbsp; &nbsp; --> cleans up and frees all memory used by the scheduler
+    </blockquote>
+
+    <p>
+        When the simulator is executed and the flow of execution is implemented correctly, you will see the following output:
+    </p>
+
+    <blockquote>
+Loaded 2 core(s) and 3 job(s) using First Come First Served (FCFS) scheduling...<br />
+<br />
+=== [TIME 0] ===<br />
+A new job, job 0 (running time=8, priority=1), arrived. Job 0 is now running on core 0.<br />
+  Queue: 0(0)<br />
+  <br />
+At the end of time unit 0...<br />
+  Core  0: 0<br />
+  Core  1: -<br />
+  <br />
+  Queue: 0(0)<br />
+  <br />
+=== [TIME 1] ===<br />
+A new job, job 1 (running time=8, priority=1), arrived. Job 1 is now running on core 1.<br />
+  Queue: 0(0) 1(1)<br />
+  <br />
+At the end of time unit 1...<br />
+  Core  0: 00<br />
+  Core  1: -1<br />
+  <br />
+  Queue: 0(0) 1(1)<br />
+  <br />
+=== [TIME 2] ===<br />
+At the end of time unit 2...<br />
+  Core  0: 000<br />
+  Core  1: -11<br />
+  <br />
+  Queue: 0(0) 1(1)<br />
+  <br />
+=== [TIME 3] ===<br />
+A new job, job 2 (running time=4, priority=2), arrived. Job 2 is set to idle (-1).<br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+At the end of time unit 3...<br />
+  Core  0: 0000<br />
+  Core  1: -111<br />
+  <br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+=== [TIME 4] ===<br />
+At the end of time unit 4...<br />
+  Core  0: 00000<br />
+  Core  1: -1111<br />
+  <br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+=== [TIME 5] ===<br />
+At the end of time unit 5...<br />
+  Core  0: 000000<br />
+  Core  1: -11111<br />
+  <br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+=== [TIME 6] ===<br />
+At the end of time unit 6...<br />
+  Core  0: 0000000<br />
+  Core  1: -111111<br />
+  <br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+=== [TIME 7] ===<br />
+At the end of time unit 7...<br />
+  Core  0: 00000000<br />
+  Core  1: -1111111<br />
+  <br />
+  Queue: 0(0) 1(1) 2(-1)<br />
+  <br />
+=== [TIME 8] ===<br />
+Job 0, running on core 0, finished. Core 0 is now running job 2.<br />
+  Queue: 1(1) 2(0)<br />
+  <br />
+At the end of time unit 8...<br />
+  Core  0: 000000002<br />
+  Core  1: -11111111<br />
+  <br />
+  Queue: 1(1) 2(0)<br />
+  <br />
+=== [TIME 9] ===<br />
+Job 1, running on core 1, finished. Core 1 is now running job -1.<br />
+  Queue: 2(0)<br />
+  <br />
+At the end of time unit 9...<br />
+  Core  0: 0000000022<br />
+  Core  1: -11111111-<br />
+  <br />
+  Queue: 2(0)<br />
+  <br />
+=== [TIME 10] ===<br />
+At the end of time unit 10...<br />
+  Core  0: 00000000222<br />
+  Core  1: -11111111--<br />
+  <br />
+  Queue: 2(0)<br />
+  <br />
+=== [TIME 11] ===<br />
+At the end of time unit 11...<br />
+  Core  0: 000000002222<br />
+  Core  1: -11111111---<br />
+  <br />
+  Queue: 2(0)<br />
+  <br />
+=== [TIME 12] ===<br />
+Job 2, running on core 0, finished. Core 0 is now running job -1.<br />
+  Queue:<br />
+  <br />
+FINAL TIMING DIAGRAM:<br />
+  Core  0: 000000002222<br />
+  Core  1: -11111111---<br />
+  <br />
+Average Waiting Time: 1.67<br />
+Average Turnaround Time: 8.33<br />
+Average Response Time: 1.67<br />
+==19777==<br />
+==19777== HEAP SUMMARY:<br />
+==19777==     in use at exit: 0 bytes in 0 blocks<br />
+==19777==   total heap usage: 16 allocs, 16 frees, 3,102 bytes allocated<br />
+==19777==<br />
+==19777== All heap blocks were freed -- no leaks are possible<br />
+==19777==<br />
+==19777== For counts of detected and suppressed errors, rerun with: -v<br />
+==19777== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)    
+    </blockquote>
+
+</body>
+</html>

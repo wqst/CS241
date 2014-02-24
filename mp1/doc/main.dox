@@ -1,0 +1,8 @@
+/**
+
+  @mainpage CS 241 MP1 First Steps in C
+  @htmlinclude doc/mp1.html
+
+  @page CS 241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

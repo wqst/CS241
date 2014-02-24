@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <title>CS 241</title>
+
+  
+  
+  <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+        .style1
+        {
+            background-color: #FFFFCC;
+        }
+    </style>
+</head><body>
+<h4 style="color: red;">IMPORTANT: Fork Bomb Warning!</h4>
+
+<p>If your code fork()s inside a loop that runs forever and without any
+sort of a pause, you will end up creating a fork bomb. You can read
+more about them here: <a href="http://en.wikipedia.org/wiki/Fork_bomb">http://en.wikipedia.org/wiki/Fork_bomb</a>.<br>
+<br>
+The machines limit the number of processes a user can spawn to prevent
+a fork bomb for taking down the host machine when on the remlnx
+machines. However, if you fork bomb, you will reach that number of
+processes and will be unable to do anything with your user account
+until EWS cleans it up. We strongly suggest you use a bash shell when
+doing any testing of this MP and setting the bash shell to limit the
+maximum number of processes that can be sub-process of that bash shell.
+Thus even if you reach the limit for your bash shell, you have not
+reached your machine limit. Therefore, you can launch another shell
+(eg: another instance of `putty`) and go in and kill your processes.<br>
+<br>
+To limit the number of processes that can be spawned from the bash
+shell, use the following commands:</p>
+
+<p> </p>
+
+<blockquote>%&gt;
+bash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# to enter the bash shell<br>
+%&gt; ulimit -u 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # max
+processes to 20<br>
+...<br>
+%&gt;
+make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# make/compile your program<br>
+%&gt;
+./shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# run your program)<br>
+</blockquote>
+
+After accidental fork bomb, open a new bash shell, and identify the IDs
+of the processes that you have to kill:<br>
+
+
+<p> </p>
+
+<blockquote>
+%&gt; ps -aef | grep NETID<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13116&nbsp;&nbsp;&nbsp;&nbsp;
+7645&nbsp;&nbsp; 0 Sep07 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00:00:00 sshd: NETID [priv]<br>
+NETID&nbsp;&nbsp;&nbsp;&nbsp; 13123&nbsp;&nbsp;&nbsp;&nbsp; 13116&nbsp;
+0 Sep07 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00:00:00 sshd:
+NETID@pts/4<br>
+NETID&nbsp;&nbsp;&nbsp;&nbsp; 13124&nbsp;&nbsp;&nbsp;&nbsp; 13123&nbsp;
+0 Sep07 pts/4&nbsp;&nbsp;&nbsp; 00:00:00 ./shell<br>
+NETID&nbsp;&nbsp;&nbsp;&nbsp; 14281&nbsp;&nbsp;&nbsp;&nbsp; 13124&nbsp;
+0 00:07 pts/4&nbsp;&nbsp;&nbsp; 00:00:00 ./shell<br>
+...<br>
+NETID&nbsp;&nbsp;&nbsp;&nbsp; 14282&nbsp;&nbsp;&nbsp;&nbsp; 13124&nbsp;
+0 00:07 pts/4&nbsp;&nbsp;&nbsp; 00:00:00 ./shell<br>
+</blockquote>
+
+<p>The second column (the first column with numbers) shows the process
+ID
+of the running process. You should go about stopping all the processes
+that are running ./shell and then killing all the processes running
+./shell.<br>
+<br>
+To stop a running process with ID = PID, use the command:</p>
+
+
+<p> </p>
+
+<blockquote>
+%&gt; kill -STOP PID<br>
+</blockquote>
+
+<p>
+And, to kill the process, use the command:</p>
+
+
+
+<p> </p>
+
+<blockquote>%&gt; kill -KILL PID<br>
+</blockquote>
+
+<p>
+And at this point, you're now set to start working again. Not fun, and
+thus the importance of making doubly sure that your fork() code is
+correct.<br>
+</p>
+
+<br>
+
+<br>
+</body></html>

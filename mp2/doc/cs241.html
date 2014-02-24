@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS 241</title>
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+        .style1
+        {
+            background-color: #FFFFCC;
+        }
+    </style>
+</head>
+<body>
+    <h4>DON'T EDIT THE MAKEFILE</h4>
+    <p>
+        In CS 241, every program will be compiled using <tt>make</tt>.  When autograding your MP, we add additional files for test cases and use a different Makefile.  Therefore, we do not
+        use your Makefile to compile the code.  <b>IF you edit your Makefile, your code probably won't compile for the autograder.</b>
+    </p>
+
+    <h4>ORGANIZATION OF FILES</h4>
+    <p>
+        This file is one of two instruction files associated with machine problems in CS 241. This file describes how to submit your MP, grading details, and other details that
+        are shared between all MPs in CS 241.  With each MP, there is a separate file that explains the specific details on the MP.
+    </p>
+
+
+    <h4>TESTING YOUR PROGRAM</h4>
+    <p>
+        In CS 241, your program will only be run by course staff on 64-bit EWS Linux Terminal Server. The address of the 64-bit EWS Linux Terminal Server is <tt>linux.ews.illinois.edu</tt>.
+    </p>
+
+    <p>
+        You may access these boxes via SSH using any program that understands the
+        SSH protocol (ex: `ssh` on Mac/Linux, `putty` on Windows).
+    </p>
+    <p>
+        Since all testing and grading by course staff will be done on the terminal server machines,
+        it is <b>STRONGLY ADVISED</b> that you test your program on a terminal server machine before
+        submission. The fact that your program &quot;runs perfectly&quot; on your own machine
+        will get you zero points if your program does not run at all on an EWS terminal server machine.
+    </p>
+
+
+    <h4>GRADING YOUR PROGRAM</h4>
+    <p>
+        The grading of each MP will be broken up into three different categories.
+    </p>
+
+    <ul>
+        <li>
+            <b>Standard Machine Problem Correctness (90%)</b>:<br />
+            For each MP, the course staff will run automated tests by our autograder
+            on every file that has been submitted by the due date. This autograder
+            will have a number of different tests, each assigned with a weight
+            based on its importance, and your grade will be simply be the result
+            of your total score by the autograder.<br />
+            <br />
+
+            As soon as your program is autograded, an autograder report will
+            be placed inside your subversion directory for CS 241. This report will
+            explain how your program was tested, what output your program gave,
+            and if that output was correct or not.<br />
+            <br />
+
+            Due to the large size of this class, the only way to ensure fairness
+            across all students is to use the same autograder for every student
+            and for no exceptions to be made. If you believe that your program
+            works completely correct, it may be an error in the autograder. For
+            errors in the autograder, we will correct the autograder and re-run
+            the autograder on every student's submission. However, if the error
+            is in your code -- even if it's a minor error that results in a large
+            point drop -- exceptions will not be made since we are unable to
+            examine the errors of every single submission.<br />
+            <br />
+
+            Grades may change as the autograder is rerun with corrections. This
+            may result in your MP report grade changing. Until grades are posted
+            on Compass, they should not be considered final and may still go up
+            or down based on your program's correctness.<br />
+            <br />
+
+            Finally, to recieve full credit, your MP must run in a resonable amount of time.
+            After an excessive amount of time, the autograder will kill your process and
+            award you points for only the tasks you've completed up to the point when
+            the autograder killed your program.  We will always set the time out to be
+            <b>at least ten times longer than the TA solution takes to run</b>.<br />
+            <br />
+        </li>
+        <li>
+            <b>Memory Management (5%)</b>:<br />
+            Unlike higher level programming languages such as Java and C#, there
+            is no garbage collector in C. Instead, every single bit of memory
+            that you allocate in a C program remains allocated to your program
+            until your program frees that memory -- even if there doesn't exist
+            a pointer to that memory because you've cleared it or because it has
+            gone out of scope.<br />
+            <br />
+            We will use a common C dynamic analysis tool called `valgrind`. You can run
+            valgrind on your own program by running the following line of code:
+            <blockquote>
+                valgrind myprog arg1 arg2 ...
+            </blockquote>
+
+            To receive full credit for this portion of the grading:
+            <ol>
+                <li>
+                    Your program must be reported at "leak free" by valgrind by displaying the following text in its valgrind report:
+
+                    <blockquote>
+                        All heap blocks were freed -- no leaks are possible.
+                    </blockquote>
+                </li>
+                <li>
+                    Your program must perform tasks in a reasonable amount of memory. You may lose points if you complete a task
+                    by simply allocating a <b>*large*</b> amount of memory for a task that requires only a small amount of memory.
+                    For example, if you need to program a dictionary to store key/value pairs. Using an array[1000000] may work,
+                    but hardly manages memory well (or works for more than one million entries).  You will need to use over ten times
+                    the optimal amount of memory before any points would be deducted for excessive use of memory.
+                </li>
+
+            </ol>
+            <br />
+            Finally, if your program does not complete significant parts of
+            the MP, you may not be awarded points for memory management.
+            For example, some MPs may require you to open/read/write a large
+            number of files. If you never use open()/fopen() because you
+            didn't complete that part of the MP, you will not receive memory
+            points for correctly close()'ing your files.<br />
+            <br />
+            You will be awarded full credit or no credit.  There is no partial credit for this 5%.<br />
+            <br />
+        </li>
+        <li>
+            <b>Strictly Correct Memory Usage (5%)</b>:<br />
+
+            In the previous 5%, the grading looked at if you correctly free'd the
+            memory you allocated in your program. In this 5%, the grading looks
+            at if you didn't write into memory you didn't allocate.<br />
+            <br />
+            Using the same valgrind tool, you will receive full credit for this
+            portion of the grading if and only if your valgrind report shows:
+            
+            <blockquote>
+                ERROR SUMMARY: 0 errors from 0 contexts (suppressed: # from #)
+            </blockquote>
+
+            If the error summary does not report 0 errors, valgrind will have
+            displayed other error information above the error summary giving
+            you details of where the illegal access occurred.  For example:
+
+            <blockquote>
+                Invalid write of size 2<br />
+
+                &nbsp; at 0x400519: main (in /home/cs/wfagen2/temp/mystring)<br />
+                Address 0x4C37039 is 9 bytes inside a block of size 10 alloc'd<br />
+                &nbsp; at 0x4A05809: malloc (vg_replace_malloc.c:149)<br />
+                &nbsp; by 0x4004A9: main (in /home/cs/wfagen2/temp/mystring)<br />
+            </blockquote>
+
+            is generated by a strcat() past the end of a memory region.<br />
+            <br />
+            You will be awarded full credit or no credit.  There is no partial credit for this 5%.<br />
+            <br />
+        </li>
+    </ul>
+
+    <br />
+
+    As with course policy on all assignments, you will have one week after
+    your grade has been posted to make any regrade requests. All regrade 
+    requests will be done offline and should be submitted by e-mail to:<br />
+    <br />
+
+    &nbsp; &nbsp; <b>cs241help-sp13@cs.uiuc.edu</b><br />
+    <br />
+
+    We will confirm that we have received your e-mail and we will e-mail
+    you back when the regrade has been done. Please use your @illinois.edu
+    address when e-mailing us.<br />
+    <br />
+
+    If you choose to come into office hours, we can look at your program
+    and work with you to try and find and help you understand what was wrong
+    with it. However, even if we are unable to find anything wrong in office
+    hours, the regrade will still be done offline and no points will be
+    awarded to you in office hours. This ensures that there is a single,
+    fair, and universal grading scheme across all students. In fact, it's often
+    the case that we will have you e-mail us regarding the regrade even
+    if you have come into office hours.
+
+
+    <h4>SUBMISSION</h4>
+
+    All MP submissions will be done via subversion (svn). Subversion is a simple
+    version control system that is used in nearly all open source projects today.
+    If you haven't used svn yet, you will be using it for a number of different
+    CS classes here at Illinois.<br />
+    <br />
+
+    The URL to the CS 241 svn is: <a href="https://subversion.ews.illinois.edu/svn/sp13-cs241/">https://subversion.ews.illinois.edu/svn/sp13-cs241/</a><br />
+    <br />
+
+    If you have never used svn before, there are step-by-step instructions on
+    the course website on how to get svn up and running for you.<br />
+    <br />
+
+    Inside the svn, you'll find that directories will be created for you when
+    MPs are released. These directories will simply be the name of that MP
+    (eg: mp1, mp2, mp3, etc). Those directories are where we will pre-upload
+    a fresh copy of the MP. You must edit/replace those files and submit them
+    to the svn server for your MP to be graded.<br />
+    <br />
+
+    Please note that SVN is the only way to submit MPs. <span style="color: #800"><b>Your MP WILL NOT get
+    graded if you e-mail it to us, if you upload it somewhere on Compass,
+    or if you place it somewhere else.</b></span> You should always check that the
+    correct version of your file is uploaded before the due date by going
+    to the svn web interface by going to: <a href="https://subversion.ews.illinois.edu/svn/sp13-cs241/">https://subversion.ews.illinois.edu/svn/sp13-cs241/</a><br />
+    <br />
+
+    Please note the late policy on the course website, as it applies to submission
+    on svn. Do not submit a new copy of your program after the deadline unless
+    you want that copy graded, with the late policy applied based on the time
+    of your last submission.
+</body>
+
+</html>
+

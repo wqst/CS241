@@ -1,0 +1,199 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== MP6 CS 241 Autograder Summary ===
+Program Execution Score (90% weight): 18.0/18.0 (100.0%)
+Program Heap Freed (5% weight): PASSED (100%)
+Correct Memory Usage (5% weight): PASSED (100%)
+
+
+=== MP6 CS 241 Scoring Breakdown ===
+--- Details for "MP6" ---
+Total "MP6" Sub-Score: 18.0
+	... Details for "MP6", "Simple One Rule"...
+	Total "MP6", "Simple One Rule" Sub-Score: 1.0
+		Passed
+	... Details for "MP6", "Default Makefile"...
+	Total "MP6", "Default Makefile" Sub-Score: 1.0
+		Passed
+	... Details for "MP6", "Random cmd-line Option Ordering"...
+	Total "MP6", "Random cmd-line Option Ordering" Sub-Score: 1.0
+		Passed
+	... Details for "MP6", "Multiple Targets"...
+	Total "MP6", "Multiple Targets" Sub-Score: 1.0
+		Passed
+	... Details for "MP6", "Respects Dependencies"...
+	Total "MP6", "Respects Dependencies" Sub-Score: 3.0
+		Passed
+	... Details for "MP6", "Parallel Execution "...
+	Total "MP6", "Parallel Execution " Sub-Score: 4.0
+		Passed
+	... Details for "MP6", "Lazy Threads Sleep"...
+	Total "MP6", "Lazy Threads Sleep" Sub-Score: 4.0
+		Passed
+	... Details for "MP6", "Test for file timestamps"...
+	Total "MP6", "Test for file timestamps" Sub-Score: 2.0
+		Passed
+	... Details for "MP6", "Exit after Error"...
+	Total "MP6", "Exit after Error" Sub-Score: 1.0
+		Passed
+
+
+
+
+=== MP6 CS 241 Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp6"...
+[config]: Initializing the SegmentGrader class "mp6_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp6" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "MP6 CS 241"...
+[fine]: Launching assignment-specific code for "MP6 CS 241", "MP6 CS 241"...
+[finer]: Running command [make -f Makefile] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -g -Wall -c parmake.c -o parmake.o
+[finest]: [stdout:2]: gcc -g -Wall -c queue.c -o queue.o
+[finest]: [stdout:3]: gcc -g -Wall -c parser.c -o parser.o
+[finest]: [stdout:4]: gcc -g -Wall -c rule.c -o rule.o
+[finest]: [stdout:5]: gcc -pthread -Wall parmake.o queue.o parser.o rule.o -o parmake
+[fine]: Launching segment-specific code for "MP6 CS 241", "MP6 CS 241", "MP6"...
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Simple One Rule"...
+[finer]: Running command [./parmake -f 1.txt] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: Abcde
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Default Makefile"...
+[finer]: Running command [./parmake] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: Abcde
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Random cmd-line Option Ordering"...
+[finer]: Running command [./parmake -j 1 -f 1.txt A] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: Abcde
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Multiple Targets"...
+[finer]: Running command [./parmake -f 2.txt A B] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: Abcde
+[finest]: [stdout:2]: Bcde
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern found in line 1 of standard output.
+[finer]: Testing for pattern "Bcde" in process output.
+[finer]: Pattern found in line 2 of standard output.
+[finer]: Testing for pattern "Cde" in process output.
+[finer]: Pattern was not found in process output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Respects Dependencies"...
+[finer]: Running command [./parmake -f depend.makefile] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: d
+[finest]: [stdout:2]: b
+[finest]: [stdout:3]: c
+[finest]: [stdout:4]: a
+[finer]: Testing for string "a" in process output.
+[finer]: String found in line 4 of standard output.
+[finer]: Testing for string "b" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "d" in process output.
+[finer]: String found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Parallel Execution "...
+[finer]: Running command [./parmake -j 4 -f par.makefile] with a timeout of 5500ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: b
+[finest]: [stdout:2]: c
+[finest]: [stdout:3]: d
+[finest]: [stdout:4]: a
+[finer]: Testing for string "a" in process output.
+[finer]: String found in line 4 of standard output.
+[finer]: Testing for string "b" in process output.
+[finer]: String found in line 1 of standard output.
+[finer]: Testing for string "c" in process output.
+[finer]: String found in line 2 of standard output.
+[finer]: Testing for string "d" in process output.
+[finer]: String found in line 3 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Lazy Threads Sleep"...
+[finer]: Running command [./parmake -j 10 -f sleep.makefile] with a timeout of 10000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: %CPU
+[finest]: [stdout:2]:  0.0
+[finer]: Testing for string "%CPU" in process output.
+[finer]: String found in line 1 of standard output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Test for file timestamps"...
+[finer]: Running command [./parmake -f filetest2.makefile] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finest]: [stdout:1]: Abcde
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern found in line 1 of standard output.
+[finer]: Running command [./parmake -f filetest2.makefile] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 0.
+[finer]: Testing for pattern "Abcde" in process output.
+[finer]: Pattern was not found in process output.
+[fine]: Launching element-specific code for "MP6 CS 241", "MP6 CS 241", "MP6", "Exit after Error"...
+[finer]: Running command [./parmake -f err.txt] with a timeout of 2000ms.
+[finer]: Completed execution of "./parmake" with exit code = 1.
+[finer]: Testing for pattern "z" in process output.
+[finer]: Pattern was not found in process output.
+[fine]: Launching memory grader code for "MP6"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes ./parmake -f par.makefile] with a timeout of 60000ms.
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: b
+[finest]: [stdout:2]: c
+[finest]: [stdout:3]: d
+[finest]: [stdout:4]: a
+[finest]: [stderr:1]: ==15562== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==15562== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==15562== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==15562== Command: ./parmake -f par.makefile
+[finest]: [stderr:5]: ==15562== 
+[finest]: [stderr:6]: ==15562== 
+[finest]: [stderr:7]: ==15562== HEAP SUMMARY:
+[finest]: [stderr:8]: ==15562==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:9]: ==15562==   total heap usage: 112 allocs, 112 frees, 2,766 bytes allocated
+[finest]: [stderr:10]: ==15562== 
+[finest]: [stderr:11]: ==15562== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:12]: ==15562== 
+[finest]: [stderr:13]: ==15562== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:14]: ==15562== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "All heap blocks were freed -- no leaks are possible" in process output.
+[finer]: String found in line 11 of standard error.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[finer]: Testing for string "pthread" in process output.
+[finer]: String was not found in process output.
+[fine]: Launching memory grader code for "MP6"...
+[finer]: Running command [valgrind --leak-check=full --show-reachable=yes --num-callers=20 --child-silent-after-fork=yes ./parmake -f par.makefile] with a timeout of 60000ms.
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: b
+[finest]: [stdout:2]: c
+[finest]: [stdout:3]: d
+[finest]: [stdout:4]: a
+[finest]: [stderr:1]: ==15599== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==15599== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==15599== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==15599== Command: ./parmake -f par.makefile
+[finest]: [stderr:5]: ==15599== 
+[finest]: [stderr:6]: ==15599== 
+[finest]: [stderr:7]: ==15599== HEAP SUMMARY:
+[finest]: [stderr:8]: ==15599==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:9]: ==15599==   total heap usage: 112 allocs, 112 frees, 2,766 bytes allocated
+[finest]: [stderr:10]: ==15599== 
+[finest]: [stderr:11]: ==15599== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:12]: ==15599== 
+[finest]: [stderr:13]: ==15599== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:14]: ==15599== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "ERROR SUMMARY: 0 errors from 0 contexts" in process output.
+[finer]: String found in line 14 of standard error.
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "../../svn/cs241/smwalto2" for assignment "mp6" has finished grading. Running final tasks...

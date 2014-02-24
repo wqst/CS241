@@ -1,0 +1,8 @@
+/**
+
+  @mainpage CS 241: MP2: My, oh, my, oh, malloc!
+  @htmlinclude doc/malloc.html
+
+  @page CS 241 Grading, Submission, and Other Details
+  @htmlinclude cs241.html
+*/

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS 241</title>
+    
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    </style>
+</head>
+<body>
+    <h2>Introduction</h2>
+    <p>
+      In this DS, we will build a simple client which performs a
+      connection to a server. In particular, the server implements a
+      service of reverse echo. Whatever is being sent by the client,
+      gets repeated by the server in reverse order.
+
+      Moreover, our sever allows the communication to be performed
+      according to two different protocols: an ASCII-based one (like
+      HTTP) and a binary one. In both cases, the transmitted string to
+      reverse can have a varible length. Here are some details about
+      the two protocols:
+
+      <blockquote>
+	ASCII Protocol Definition:<br>
+	[   Message to transmit\n   ]<br>
+	<br>
+	BIN Protocol Definition:<br>
+	 <- sizeof(int bytes) ->  <-      str_len bytes     -><br>
+	[       str_len         ][    Message to transmit     ]<br>
+      </blockquote>
+    </p>
+
+    <h2>The Reverse Echo Server:</h2>
+    <p>
+      You are already provided with the full source of the server
+      which implements the reverse echo service. After a welcome
+      message, the server asks the client which protocol to use for
+      the communication. After an agreement has been found, the
+      reverse echo service is provided for each message that is sent
+      from the client to the server. A complete snapshot of the
+      communication is reported below:
+
+      <blockquote>
+	Welcome to the CS241 Reverse Echo Service<br>
+	Please, choose your message format<br>
+	1) ASCII Protocol<br>
+	2) BIN Protocol<br>
+	Your choice: 2<br>
+	<br>
+	Input string to reverse:<br>
+	etna gigante<br>
+	etnagig ante<br>
+	<br>
+	Input string to reverse:<br>
+	cippalippa<br>
+	appilappic<br>
+      </blockquote>
+      
+    </p>
+
+    <h2>What need to be done</h2>
+
+    
+    Three are the main tasks to accomplish: 
+
+    <ul>
+      <li>
+	Setup the communication between client and
+	server. Calls: <tt>socket(), getaddrinfo(), connect().</tt>
+      </li>
+      
+      <li>
+	Implement a function to read a variable-length message from
+	the socket detecting the occurrence of a terminating character
+	('\n'). Calls: <tt>recv(), read().</tt>
+      </li>
+
+      <li>
+	Enforce the ASCII or BIN communication
+	protocol. Calls: <tt>send(), write(), recv(), read().</tt>
+      </li>
+      
+    </ul>
+    
+    <h2>Compile and Run</h2>
+    
+    <p>
+      To compile:
+    </p>
+    
+    <blockquote>
+      make clean<br /> make
+    </blockquote>
+
+    <p>
+      Start the server with:
+    </p>
+    <blockquote>
+      ./ds11_server [port]
+    </blockquote>
+
+    <p>
+      Start the client with:
+    </p>
+    <blockquote>
+      ./ds11_client [port]
+    </blockquote>
+    
+   
+</body>
+
+</html>

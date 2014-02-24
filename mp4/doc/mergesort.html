@@ -1,0 +1,455 @@
+<html>
+<head>
+    <title>CS 241</title>
+    
+    <style type="text/css">
+    body, table { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    
+    table { width: 100%; text-align: center; }
+    table tr td { border: solid 1px black; background-color: #eeeeee; }    
+    </style>
+</head>
+<body>
+    <h3>Due: Friday, October 11th, 2013, 11:59pm</h3>
+    <hr />
+
+
+    <h2>Introduction</h2>
+    <p>
+        Recently, you have learned about the POSIX thread library, <b> pthread </b>, which allows a user to setup and run multiple threads of execution within
+        a single process.  In this MP, you will program a basic multithreaded merge sort algorithm using pthreads.
+    </p>
+
+    <p>
+        To help you with input data sets, we have provided a program that will generate random numbers within a sequence.  Running the command 
+        <tt>./gen --min 0 --max 50 --seed 0 25</tt> on EWS will always generate the same data set, printed below:
+    </p>
+
+    <blockquote>
+        10 49 9 34 32 37 37 48 45 19 5 31 20 19 29 22 45 30 40 31 35 8 36 39 14
+    </blockquote>
+    <br />
+
+    <p>
+        As input to this MP, you will be given a <b> single command line argument</b>: the number of times that the data should be split up as 
+        part of the merge sort.  For example, a <b><tt>segment_count</tt> of 5 </b>indicates that the data should be split into 5 (roughly) equal-sized
+        segments.  If we consider running the MP with the above generated sequence and a <b><tt>segment_count</tt> of 5</b>, the data will be split as below:
+    </p>
+
+    <table>
+        <tr>
+            <td>
+                <u>Split #1</u><br />
+                <tt>10 49 9 34 32</tt>
+            </td>
+            <td>
+                <u>Split #2</u><br />
+                <tt>37 37 48 45 19</tt>
+            </td>
+            <td>
+                <u>Split #3</u><br />
+                <tt>5 31 20 19 29</tt>
+            </td>
+            <td>
+                <u>Split #4</u><br />
+                <tt>22 45 30 40 31</tt>
+            </td>
+            <td>
+                <u>Split #5</u><br />
+                <tt>35 8 36 39 14</tt>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+    <p>
+        <b>The first part of the merge sort requires you to sort each individual sort, in parallel.</b>  In our example, this means that
+        you will launch five threads -- one for each of the splits -- and each thread must sort only their segment of the input.
+        (You don't have to write your own sort here; in fact, you must use the C command <tt>qsort()</tt>.)
+    </p>
+
+    <p>
+        After the sort threads have all completed, the data will look like:
+    </p>
+
+    <table>
+        <tr>
+            <td>
+                <u>Split #1</u><br />
+                <tt>9 10 32 34 49</tt>
+            </td>
+            <td>
+                <u>Split #2</u><br />
+                <tt>19 37 37 45 48</tt>
+            </td>
+            <td>
+                <u>Split #3</u><br />
+                <tt>5 19 20 29 31</tt>
+            </td>
+            <td>
+                <u>Split #4</u><br />
+                <tt>22 30 31 40 45</tt>
+            </td>
+            <td>
+                <u>Split #5</u><br />
+                <tt>8 14 35 36 39</tt>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+    <p>
+        <b>Next, the merge sort will take adjoining pairs of splits and merge them together, in parallel.</b>  This will be done in rounds,
+        where each round a number of parallel merges take place until there is only a single, completely sorted list remaining.
+        (Remember, merging is an O(n) operation <b>NOT</b> O(n*lg(n))... so you shouldn't call <tt>qsort()</tt> here.)
+    </p>
+
+    <p>
+        In our example, the first round of merging consists of two parallel merges: (Split #1 and Split #2) and (Split #3 and Split #4).
+    </p>
+
+    <table>
+        <tr>
+            <td colspan="2">
+                <u>Split #(1+2)</u><br />
+                <tt>9 10 19 32 34 37 37 45 48 49</tt>
+            </td>
+            <td colspan="2">
+                <u>Split #(3+4)</u><br />
+                <tt>5 19 20 22 29 30 31 31 40 45</tt>
+            </td>
+            <td>
+                <u>Split #5</u><br />
+                <tt>8 14 35 36 39</tt>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+    <p>
+        The second round of merging consists of only one merge:
+    </p>
+
+    <table>
+        <tr>
+            <td colspan="4">
+                <u>Split #(1+2+3+4)</u><br />
+                <tt>5 9 10 19 19 20 22 29 30 31 31 32 34 37 37 40 45 45 48 49</tt>
+            </td>
+            <td>
+                <u>Split #5</u><br />
+                <tt>8 14 35 36 39</tt>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+    <p>
+        And the final round also only consists of one merge:
+    </p>
+
+    <table>
+        <tr>
+            <td colspan="5">
+                <u>Split #(1+2+3+4+5)</u><br />
+                <tt>5 8 9 10 14 19 19 20 22 29 30 31 31 32 34 35 36 37 37 39 40 45 45 48 49</tt>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+    <p>
+        <i>In this MP, you must always start with the &quot;left most&quot; split and merge it with its neighbor.</i>  As such, the
+        &quot;right most&quot; split will often be the last to be merged in.  To let us know what you're doing, you will be required
+        to output a few different print statements.  For this example, the output of the program would actually look like:
+    </p>
+
+    <blockquote>
+    Sorted 5 elements.<br />
+    Sorted 5 elements.<br />
+    Sorted 5 elements.<br />
+    Sorted 5 elements.<br />
+    Sorted 5 elements.<br />
+    Merged 5 and 5 elements with 0 duplicates.<br />
+    Merged 5 and 5 elements with 1 duplicates.<br />
+    Merged 10 and 10 elements with 2 duplicates.<br />
+    Merged 20 and 5 elements with 0 duplicates.<br />
+    5<br />
+    8<br />
+    9<br />
+    [...]
+    </blockquote>
+    (See the complete output at the bottom of this document.)
+
+
+    <h2>Tasks</h2>
+
+    You are given an empty program, <tt>msort.c</tt>, where all the code for this MP should be contained.  To complete this MP, you will need to do
+    the following tasks:
+
+
+    <h4>[Task 1]</h4>
+    Read the sequence of input numbers from <tt>stdin</tt>.  There will be one number per line, in the exact format that is outputted by <tt>./gen</tt>.<br />
+    <br />
+    
+    <h4>[Task 2]</h4>
+    Find the number of segments, <tt>segment_count</tt> from above, by reading the command-line argument of <tt>./msort</tt>.  For example, if <tt>segment_count</tt> is
+    12, the command line will be <tt>./msort 12</tt>.<br />
+    <br />
+
+    <h4>[Task 3]</h4>
+    <p>
+        Divide up the input into <tt>segment_count</tt> segments such that each segment is equal-sized (eg: 25 input numbers / 5 segments = 5 numbers / segment).  If
+        you are unable to achieve equal-sized segments, you should ensure that the first (<tt>segment_count - 1</tt>) segments are equal sized and the last segment
+        is smaller than the first (<tt>segment_count - 1</tt>) segments.<br />
+        <br />
+        If you have <tt>input_ct</tt> input numbers and <tt>segment_count</tt> segments, you can find the size of each of the first <tt>segment_count - 1</tt> segments
+        with the following line:
+    </p>
+       
+    <blockquote>
+        int values_per_segment; /**&lt; Maximum number of values per segment. */<br />
+        <br />
+        if (input_ct % segment_count == 0)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;values_per_segment = input_ct / segment_count;<br />
+        else<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;values_per_segment = (input_ct / segment_count) + 1;<br />
+    </blockquote>
+    <br />
+
+
+    <h4>[Task 4]</h4>
+    <p>
+        Launch one thread per segment to sort each segment using <tt>qsort()</tt>.  Your program must block until all threads finish sorting.<br />
+        <br />
+        After the threads finish the <tt>qsort()</tt> operation, you should print out a status line indicating the number of lines sorted.
+        This should be printed in your sorter function, printed to <tt>stderr</tt>, and printed as the exact format shown below:
+    </p>
+
+    <blockquote>
+        fprintf(stderr, &quot;Sorted %d elements.\n&quot;, count);
+    </blockquote>
+    <br />
+
+
+    <h4>[Task 5]</h4>
+    <p>
+        Launch several rounds of threads to merge the sorted data segments.  Each round must block until all threads in the current round finishes
+        before advancing.<br />
+        <br />
+        The threads must be merged in a specific order, where the segment at the beginning of the data set is merged with the next segment in the
+        data set.  That is <tt>segment[0]</tt> must be merged with <tt>segment[1]</tt>.  This pattern should follow such that <tt>segment[i]</tt>
+        is merged with <tt>segment[i + 1]</tt> for all even values of <tt>i</tt>.  If there is an odd number of segments, you should not merge
+        the left over segment in the current round (simply advance it to the next round of merging).<br />
+        <br />
+        After each round, you will have <tt>(ct / 2)</tt> or <tt>(ct / 2) + 1</tt> segments remaining, where <tt>ct</tt> it the number of segments
+        you had in the previous round.  You must continue the merging process until only 1 segment remains.<br />
+        <br />
+        In merge sort, the merge operation <b>MUST NOT</b> be an O(n * lg(n)) operation.  Instead, think of how you can merge two sorted lists
+        in O(n) time.  While merging the two lists, you must also keep track of how many duplicates you've seen between the two lists.  (You
+        should count a duplicate <b>ONLY</b> when you find the same number in both lists -- not if your list contains the same number multiple
+        times.  Count each time you see a duplicate number in both lists, even if that means the same number is counted multiple times.)<br />
+        <br />
+        When the merging has completed, the merging thread should print out a status line.  As with the sorted thread, this line should be
+        printed to <tt>stderr</tt>, printed in your merge function, and printed in the exact format shown below:
+    </p>
+
+    <blockquote>
+	    fprintf(stderr, &quot;Merged %d and %d elements with %d duplicates.\n&quot;, count1, count2, dupes);
+    </blockquote>
+    <br />
+
+
+    <h4>[Task 6]</h4>
+    <p>
+        Once you have a single sorted list, print out the list, one number per line, to <tt>stdout</tt>.  This can be done by <tt>printf(&quot;%d\n&quot;, value);</tt>.
+    </p>
+    <br />
+
+
+    <h2>Compile and Run</h2>
+
+    As always, compile using:
+    <blockquote>
+        $ make clean<br />
+        $ make
+    </blockquote>
+
+    To run this program, you will need to generate input data using <tt>./gen</tt>.  You can use <tt>./gen</tt> to generate a random set of numbers by using, for example:
+    <blockquote>
+        ./gen 100 &gt;file.txt
+    </blockquote>
+    ...to generate 100 numbers.<br />
+    <br />
+
+    You can also use <tt>./gen</tt> to generate numbers within a range.  For example:
+    <blockquote>
+        ./gen --min 0 --max 100 100 &gt;file.txt
+    </blockquote>
+    ...will generate 100 random numbers in the range of [0, 100].  Since the numbers are random, there will almost certainly be duplicates.<br />
+    <br />
+
+    You can specify a specific random sequence by supplying a seed.  The data set that was generated for the introduction of this MP was done by:
+    <blockquote>
+        ./gen --min 0 --max 50 --seed 0 25 &gt;example1.txt
+    </blockquote>
+    ...when running on an EWS machine.<br />
+    <br />
+
+    To run your program with a given input, supply the number of segments and the input file:
+    <blockquote>
+        ./msort 5 &lt;example1.txt
+    </blockquote>
+    
+    If you generated the same <tt>example1.txt</tt> as we did, the full output of the command above should be:
+    <blockquote>
+        Sorted 5 elements.<br />
+        Sorted 5 elements.<br />
+        Sorted 5 elements.<br />
+        Sorted 5 elements.<br />
+        Sorted 5 elements.<br />
+        Merged 5 and 5 elements with 1 duplicates.<br />
+        Merged 5 and 5 elements with 0 duplicates.<br />
+        Merged 10 and 10 elements with 2 duplicates.<br />
+        Merged 20 and 5 elements with 0 duplicates.<br />
+        5<br />
+        8<br />
+        9<br />
+        10<br />
+        14<br />
+        19<br />
+        19<br />
+        20<br />
+        22<br />
+        29<br />
+        30<br />
+        31<br />
+        31<br />
+        32<br />
+        34<br />
+        35<br />
+        36<br />
+        37<br />
+        37<br />
+        39<br />
+        40<br />
+        45<br />
+        45<br />
+        48<br />
+        49
+    </blockquote>
+
+    
+    You should make sure to test your MP with large data sets as well.  As an example, <tt>example2.txt</tt> can be generated by:
+    <blockquote>
+        ./gen --min 0 --max 1234567 --seed 0 1234567 &gt;example2.txt
+    </blockquote>
+
+    Since you will sorting over a million lines, it may be useful to write the sorted output to a file (instead of showing it
+    to the user).  Running your MP with the <tt>exmaple2.txt</tt> dataset:
+    <blockquote>
+        ./msort 9 &lt;example2.txt &gt;example2-sorted.txt
+    </blockquote>
+
+    ...should result in the following output:
+    <blockquote>
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137175 elements.<br />
+        Sorted 137167 elements.<br />
+        Sorted 137175 elements.<br />
+        Merged 137175 and 137175 elements with 14231 duplicates.<br />
+        Merged 137175 and 137175 elements with 14420 duplicates.<br />
+        Merged 137175 and 137175 elements with 14308 duplicates.<br />
+        Merged 137175 and 137175 elements with 14284 duplicates.<br />
+        Merged 274350 and 274350 elements with 54702 duplicates.<br />
+        Merged 274350 and 274350 elements with 54710 duplicates.<br />
+        Merged 548700 and 548700 elements with 197491 duplicates.<br />
+        Merged 1097400 and 137167 elements with 115132 duplicates.
+    </blockquote>
+    <br />
+
+
+    Finally, since we're using threads, we should see a speedup between using a single segment (where all the work is done by a single thread)
+    and using many segments.  This should be most clear in really large test cases, so we will generate a third example:
+    <blockquote>
+        ./gen --min 0 --max 12346578 --seed 0 12346578 &gt;example3.txt
+    </blockquote>
+
+    
+    We can test the time our program takes to run by using the Linux <tt>time</tt> command.<br />
+    <br />
+    With one large segment:
+    <blockquote>
+        $ time ./msort 1 &lt;example3.txt &gt;/dev/null<br />
+        Sorted 12345678 elements.<br />
+        <br />
+        <b>real    0m7.955s</b><br />
+        user    0m7.879s<br />
+        sys     0m0.069s<br />
+    </blockquote>
+    With eight smaller segments:
+    <blockquote>
+        $ time ./msort 8 &lt;example3.txt &gt;/dev/null<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543208 elements.<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543210 elements.<br />
+        Sorted 1543210 elements.<br />
+        Merged 1543210 and 1543210 elements with 181375 duplicates.<br />
+        Merged 1543210 and 1543208 elements with 181771 duplicates.<br />
+        Merged 1543210 and 1543210 elements with 181149 duplicates.<br />
+        Merged 1543210 and 1543210 elements with 181261 duplicates.<br />
+        Merged 3086420 and 3086418 elements with 680333 duplicates.<br />
+        Merged 3086420 and 3086420 elements with 681849 duplicates.<br />
+        Merged 6172840 and 6172838 elements with 2431211 duplicates.<br />
+        <br />
+        <b>real    0m4.702s</b><br />
+        user    0m8.204s<br />
+        sys     0m0.145s<br />
+    </blockquote>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

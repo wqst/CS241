@@ -1,0 +1,131 @@
+Loaded 2 core(s) and 5 job(s) using Preemptive Priority (PPRI) scheduling...
+
+=== [TIME 0] ===
+A new job, job 0 (running time=3, priority=2), arrived. Job 0 is now running on core 0.
+  Queue: 0(0) 
+
+At the end of time unit 0...
+  Core  0: 0
+  Core  1: -
+
+  Queue: 0(0) 
+
+=== [TIME 1] ===
+A new job, job 1 (running time=10, priority=3), arrived. Job 1 is now running on core 1.
+  Queue: 0(0) 1(1) 
+
+At the end of time unit 1...
+  Core  0: 00
+  Core  1: -1
+
+  Queue: 0(0) 1(1) 
+
+=== [TIME 2] ===
+A new job, job 2 (running time=5, priority=1), arrived. Job 2 is now running on core 1.
+  Queue: 2(1) 0(0) 1(-1) 
+
+At the end of time unit 2...
+  Core  0: 000
+  Core  1: -12
+
+  Queue: 2(1) 0(0) 1(-1) 
+
+=== [TIME 3] ===
+Job 0, running on core 0, finished. Core 0 is now running job 1.
+  Queue: 2(1) 1(0) 
+
+A new job, job 3 (running time=2, priority=4), arrived. Job 3 is set to idle (-1).
+  Queue: 2(1) 1(0) 3(-1) 
+
+At the end of time unit 3...
+  Core  0: 0001
+  Core  1: -122
+
+  Queue: 2(1) 1(0) 3(-1) 
+
+=== [TIME 4] ===
+A new job, job 4 (running time=4, priority=5), arrived. Job 4 is set to idle (-1).
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+At the end of time unit 4...
+  Core  0: 00011
+  Core  1: -1222
+
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+=== [TIME 5] ===
+At the end of time unit 5...
+  Core  0: 000111
+  Core  1: -12222
+
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+=== [TIME 6] ===
+At the end of time unit 6...
+  Core  0: 0001111
+  Core  1: -122222
+
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+=== [TIME 7] ===
+Job 2, running on core 1, finished. Core 1 is now running job 3.
+  Queue: 1(0) 3(1) 4(-1) 
+
+At the end of time unit 7...
+  Core  0: 00011111
+  Core  1: -1222223
+
+  Queue: 1(0) 3(1) 4(-1) 
+
+=== [TIME 8] ===
+At the end of time unit 8...
+  Core  0: 000111111
+  Core  1: -12222233
+
+  Queue: 1(0) 3(1) 4(-1) 
+
+=== [TIME 9] ===
+Job 3, running on core 1, finished. Core 1 is now running job 4.
+  Queue: 1(0) 4(1) 
+
+At the end of time unit 9...
+  Core  0: 0001111111
+  Core  1: -122222334
+
+  Queue: 1(0) 4(1) 
+
+=== [TIME 10] ===
+At the end of time unit 10...
+  Core  0: 00011111111
+  Core  1: -1222223344
+
+  Queue: 1(0) 4(1) 
+
+=== [TIME 11] ===
+At the end of time unit 11...
+  Core  0: 000111111111
+  Core  1: -12222233444
+
+  Queue: 1(0) 4(1) 
+
+=== [TIME 12] ===
+Job 1, running on core 0, finished. Core 0 is now running job -1.
+  Queue: 4(1) 
+
+At the end of time unit 12...
+  Core  0: 000111111111-
+  Core  1: -122222334444
+
+  Queue: 4(1) 
+
+=== [TIME 13] ===
+Job 4, running on core 1, finished. Core 1 is now running job -1.
+  Queue: 
+
+FINAL TIMING DIAGRAM:
+  Core  0: 000111111111-
+  Core  1: -122222334444
+
+Average Waiting Time: 2.00
+Average Turnaround Time: 6.80
+Average Response Time: 1.80

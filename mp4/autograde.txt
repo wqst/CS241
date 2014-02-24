@@ -1,0 +1,171 @@
+== CS 241 Autograder Note: ==
+This autograder is a preliminary assessment of your program's correctness. Your
+grade may change UP OR DOWN based on the CORRECTNESS OF YOUR PROGRAM. We make every effort to ensure
+that our autograder is 'smart' enough to not count off for simple things like grammar but, in doing so,
+we may inadvertently allow for incorrect code to be counted as correct. If we have to change our script
+to better reflect the CORRECTNESS OF YOUR PROGRAM, we will run the script on EVERY PROGRAM and update
+EVERY AUTOGRADER OUTPUT to ensure fairness to all students. Thanks for understanding! - CS 241 Staff
+
+(Please note, this autograder does not reflect a late submission penalty. This will be applied on Compass.)
+
+
+=== MP4 CS 241 Autograder Summary ===
+Program Execution Score (90% weight): 10.0/10.0 (100.0%)
+Program Heap Freed (5% weight): PASSED (100%)
+Correct Memory Usage (5% weight): PASSED (100%)
+
+
+=== MP4 CS 241 Scoring Breakdown ===
+--- Details for "MP4" ---
+Total "MP4" Sub-Score: 10.0
+	... Details for "MP4", "Full Autograder Test"...
+	Total "MP4", "Full Autograder Test" Sub-Score: 10.0
+		Found larger segment
+		Found smaller segment
+		Round 1(a) merge found
+		Round 1(c) merge found
+		Round 1(c) dups found
+		Round 2 merge found
+		Round 2 dups found
+		Round 3 merge found
+		Round 3 dups found
+		Result was sorted
+
+
+
+
+=== MP4 CS 241 Raw Autograder Log ===
+[config]: Initializing the AssignmentGrader class "mp4"...
+[config]: Initializing the SegmentGrader class "mp4_1". Loading...
+[config]: Assignment initalization complete!
+[info]: The submission in "/srv/local/cs241grader/svn/cs241/fa13-cs241/smwalto2" for assignment "mp4" is ready to be graded. Running grading tasks...
+[info]: Beginning to grade assignment "MP4 CS 241"...
+[fine]: Launching assignment-specific code for "MP4 CS 241", "MP4 CS 241"...
+[finer]: Running command [make] with a timeout of 60000ms.
+[finer]: Completed execution of "make" with exit code = 0.
+[finest]: [stdout:1]: gcc -I. -W -Wall -g -lpthread msort.c -o msort
+[finer]: Running command [chmod a+x mp4-autograde/test1.sh] with a timeout of 5000ms.
+[finer]: Completed execution of "chmod" with exit code = 0.
+[fine]: Launching segment-specific code for "MP4 CS 241", "MP4 CS 241", "MP4"...
+[fine]: Launching element-specific code for "MP4 CS 241", "MP4 CS 241", "MP4", "Full Autograder Test"...
+[finer]: Running command [mp4-autograde/test1.sh] with a timeout of 5000ms.
+[finer]: Completed execution of "mp4-autograde/test1.sh" with exit code = 0.
+[warning]: Output [stdout] exceeds 2,000 lines. Will not add to log.
+[finest]: [stderr:1]: Sorted 8334 elements.
+[finest]: [stderr:2]: Sorted 8334 elements.
+[finest]: [stderr:3]: Sorted 8334 elements.
+[finest]: [stderr:4]: Sorted 8330 elements.
+[finest]: [stderr:5]: Sorted 8334 elements.
+[finest]: [stderr:6]: Sorted 8334 elements.
+[finest]: [stderr:7]: Merged 8334 and 8334 elements with 683 duplicates.
+[finest]: [stderr:8]: Merged 8334 and 8334 elements with 652 duplicates.
+[finest]: [stderr:9]: Merged 8334 and 8330 elements with 690 duplicates.
+[finest]: [stderr:10]: Merged 16664 and 0 elements with 0 duplicates.
+[finest]: [stderr:11]: Merged 16668 and 16668 elements with 2567 duplicates.
+[finest]: [stderr:12]: Merged 33336 and 16664 elements with 5026 duplicates.
+[finer]: Testing for string "orted 8334" in process output.
+[finer]: String found in line 1 of standard error.
+[finer]: Testing for string "orted 8330" in process output.
+[finer]: String found in line 4 of standard error.
+[finer]: Testing for string "8334 and 8334" in process output.
+[finer]: String found in line 7 of standard error.
+[finer]: Testing for string "8334 and 8330" in process output.
+[finer]: String found in line 9 of standard error.
+[finer]: Testing for string "690 dup" in process output.
+[finer]: String found in line 9 of standard error.
+[finer]: Testing for string "16668 and 16668" in process output.
+[finer]: String found in line 11 of standard error.
+[finer]: Testing for string "2567 dup" in process output.
+[finer]: String found in line 11 of standard error.
+[finer]: Testing for string "33336 and 16664" in process output.
+[finer]: String found in line 12 of standard error.
+[finer]: Testing for string "5026 dup" in process output.
+[finer]: String found in line 12 of standard error.
+[fine]: Launching memory grader code for "MP4"...
+[finer]: Running command [valgrind mp4-autograde/msort 3] with a timeout of 10000ms.
+[finer]: Writing input line "6
+" to process and then waiting 0ms...
+[finer]: Writing input line "5
+" to process and then waiting 0ms...
+[finer]: Writing input line "4
+" to process and then waiting 0ms...
+[finer]: Writing input line "3
+" to process and then waiting 0ms...
+[finer]: Writing input line "2
+" to process and then waiting 0ms...
+[finer]: Writing input line "1
+" to process and then waiting 0ms...
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: 1
+[finest]: [stdout:2]: 2
+[finest]: [stdout:3]: 3
+[finest]: [stdout:4]: 4
+[finest]: [stdout:5]: 5
+[finest]: [stdout:6]: 6
+[finest]: [stderr:1]: ==7647== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==7647== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==7647== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==7647== Command: mp4-autograde/msort 3
+[finest]: [stderr:5]: ==7647== 
+[finest]: [stderr:6]: Sorted 2 elements.
+[finest]: [stderr:7]: Sorted 2 elements.
+[finest]: [stderr:8]: Sorted 2 elements.
+[finest]: [stderr:9]: Merged 2 and 2 elements with 0 duplicates.
+[finest]: [stderr:10]: Merged 2 and 0 elements with 0 duplicates.
+[finest]: [stderr:11]: Merged 4 and 2 elements with 0 duplicates.
+[finest]: [stderr:12]: ==7647== 
+[finest]: [stderr:13]: ==7647== HEAP SUMMARY:
+[finest]: [stderr:14]: ==7647==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:15]: ==7647==   total heap usage: 21 allocs, 21 frees, 1,288 bytes allocated
+[finest]: [stderr:16]: ==7647== 
+[finest]: [stderr:17]: ==7647== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:18]: ==7647== 
+[finest]: [stderr:19]: ==7647== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:20]: ==7647== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "All heap blocks were freed -- no leaks are possible" in process output.
+[finer]: String found in line 17 of standard error.
+[fine]: Launching memory grader code for "MP4"...
+[finer]: Running command [valgrind mp4-autograde/msort 3] with a timeout of 10000ms.
+[finer]: Writing input line "6
+" to process and then waiting 0ms...
+[finer]: Writing input line "5
+" to process and then waiting 0ms...
+[finer]: Writing input line "4
+" to process and then waiting 0ms...
+[finer]: Writing input line "3
+" to process and then waiting 0ms...
+[finer]: Writing input line "2
+" to process and then waiting 0ms...
+[finer]: Writing input line "1
+" to process and then waiting 0ms...
+[finer]: Completed execution of "valgrind" with exit code = 0.
+[finest]: [stdout:1]: 1
+[finest]: [stdout:2]: 2
+[finest]: [stdout:3]: 3
+[finest]: [stdout:4]: 4
+[finest]: [stdout:5]: 5
+[finest]: [stdout:6]: 6
+[finest]: [stderr:1]: ==7659== Memcheck, a memory error detector
+[finest]: [stderr:2]: ==7659== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+[finest]: [stderr:3]: ==7659== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+[finest]: [stderr:4]: ==7659== Command: mp4-autograde/msort 3
+[finest]: [stderr:5]: ==7659== 
+[finest]: [stderr:6]: Sorted 2 elements.
+[finest]: [stderr:7]: Sorted 2 elements.
+[finest]: [stderr:8]: Sorted 2 elements.
+[finest]: [stderr:9]: Merged 2 and 0 elements with 0 duplicates.
+[finest]: [stderr:10]: Merged 2 and 2 elements with 0 duplicates.
+[finest]: [stderr:11]: Merged 4 and 2 elements with 0 duplicates.
+[finest]: [stderr:12]: ==7659== 
+[finest]: [stderr:13]: ==7659== HEAP SUMMARY:
+[finest]: [stderr:14]: ==7659==     in use at exit: 0 bytes in 0 blocks
+[finest]: [stderr:15]: ==7659==   total heap usage: 21 allocs, 21 frees, 1,288 bytes allocated
+[finest]: [stderr:16]: ==7659== 
+[finest]: [stderr:17]: ==7659== All heap blocks were freed -- no leaks are possible
+[finest]: [stderr:18]: ==7659== 
+[finest]: [stderr:19]: ==7659== For counts of detected and suppressed errors, rerun with: -v
+[finest]: [stderr:20]: ==7659== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+[finer]: Testing for string "ERROR SUMMARY: 0 errors from 0 contexts" in process output.
+[finer]: String found in line 20 of standard error.
+[fine]: The assignment-specific grade() method completed successfully.
+[info]: The submission in "/srv/local/cs241grader/svn/cs241/fa13-cs241/smwalto2" for assignment "mp4" has finished grading. Running final tasks...

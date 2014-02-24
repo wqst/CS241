@@ -1,0 +1,55 @@
+== one() ==
+3^2 + 4^2 = 25
+10^2 + 10^2 = 200
+== two() ==
+You passed!
+== three() ==
+The value of p is: 4
+== four() ==
+The value is between zero and one.
+The value is not between zero and one.
+== five() ==
+x and y are equal.
+x and y are different.
+== six() ==
+4 == 4.000000
+432 == 432.000000
+== seven() ==
+12 is now equal to 12
+20 is now equal to 20
+== eight() ==
+Hello
+== nine() ==
+The value of p is: 12.500000
+== ten() ==
+0 == 0?
+== eleven() ==
+Hello World!
+== twelve() ==
+0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000 
+== thirteen() ==
+0 1 4 9 16 25 36 49 64 81 
+== fourteen() ==
+orange and blue!
+ORANGE and blue!
+Orange and BLUE!
+orange and blue!
+== fifteen() ==
+You passed in the value of one!
+You passed in the value of two!
+You passed in some other value!
+== sixteen() ==
+Hello
+== seventeen() ==
+The radius of the circle is: 17.500000.
+The radius of the circle is: 10.000000.
+== eighteen() ==
+Result: 323
+Result: 2499
+== clear_bits() ==
+170
+0
+171
+0
+20
+0

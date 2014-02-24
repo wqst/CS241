@@ -1,0 +1,95 @@
+<html>
+<head>
+	<title>Discussion Section 4: Mini-Shell</title>
+    
+	<style type="text/css">
+	body { font-family: arial; font-size: 12px; }
+	h2 { font-size: 24px; }
+	h3 { font-size: 22px; }
+	h4 { font-size: 16px; }
+	blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+	tt { color: #000080; }
+	</style>
+</head>
+
+<body>
+	<h1>Discussion Section for September 26th, 2013: Mini-Shell and Fork</h1>
+	<hr />
+
+	<h2>In Discussion Section</h2>
+	<p>
+    Implement a mini-shell that does the following:
+    <ul>
+        <li>prompts the user for input by writing a <tt>$(pid=xxxx): </tt>,</li>
+        <li>reads the user's input by using <tt>getline()</tt> (see man page by running from a terminal <tt>man getline</tt>),</li>
+        <li>exits if the user typed <tt>exit</tt>,</li>
+        <li>changes directory to directory <tt>name</tt> if the user typed <tt>cd name</tt> (see <tt>man chdir</tt>), and</li>
+        <li>runs every other command as a program via <tt>system()</tt></li>
+    </ul>
+	</p>
+
+    <p>
+        You can assume everything will be lower case (eg: <tt>exit</tt> will always be exactly <tt>exit</tt>), all commands will not have any extra whitespace, and all arguments to a command will be seperated by exactly one space.
+    </p>
+
+	<h2>Compiling and Running</h2>
+	<p>To compile and run your shell, run the following commands from a Terminal on a Linux machine:</p>
+	<blockquote>
+	$ make<br>
+    $ ./mshell
+	</blockquote>
+
+
+	<h2>Example</h2>
+	<p>
+        Consider the following example run of your shell:
+	</p>
+
+    <blockquote>
+        $(pid=16341): ls<br />
+        index.html  Makefile  mshell  mshell.c<br />
+        $(pid=16341): pwd<br />
+        /home/chen208/cs241_TA/ds4<br />
+        $(pid=16341): cd ..<br />
+        $(pid=16341): ls<br />
+        ds4  ds4.zip  mp0-rel  mp1  mp1_sol  mp1_sol.tar  mp1.tar  mp1.zip<br />
+        $(pid=16341): pwd<br />
+        /home/chen208/cs241_TA<br />
+        $(pid=16341): echo hello world CS241<br />
+        hello world CS241<br />
+        $(pid=16341): exit<br />
+    </blockquote>
+    
+    <h2>Extra: Fork_fan and Fork_chain</h2>
+	<p>
+    Your task is to create a fork_fan and a fork_chain using the fork() call, this is to give you a better understanding of how fork works.
+	</p>
+    
+    <h2>Fork_fan</h2>
+    <p>Suppose you have created a fork fan of size 5, this means that your program should have one parent process, and this parent process should create four child processes. In order to check the correctness, you can have your child process sleep for some short time(10 seconds) while you are checking. After 10 seconds, your program should exit gracefully. You can check that your program created a fan correctly by using <tt>ps</tt> while the child is sleeping. See the following example: </p>
+    <blockquote>
+        ps -ef|grep mshell<br />
+        chen208  11709 12029  0 22:18 pts/10   00:00:00 ./mshell<br />
+        chen208  11710 11709  0 22:18 pts/10   00:00:00 ./mshell<br />
+        chen208  11711 11709  0 22:18 pts/10   00:00:00 ./mshell<br />
+        chen208  11712 11709  0 22:18 pts/10   00:00:00 ./mshell<br />
+        chen208  11713 11709  0 22:18 pts/10   00:00:00 ./mshell<br />
+        chen208  11718  2042  0 22:18 pts/32   00:00:00 grep mshell
+    </blockquote>
+    <p> The second and third field represents each process's' pid and its parent's pid. In the above example, process <tt>11709</tt> is the parent process, and processes <tt>11710, 11711, 11712, 11713</tt> are its children.</p>
+
+    <h2>Fork_chain</h2>
+    <p>Suppose you have created a fork chain of size 5, this means that your program should have five processes chained together. In order to check the correctness, you can have your child process sleep for some short time(10 seconds) while you are checking. After 10 seconds, your program should exit gracefully. You can check that your program created a fan correctly by using <tt>ps</tt> while the child is sleeping. See the following example: </p>
+    <blockquote>
+        ps -ef|grep mshell<br />
+        chen208  15499 12029  0 22:28 pts/10   00:00:00 ./mshell<br />
+        chen208  15500 15499  0 22:28 pts/10   00:00:00 ./mshell<br />
+        chen208  15501 15500  0 22:28 pts/10   00:00:00 ./mshell<br />
+        chen208  15502 15501  0 22:28 pts/10   00:00:00 ./mshell<br />
+        chen208  15503 15502  0 22:28 pts/10   00:00:00 ./mshell<br />
+        chen208  15506  2042  0 22:28 pts/32   00:00:00 grep mshell
+    </blockquote>
+    <p> The second and third field represents each process's pid and its parent's pid. In the above example, process <tt>15499</tt> is the root of the chain, it is the parent of process <tt>15500</tt>. Process <tt>15500</tt> is the parent of process <tt>15501</tt>. Process <tt>15501</tt> is the parent of process <tt>15502</tt>. Process <tt>15502</tt> is the parent of process <tt>15503</tt>. Thus forming a chain. </p>
+    
+</body>
+</html>

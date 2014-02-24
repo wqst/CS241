@@ -1,0 +1,320 @@
+<html>
+<head>
+    <title>CS 241</title>
+    <style type="text/css">
+
+    body, table { font-family: arial; font-size: 12px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+    blockquote { border: dashed 1px black; padding: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+    tt { color: #000080; }
+    
+    table { width: 100%; text-align: center; }
+    table tr td { border: solid 1px black; background-color: #eeeeee; }
+    
+    </style>
+</head>
+<body>
+	<h3>Due: Monday, December 9, 2013, 11:59pm</h3>
+	<hr />
+	
+	<h2>Purpose</h2>
+	<p>
+		For the last MP, you will implement a simple HTTP web server - an
+		application that almost
+		every company in the world runs. The
+		web server should be able to respond to any page request, given that the
+		requested page is stored locally (i.e., on the same system in which the
+		server is running). You can use any web browser (such as Firefox ) as a
+		client for your HTTP web server.
+	</p>
+	<p>
+		In this MP, you will create a program that:
+	</p>
+
+
+	<ol>
+		<li>accepts connections from web browsers</li>
+		<li>reads in the packets that the browsers send</li>
+		<li>prepares and sends back a response for the web browser from a local file</li>
+	</ol>
+
+
+	<p>
+		Since the web browser can only understand HTTP packets, you 
+		need to understand the basics of how HTTP works. When a web 
+		browser requests a page, it sends an HTTP request to the web server. 
+		The HTTP request has the following format:
+	</p>
+
+	<blockquote>GET /index.html HTTP/1.1 <br />
+		User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0<br />
+		Accept: */*<br />
+		Connection: Keep-Alive
+	</blockquote>
+
+	<p>
+		This HTTP packet notifies the web server of what file the web 
+		browser has requested. The web server will then serve the file to the web
+		browser, which it will display on the requestor's screen.
+	</p>
+
+	<p>
+        You should only modify a single file to complete this MP: <tt>server.c</tt>.  However, we have provided you with
+        a <a href="libdictionary_8c.html">dictionary</a> and <a href="queue_8c.html">queue</a> library that you have
+        used in previous MPs.
+	</p>
+
+    <p>
+        You will always supply the port number when running your program.  Since ports are shared globally on each system, it's important
+        to choose a port number that someone else probably won't be using.  Therefore, port numbers like 1234, 1111, or 777 are generally
+        a bad idea since multiple people may choose to use the same port number.  Your program should be ran by using a command like the following
+        (with a unique port number, of course):
+        <blockquote>
+            ./server 1979
+        </blockquote>
+    </p>
+
+    <p>
+        Instead of interacting with the command line, you will use a web brwoser to connect to your MP.  Instructions to do this is at the bottom
+        of this page.
+    </p>
+
+
+	<h2>Tasks</h2>
+	<h4>Task 1:</h4>
+    <p>
+        Create a socket to listen for incoming TCP connections based on the port specified by the command line.  Make certain to check for an error
+        in the call of <tt>bind()</tt>, as this call will fail if someone is using the same port as you.  You should use a backlog of 10.
+    </p>
+    <p>
+        Keep in mind that when you Ctrl+C your program, you'll find that you won't free your port for up to a minute. This means that you may need to change the
+        port number if you're restarting your server right after terminating it.
+    </p>
+
+    <p>
+        System calls: <tt>socket()</tt>, <tt>bind()</tt>, <tt>listen()</tt>
+    </p>
+
+
+    <h4>Task 2:</h4>
+    <p>
+        Continuously accept incoming connections, launching a new thread for each connection.
+    </p>
+
+    <p>
+        System calls: <tt>accept()</tt>, <tt>pthread_create()</tt>
+    </p>
+
+
+    <h4>Task 3a:</h4>
+    <p>
+        In the worker thread for each of the connections, read the entire HTTP request header.  An HTTP request header ends with the
+        four characters <tt>\r\n\r\n</tt>.  For example, the entire sample request header from a Firefox web browser is:
+        <blockquote>
+        GET / HTTP/1.1\r\n<br />
+        Host: google.com\r\n<br />
+        Connection: close\r\n<br />
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0\r\n<br />
+        Accept-Encoding: gzip\r\n<br />
+        Accept-Charset: ISO-8859-1,UTF-8;q=0.7,*;q=0.7\r\n<br />
+        Cache-Control: no-cache\r\n<br />
+        Accept-Language: de,en;q=0.7,en-us;q=0.3\r\n<br />
+        \r\n
+        </blockquote>
+
+        You should <b>NOT</b> assume that the entire header will be
+        read in one call to <tt>recv()</tt>.  You need to
+        keep <tt>recv()</tt>'ing on the buffer until you
+        reach <tt>\r\n\r\n</tt>.  For small requests, one call will be
+        enough; for large requests, it will take multiple calls.
+
+	To perform this step, you may want to implement your own
+	parsing algorithm or use the provided <tt>libhttp</tt> library
+	detailed <a href="libhttp_8c.html">here</a>.
+    </p>
+
+    <p>
+        System call: <tt>recv()</tt>
+    </p>
+
+
+    <h4>Task 3b:</h4>
+    <p>
+        Parse the HTTP request header line-by-line.  The first line of
+        the HTTP request header, often called the &quot;request
+        line&quot;, should be passed into the helper function we
+        provide to you, <tt>process_http_header_request()</tt>.  All
+        other lines should be stored in an accessible way (maybe
+        the <a href="libhttp_8c.html">libhttp</a> or
+        the <a href="libdictionary_8c.html">dictionary</a> will be
+        helpful?).
+    </p>
+
+
+    <h4>Task 3c:</h4>
+    <p>
+        Prepare the HTTP response.  This may be one of three things:
+        <ul>
+            <li>A successful page request (status code: 200), where the file that was requested is available on your machine and is sent back to the web browser.</li>
+            <li>A file not found error (status code: 404), where the requested file was not found.</li>
+            <li>A request that your server can't handle (status code: 501).</li>
+        </ul>
+
+        If <tt>process_http_header_request()</tt> returns NULL, you should return a 501 response.  If <tt>process_http_header_request()</tt> returns a non-NULL pointer,
+        it is the name of the file requested by the user.  <b>Note that you should not open that file directly.</b>
+    </p>
+
+    <p>
+        If the file is exactly <tt>/</tt>, it should be processed as <tt>/index.html</tt>.
+        When accessing any file that is requested by the user, you should load the file inside the <tt>"web"</tt> directory of your current folder.  That is, a request
+        to <tt>/myfile.html</tt> should result in an <tt>fopen()</tt> call <tt>web/myfile.html</tt>.
+    </p>
+
+    <p>
+        If the file that is requested does not exist on disk, you should return a 404 response.  For 404 and 501 responses, we have prepared the entire response body text
+        for you in the variables <tt>HTTP_404_CONTENT</tt> and <tt>HTTP_501_CONTENT</tt>.  If the file that is requested does exist on disk, the response body text will
+        be the entire contents of the file.
+    </p>
+
+
+    <h4>Task 3d:</h4>
+    <p>
+        Determine the content-type of the response.  For 404 and 501 requests, the content type will always be <tt>text/html</tt>.  For 200 requests, you need to examine the file
+        name.  Using the following list as a reference:
+        <ul>
+            <li>If the file ends with <tt>.html</tt>, the content type is <tt>text/html</tt></li>
+            <li>If the file ends with <tt>.css</tt>, the content type is <tt>text/css</tt></li>
+            <li>If the file ends with <tt>.jpg</tt>, the content type is <tt>image/jpeg</tt></li>
+            <li>If the file ends with <tt>.png</tt>, the content type is <tt>image/png</tt></li>
+            <li>Otherwise, the content type is <tt>text/plain</tt></li>
+        </ul>
+    </p>
+    
+
+    <h4>Task 3e:</h4>
+    <p>
+        Send an HTTP response back to the user.  Your response must include a &quot;response line&quot;, the headers <tt>Content-Type</tt>, <tt>Content-Length</tt>, and
+        <tt>Connection</tt> header, and the content itself.
+    </p>
+
+    <p>
+        The response line must be of the format <tt>HTTP/1.1 200 OK</tt>.  This can be done with:
+        <blockquote>sprintf(..., "HTTP/1.1 %d %s", response_code, response_code_string);</blockquote>
+
+        The <tt>response_code</tt> variable is set by you in Task 3c.  The <tt>response_code_string</tt> should be either the global variable <tt>HTTP_200_STRING</tt>, <tt>HTTP_404_STRING</tt>,
+        or <tt>HTTP_501_STRING</tt> depending on your response code (you will notice we provide these for you at the top of <tt>server.c</tt>).
+    </p>
+
+    <p>
+        The header <tt>Content-Type</tt> must match what is set in Task 3d.  The <tt>Content-Length</tt> must be the length of the content you will be sending (either the string we provide for
+        you in 404 and 501 cases, or the length of the file, e.g. 200 B).  Finally, if the request packet contains a <tt>Connection</tt> (case sensitive) header and if the <tt>Connection</tt> header matches
+        <tt>Keep-Alive</tt> (case insensitive, use <tt>strcasecmp()</tt> instead of <tt>strcmp()</tt>), you must contain a <tt>Connection: Keep-Alive</tt> line in your response header.  If the
+        request packet does not contain <tt>Connection: Keep-Alive</tt> (either because <tt>Connection</tt> is not in the request or because the value is not <tt>Keep-Alive</tt>), you must contain
+        a <tt>Connection: close</tt> line in your response header.
+    </p>
+
+    <p>
+        Just like the request, every line in the HTTP header must be separated by <tt>\r\n</tt> and the last line must contain an empty line.  After the empty line to end the header, the content of the
+        packet should be added.
+    </p>
+
+    <p>
+        Therefore, if the file that is requested contains the string "Hello World!", is an HTML file, and you're running on a "Keep-Alive" connection, your response needs to be:
+        <blockquote>
+        HTTP/1.1 200 OK\r\n<br />
+        Content-Type: text/html\r\n<br />
+        Content-Length: 12\r\n<br />
+        Connection: Keep-Alive\r\n<br />
+        \r\n<br />
+        Hello World!
+        </blockquote>
+    </p>
+
+    <p>
+        System call: <tt>send()</tt>
+    </p>
+
+
+    <h4>Task 3f:</h4>
+    <p>
+        Finally,  if the connection is to be kept alive (see Task 3e), you should begin to <tt>recv()</tt> again by repeating 3a-3f.  If the connection is closed, you should close
+        the socket and exit the thread.
+    </p>
+
+
+    <h4>Task 4:</h4>
+    <p>
+        Catch the SIGINT signal (<tt>Ctrl+C</tt> on the keyboard).  Upon catching a SIGINT signal, you should <tt>close()</tt> any open sockets, free all the memory in use, and exit
+        from the server.  (<i>If your SIGINT handler is broken and you can't exit your program, you can use Ctrl+\ to send a SIGQUIT.  A SIGQUIT will terminate your program.</i>)
+    </p>
+
+    <p>
+        System call: <tt>signal()</tt> or <tt>sigaction()</tt>, <tt>close()</tt>
+    </p>
+
+
+	<h2>Compiling And Running</h2>
+
+	<h4>Running the web server:</h4>
+	<p>
+		To run your program, run the following commands:
+		<blockquote>
+			%&gt; make<br />
+			%&gt; ./server &lt;port#&gt;         ...where &lt;port#&gt; is a port number. <br />
+		 </blockquote>
+	 </p>
+	 <p>
+		<span style="color: red;">Note:  <br />
+		1. When choosing your &lt;port#&gt;, choose a number above 1023
+		and below 60000. Making your number random (eg: not 1234, 2000, etc)
+		will help avoid choosing a port used by another user.  <br />
+		2. Since ports are
+		shared globally, your <tt>bind()</tt> call will fail if someone else is already
+		using your port. If this happens, wait a few seconds and then try again. If bind still fails, choose a new port.</span>
+	</p>
+
+	<h4>Running the client:</h4>
+	<p>
+		There are three ways to run the client (i.e., the web browser).
+	</p>
+	<ul>
+		<li>
+			<b>Option 1:</b> If you're VPN'd into campus or if you're on a campus computer, you will
+			now be able to open up Firefox (or any web browser) and go to the
+			following address:   <br />
+			<tt>http://linux#.ews.illinois.edu:&lt;port#&gt;/</tt><br />
+			... where &lt;port#&gt; should be replaced by the port number you used
+			to run your web server program and linux# should be replaced by the linux
+            machine you're currently on (<tt>linux-v1</tt>, <tt>linux-v2</tt>, etc...)
+		 </li><br />
+		 
+		<li>
+			<b>Option 2:</b> When you run the web server and the browser on the same
+			machine, you can simply use: <br />
+			<tt>http://localhost:&lt;port#&gt;/</tt><br />
+			 If you see a webpage, your program successfully served an HTTP request!
+			We will not be grading anything on the command line output, so feel
+			free to use stdout and stderr for any debugging or status messages
+			you'd like.
+		</li><br />
+		<li>
+			<b>Option 3:</b> If nothing seems to be working, you may find the Linux command-line
+			'web browser' useful. This 'web browser', wget, allows you to get
+			useful command line output right there in a terminal (and avoids any
+			VPN issues). To run wget, use: <br />
+			<blockquote>wget -d http://linux#.ews.illinois.edu:&lt;port#&gt;/</blockquote>
+			 <br />
+		 </li>
+	</ul>
+	<p>
+		We have populated your web/ folder with few html files. Use these
+		files as well as any other test file you'd like to use to verify your
+		webserver.
+	</p>
+
+
+</body>
+</html>

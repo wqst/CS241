@@ -1,0 +1,323 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CS 241: Parmake</title>
+
+    <style type="text/css">
+    body { font-family: arial; font-size: 12px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 16px; }
+
+    blockquote { border: dashed 1px black; padding: 3px; display:
+    block; background-color: #dddddd; font-family: courier; color:
+    #000080;}
+
+    tt { color: #000080; }
+        .style1
+        {
+            background-color: #FFFFCC;
+        }
+    </style>
+</head>
+<body>
+	<h3>Due: Monday, Apr. 1, 2013 at 11:59pm</h3>
+<h2>Introduction</h2>
+
+<p>
+	More and more programs today are being programmed as
+	multithreaded applications.  The goal of this MP is to give
+	you more practice writing multithreaded applications and to
+	expose common pitfalls that occur while designing a program to
+	work in a parallel manner. Additionally, you will need to make
+	use of synchronization primitives to protect memory shared
+	amongst the threads.
+</p>
+<p>
+	You are tasked with writing an application which will imitate
+	the common make utility.  We have provided a parse function
+	which will list dependencies and commands to run for different
+	target values.  You will need to use this parse function to
+	store the work that needs to be done.  Then using a fixed pool
+	of threads, you will make sure that all commands are executed
+	after their dependencies.  When there is less work to be done
+	than there are threads, the remaining idle threads should
+	sleep.
+</p>
+<p>
+	Before starting you should read
+	the <a href="http://en.wikipedia.org/wiki/Make_(software)">Wikipedia
+	article on Make</a>.
+</p>
+
+<h2>TASKS</h2>
+<h4>[Part 1]</h4> The first thing you will need to do is to parse the
+	given command-line options.  All handling of options should be
+	done
+	using <tt><a href="http://linux.die.net/man/3/getopt">getopt()</a></tt>.
+	This function will allow you to specify which options are
+	valid and which require arguments.  The usage for parmake
+	looks like:
+	<blockquote>
+	parmake [ -f makefile ] [ -j threads ] [ targets ]
+	</blockquote>
+	If a makefile is not specified, <tt>./makefile</tt>
+	or <tt>./Makefile</tt> should be used in that order, if they
+	exist
+	(see <tt><a href="http://linux.die.net/man/2/access">access()</a></tt>). Return
+	a non-zero value if neither of these files exist. If the
+	number of worker threads -j is not specified, the default
+	value of 1 should be used.  The j worker threads are in
+	addition to the one main thread.  The space seperated list of
+	targets will always come last and is optional. You will need
+	to save any targets given for use in Part 2. The man page
+	for <tt><a href="http://linux.die.net/man/3/getopt">getopt()</a></tt>
+	shows an example of how to locate the position of targets
+	within argc.
+
+<h4>[Part 2]</h4>
+<p>
+	Next, the main thread should parse the makefile.  The makefile
+	will always consist of one or more rules of the form:
+	<blockquote>
+		target [target ...]: [dependency ...]<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;[command 1]<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;[command n]<br />
+	</blockquote>
+	For example:
+	<blockquote>
+	rule1: rule2 rule3<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;commandtoberun withargs<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;commandtoberun2 withargs<br />
+	rule2:<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;othercommand <br />
+	rule3 rule4:<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;finalcommand <br />
+	</blockquote>
+	If you are unfamiliar with the syntax do not be afraid.  We
+	have provided you with a parsing
+	function, <a href="parser_8h.html">parser_parse_makefile()</a>.
+</p>
+<p>
+	When invoking the parser you will have to provide "call-back"
+	functions and the list of targets from Part 1.  This means you
+	will have to pass function pointers of the type defined in
+	parser.h.  These callback functions will be called
+	from <tt>parser_parse_makefile()</tt> providing you with the
+	parsed strings.  For dependencies and commands, the target to
+	which the dependency or command belongs is also passed back.
+</p>
+<p>
+	The list of targets should be a NULL-terminated array of
+	strings similar to that of argv.  The targets are used by the
+	parser to select the correct rules (for example 'make clean'
+	only runs the clean target).  If no targets are given on the
+	command line, the list of targets will only include the
+	terminating NULL pointer.  Those curious of the implementation
+	can view the source in parser.c although this is not necessary
+	for a functioning MP.
+</p>
+<p> We have provided an implementation of a queue for you to store
+	rules.  It can be viewed
+	in <a href="queue_8h.html">queue.h</a>.
+</p>
+<h4>[Part 3]</h4>
+<p>
+    Once all the rules have been parsed, you will want to decide what
+    rules should run.  There are a few simple rules to follow:
+</p>
+<ul>
+    <li>A rule cannot be run unless all of its dependencies have been
+    met.</li>
+    <li>Every dependency is either the name of another rule or a name
+    of a file on disk.</li>
+
+    <li>
+        If the dependency is the name of a rule:
+        <ul>
+            <li>The rule that the dependency depends on must be ran
+            first.</li>
+            <li>Only once the dependency that the rule depends on
+            finishes running all of its commands should a dependency
+            be considered met.</li>
+            <li>If the rule has no dependencies, it's ready to be
+            ran.</li>
+        </ul>
+    </li>
+
+    <li>
+        If the dependency is <b>NOT a rule</b>, then it MUST be a file
+        on disk. <i>(We will not test cases where this is not
+        true.)</i>  In this case:
+        <ul>
+            <li>
+                If <b>EVERY</b> dependency for a rule are names of
+                files on disk (that is, none of them are names of
+                other rules):
+                <ul>
+                    <li>If the name of the rule does not exist as a
+                    file on disk
+                    (using <tt><a href="http://linux.die.net/man/2/access">access()</a></tt>): <span style="color:
+                    darkgreen;"><b>RUN</b></span> the rule.</li>
+                    <li>
+                        If the name of the rule does exist as a file
+                        on disk:
+                        <ul>
+                            <li>Check the modification time of the
+                            rule file
+                            (using <tt><a href="http://linux.die.net/man/3/stat">stat()</a></tt>).</li>
+                            <li>Check the modification times of all
+                            the dependency files.</li>
+                            <li>
+                                If the modification time of the rule
+                                file is NEWER (more recent) than the
+                                modification time of ALL the
+                                dependencies, <span style="color:
+                                darkred;"><b>DO NOT RUN</b></span> run
+                                the rule.  If this rule was a
+                                dependency to another rule, you should
+                                consider this dependency met (even
+                                though you ran nothing).
+                            </li>
+                            <li>If ANY dependency has a newer
+                            modification time, <span style="color:
+                            darkgreen;"><b>RUN</b></span> the
+                            rule.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                If any of the dependencies are rules (even if some are
+                only files on disk): <span style="color:
+                darkgreen;"><b>RUN</b></span> the rule.
+            </li>
+        </ul>
+    </li>
+    <li>
+        To run a rule:
+        <ul>
+            <li>Run each command in the order they were listed in the
+            makefile. (You should
+            use <tt><a href="http://linux.die.net/man/3/system">system()</a></tt>
+            for this; you can choose to <tt>printf()</tt> what you're
+            about to run but it isn't necessary.)</li>
+            <li>
+                Check the return value after each command finishes.
+                If the return value was zero (success), continue
+                running.  If the return value was non-zero (failure),
+                exit your entire program with a return value of 1.
+                <ul>
+                    <li>If you exit due to a failed command, it is not
+                    necessary to free all your memory.</li>
+                </ul>
+            </li>
+            <li>
+                Once all commands have ran for a rule, this rule is
+                completed.  If it was a dependency to another rule,
+                this dependency has been met (which may cause other
+                rules to be able to run).
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<p>For your convenience these rules are captured in the following flow chart:</p>
+<img src="flow.png"/>
+
+
+<h4>[Part 4]</h4>
+
+	<p>
+	The number of threads running rules is given as the
+	command-line option -j.  Each worker thread will be in charge
+	of processing rules.  This consists of determining whether its
+	dependencies have been fulfilled and then executing any
+	associated commands.  There are several important concurrency
+	requirements:
+	</p>
+	<ul>
+		<li>You should NOT make any rule unless its
+		dependencies have been met (all dependent rules have
+		been run, see the previous section)</li>
+
+		<li>If there exists <tt>J</tt> rules with all
+		dependencies met and <tt>T</tt> threads
+		where <tt>J&gt;=T</tt>, NO threads should be
+		sleeping</li>
+
+		<li>If there exists <tt>J</tt> rules with all
+		dependencies met and <tt>T</tt> threads
+		where <tt>J&lt;T</tt>, <tt>T-J</tt> threads should be
+		sleeping</li>
+	</ul>
+<p>
+    <i>...that is, every thread should be as busy as possible
+    processing rules if there is work to be done.</i>
+</p>
+
+<h2>NOTES</h2>
+<ul>
+	<li><p> You can assume all makefiles will be in valid Makefile
+		style syntax as described previously as well as have
+		no circular dependencies.
+		</p>
+	</li>
+	<li><p> Reordering rules that may be run at the same time to
+		achieve global optimal efficiency is not required.
+		The dependency graph might have natural choke points
+		where one task limits all the others.
+		</p>
+	</li>
+	<li><p> You will receive 0 points if your implementation
+		uses <tt>sleep()</tt> or busy waiting.
+	</p></li>
+	<li><p> You must only ever launch <tt>T</tt> threads.  Do not
+		keep re-spawning new threads for every rule.
+	</p></li>
+</ul>
+
+
+<h2>TEST FILES</h2>
+<p>
+    We have provided you with six test files for you.  You can find
+    the expected output by running them with GNU &quot;make&quot;,
+    which follows the same rules as your program.  If you choose not
+    to <tt>printf()</tt> the commands you are going to run, your
+    output will match <tt>make -s</tt>.
+</p>
+
+
+
+<h2>COMPILING AND RUNNING</h2>
+
+<p>To compile, run the following commands from a command prompt on
+a Linux machine:</p>
+
+<blockquote>
+   %&gt; make clean <br />
+   %&gt; make
+</blockquote>
+
+<p>To run the executable,</p>
+<blockquote>
+	%&gt; ./parmake [ -f makefile ] [ -j threads] [ targets ]
+</blockquote>
+
+<p>For example:</p>
+<blockquote>
+	%&gt; ./parmake -f testfile4 -j 2
+</blockquote>
+
+<p>This should generate the same output as:</p>
+<blockquote>
+	%&gt; make -f testfile4 -j 2<br />
+    &nbsp;=== OR ===<br />
+	%&gt; make -s -f testfile4 -j 2
+</blockquote>
+
+
+</body>
+</html>

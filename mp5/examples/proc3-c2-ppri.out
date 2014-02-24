@@ -1,0 +1,685 @@
+Loaded 2 core(s) and 18 job(s) using Preemptive Priority (PPRI) scheduling...
+
+=== [TIME 0] ===
+A new job, job 0 (running time=3, priority=2), arrived. Job 0 is now running on core 0.
+  Queue: 0(0) 
+
+At the end of time unit 0...
+  Core  0: 0
+  Core  1: -
+
+  Queue: 0(0) 
+
+=== [TIME 1] ===
+A new job, job 1 (running time=20, priority=3), arrived. Job 1 is now running on core 1.
+  Queue: 0(0) 1(1) 
+
+At the end of time unit 1...
+  Core  0: 00
+  Core  1: -1
+
+  Queue: 0(0) 1(1) 
+
+=== [TIME 2] ===
+A new job, job 2 (running time=5, priority=1), arrived. Job 2 is now running on core 1.
+  Queue: 2(1) 0(0) 1(-1) 
+
+At the end of time unit 2...
+  Core  0: 000
+  Core  1: -12
+
+  Queue: 2(1) 0(0) 1(-1) 
+
+=== [TIME 3] ===
+Job 0, running on core 0, finished. Core 0 is now running job 1.
+  Queue: 2(1) 1(0) 
+
+A new job, job 3 (running time=2, priority=4), arrived. Job 3 is set to idle (-1).
+  Queue: 2(1) 1(0) 3(-1) 
+
+At the end of time unit 3...
+  Core  0: 0001
+  Core  1: -122
+
+  Queue: 2(1) 1(0) 3(-1) 
+
+=== [TIME 4] ===
+A new job, job 4 (running time=4, priority=5), arrived. Job 4 is set to idle (-1).
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+At the end of time unit 4...
+  Core  0: 00011
+  Core  1: -1222
+
+  Queue: 2(1) 1(0) 3(-1) 4(-1) 
+
+=== [TIME 5] ===
+A new job, job 5 (running time=8, priority=3), arrived. Job 5 is set to idle (-1).
+  Queue: 2(1) 1(0) 5(-1) 3(-1) 4(-1) 
+
+At the end of time unit 5...
+  Core  0: 000111
+  Core  1: -12222
+
+  Queue: 2(1) 1(0) 5(-1) 3(-1) 4(-1) 
+
+=== [TIME 6] ===
+A new job, job 6 (running time=11, priority=2), arrived. Job 6 is now running on core 0.
+  Queue: 2(1) 6(0) 1(-1) 5(-1) 3(-1) 4(-1) 
+
+At the end of time unit 6...
+  Core  0: 0001116
+  Core  1: -122222
+
+  Queue: 2(1) 6(0) 1(-1) 5(-1) 3(-1) 4(-1) 
+
+=== [TIME 7] ===
+Job 2, running on core 1, finished. Core 1 is now running job 1.
+  Queue: 6(0) 1(1) 5(-1) 3(-1) 4(-1) 
+
+A new job, job 7 (running time=3, priority=4), arrived. Job 7 is set to idle (-1).
+  Queue: 6(0) 1(1) 5(-1) 3(-1) 7(-1) 4(-1) 
+
+At the end of time unit 7...
+  Core  0: 00011166
+  Core  1: -1222221
+
+  Queue: 6(0) 1(1) 5(-1) 3(-1) 7(-1) 4(-1) 
+
+=== [TIME 8] ===
+A new job, job 8 (running time=15, priority=1), arrived. Job 8 is now running on core 1.
+  Queue: 8(1) 6(0) 1(-1) 5(-1) 3(-1) 7(-1) 4(-1) 
+
+At the end of time unit 8...
+  Core  0: 000111666
+  Core  1: -12222218
+
+  Queue: 8(1) 6(0) 1(-1) 5(-1) 3(-1) 7(-1) 4(-1) 
+
+=== [TIME 9] ===
+A new job, job 9 (running time=9, priority=4), arrived. Job 9 is set to idle (-1).
+  Queue: 8(1) 6(0) 1(-1) 5(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+At the end of time unit 9...
+  Core  0: 0001116666
+  Core  1: -122222188
+
+  Queue: 8(1) 6(0) 1(-1) 5(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+=== [TIME 10] ===
+A new job, job 10 (running time=12, priority=2), arrived. Job 10 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 1(-1) 5(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+At the end of time unit 10...
+  Core  0: 00011166666
+  Core  1: -1222221888
+
+  Queue: 8(1) 6(0) 10(-1) 1(-1) 5(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+=== [TIME 11] ===
+A new job, job 11 (running time=9, priority=3), arrived. Job 11 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+At the end of time unit 11...
+  Core  0: 000111666666
+  Core  1: -12222218888
+
+  Queue: 8(1) 6(0) 10(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+=== [TIME 12] ===
+A new job, job 12 (running time=14, priority=2), arrived. Job 12 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+At the end of time unit 12...
+  Core  0: 0001116666666
+  Core  1: -122222188888
+
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 
+
+=== [TIME 13] ===
+A new job, job 13 (running time=2, priority=5), arrived. Job 13 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+At the end of time unit 13...
+  Core  0: 00011166666666
+  Core  1: -1222221888888
+
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+=== [TIME 14] ===
+A new job, job 14 (running time=7, priority=3), arrived. Job 14 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+At the end of time unit 14...
+  Core  0: 000111666666666
+  Core  1: -12222218888888
+
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+=== [TIME 15] ===
+A new job, job 15 (running time=12, priority=2), arrived. Job 15 is set to idle (-1).
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+At the end of time unit 15...
+  Core  0: 0001116666666666
+  Core  1: -122222188888888
+
+  Queue: 8(1) 6(0) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+=== [TIME 16] ===
+A new job, job 16 (running time=15, priority=1), arrived. Job 16 is now running on core 0.
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+At the end of time unit 16...
+  Core  0: 0001116666666666g
+  Core  1: -1222221888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 4(-1) 13(-1) 
+
+=== [TIME 17] ===
+A new job, job 17 (running time=9, priority=4), arrived. Job 17 is set to idle (-1).
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 17...
+  Core  0: 0001116666666666gg
+  Core  1: -12222218888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 18] ===
+At the end of time unit 18...
+  Core  0: 0001116666666666ggg
+  Core  1: -122222188888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 19] ===
+At the end of time unit 19...
+  Core  0: 0001116666666666gggg
+  Core  1: -1222221888888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 20] ===
+At the end of time unit 20...
+  Core  0: 0001116666666666ggggg
+  Core  1: -12222218888888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 21] ===
+At the end of time unit 21...
+  Core  0: 0001116666666666gggggg
+  Core  1: -122222188888888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 22] ===
+At the end of time unit 22...
+  Core  0: 0001116666666666ggggggg
+  Core  1: -1222221888888888888888
+
+  Queue: 8(1) 16(0) 6(-1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 23] ===
+Job 8, running on core 1, finished. Core 1 is now running job 6.
+  Queue: 16(0) 6(1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 23...
+  Core  0: 0001116666666666gggggggg
+  Core  1: -12222218888888888888886
+
+  Queue: 16(0) 6(1) 10(-1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 24] ===
+Job 6, running on core 1, finished. Core 1 is now running job 10.
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 24...
+  Core  0: 0001116666666666ggggggggg
+  Core  1: -12222218888888888888886a
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 25] ===
+At the end of time unit 25...
+  Core  0: 0001116666666666gggggggggg
+  Core  1: -12222218888888888888886aa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 26] ===
+At the end of time unit 26...
+  Core  0: 0001116666666666ggggggggggg
+  Core  1: -12222218888888888888886aaa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 27] ===
+At the end of time unit 27...
+  Core  0: 0001116666666666gggggggggggg
+  Core  1: -12222218888888888888886aaaa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 28] ===
+At the end of time unit 28...
+  Core  0: 0001116666666666ggggggggggggg
+  Core  1: -12222218888888888888886aaaaa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 29] ===
+At the end of time unit 29...
+  Core  0: 0001116666666666gggggggggggggg
+  Core  1: -12222218888888888888886aaaaaa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 30] ===
+At the end of time unit 30...
+  Core  0: 0001116666666666ggggggggggggggg
+  Core  1: -12222218888888888888886aaaaaaa
+
+  Queue: 16(0) 10(1) 12(-1) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 31] ===
+Job 16, running on core 0, finished. Core 0 is now running job 12.
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 31...
+  Core  0: 0001116666666666gggggggggggggggc
+  Core  1: -12222218888888888888886aaaaaaaa
+
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 32] ===
+At the end of time unit 32...
+  Core  0: 0001116666666666gggggggggggggggcc
+  Core  1: -12222218888888888888886aaaaaaaaa
+
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 33] ===
+At the end of time unit 33...
+  Core  0: 0001116666666666gggggggggggggggccc
+  Core  1: -12222218888888888888886aaaaaaaaaa
+
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 34] ===
+At the end of time unit 34...
+  Core  0: 0001116666666666gggggggggggggggcccc
+  Core  1: -12222218888888888888886aaaaaaaaaaa
+
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 35] ===
+At the end of time unit 35...
+  Core  0: 0001116666666666gggggggggggggggccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaa
+
+  Queue: 10(1) 12(0) 15(-1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 36] ===
+Job 10, running on core 1, finished. Core 1 is now running job 15.
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 36...
+  Core  0: 0001116666666666gggggggggggggggcccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaaf
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 37] ===
+At the end of time unit 37...
+  Core  0: 0001116666666666gggggggggggggggccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaaff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 38] ===
+At the end of time unit 38...
+  Core  0: 0001116666666666gggggggggggggggcccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaafff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 39] ===
+At the end of time unit 39...
+  Core  0: 0001116666666666gggggggggggggggccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 40] ===
+At the end of time unit 40...
+  Core  0: 0001116666666666gggggggggggggggcccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaafffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 41] ===
+At the end of time unit 41...
+  Core  0: 0001116666666666gggggggggggggggccccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 42] ===
+At the end of time unit 42...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaafffffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 43] ===
+At the end of time unit 43...
+  Core  0: 0001116666666666gggggggggggggggccccccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 44] ===
+At the end of time unit 44...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc
+  Core  1: -12222218888888888888886aaaaaaaaaaaafffffffff
+
+  Queue: 12(0) 15(1) 1(-1) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 45] ===
+Job 12, running on core 0, finished. Core 0 is now running job 1.
+  Queue: 15(1) 1(0) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 45...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc1
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffff
+
+  Queue: 15(1) 1(0) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 46] ===
+At the end of time unit 46...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc11
+  Core  1: -12222218888888888888886aaaaaaaaaaaafffffffffff
+
+  Queue: 15(1) 1(0) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 47] ===
+At the end of time unit 47...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff
+
+  Queue: 15(1) 1(0) 5(-1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 48] ===
+Job 15, running on core 1, finished. Core 1 is now running job 5.
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 48...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc1111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff5
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 49] ===
+At the end of time unit 49...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc11111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 50] ===
+At the end of time unit 50...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 51] ===
+At the end of time unit 51...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc1111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff5555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 52] ===
+At the end of time unit 52...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc11111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 53] ===
+At the end of time unit 53...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff555555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 54] ===
+At the end of time unit 54...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc1111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff5555555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 55] ===
+At the end of time unit 55...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc11111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555
+
+  Queue: 1(0) 5(1) 11(-1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 56] ===
+Job 5, running on core 1, finished. Core 1 is now running job 11.
+  Queue: 1(0) 11(1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 56...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555b
+
+  Queue: 1(0) 11(1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 57] ===
+At the end of time unit 57...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc1111111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bb
+
+  Queue: 1(0) 11(1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 58] ===
+At the end of time unit 58...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc11111111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbb
+
+  Queue: 1(0) 11(1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 59] ===
+At the end of time unit 59...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbb
+
+  Queue: 1(0) 11(1) 14(-1) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 60] ===
+Job 1, running on core 0, finished. Core 0 is now running job 14.
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 60...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111e
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbb
+
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 61] ===
+At the end of time unit 61...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111ee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbb
+
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 62] ===
+At the end of time unit 62...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbb
+
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 63] ===
+At the end of time unit 63...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbb
+
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 64] ===
+At the end of time unit 64...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb
+
+  Queue: 11(1) 14(0) 3(-1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 65] ===
+Job 11, running on core 1, finished. Core 1 is now running job 3.
+  Queue: 14(0) 3(1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 65...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb3
+
+  Queue: 14(0) 3(1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 66] ===
+At the end of time unit 66...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33
+
+  Queue: 14(0) 3(1) 7(-1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 67] ===
+Job 3, running on core 1, finished. Core 1 is now running job 7.
+  Queue: 14(0) 7(1) 9(-1) 17(-1) 4(-1) 13(-1) 
+
+Job 14, running on core 0, finished. Core 0 is now running job 9.
+  Queue: 7(1) 9(0) 17(-1) 4(-1) 13(-1) 
+
+At the end of time unit 67...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb337
+
+  Queue: 7(1) 9(0) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 68] ===
+At the end of time unit 68...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee99
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb3377
+
+  Queue: 7(1) 9(0) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 69] ===
+At the end of time unit 69...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777
+
+  Queue: 7(1) 9(0) 17(-1) 4(-1) 13(-1) 
+
+=== [TIME 70] ===
+Job 7, running on core 1, finished. Core 1 is now running job 17.
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+At the end of time unit 70...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777h
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 71] ===
+At the end of time unit 71...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee99999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hh
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 72] ===
+At the end of time unit 72...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee999999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhh
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 73] ===
+At the end of time unit 73...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhh
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 74] ===
+At the end of time unit 74...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee99999999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhh
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 75] ===
+At the end of time unit 75...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee999999999
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhh
+
+  Queue: 9(0) 17(1) 4(-1) 13(-1) 
+
+=== [TIME 76] ===
+Job 9, running on core 0, finished. Core 0 is now running job 4.
+  Queue: 17(1) 4(0) 13(-1) 
+
+At the end of time unit 76...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999999994
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhh
+
+  Queue: 17(1) 4(0) 13(-1) 
+
+=== [TIME 77] ===
+At the end of time unit 77...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee99999999944
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhhh
+
+  Queue: 17(1) 4(0) 13(-1) 
+
+=== [TIME 78] ===
+At the end of time unit 78...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee999999999444
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhhhh
+
+  Queue: 17(1) 4(0) 13(-1) 
+
+=== [TIME 79] ===
+Job 17, running on core 1, finished. Core 1 is now running job 13.
+  Queue: 4(0) 13(1) 
+
+At the end of time unit 79...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999999994444
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhhhhd
+
+  Queue: 4(0) 13(1) 
+
+=== [TIME 80] ===
+Job 4, running on core 0, finished. Core 0 is now running job -1.
+  Queue: 13(1) 
+
+At the end of time unit 80...
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999999994444-
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhhhhdd
+
+  Queue: 13(1) 
+
+=== [TIME 81] ===
+Job 13, running on core 1, finished. Core 1 is now running job -1.
+  Queue: 
+
+FINAL TIMING DIAGRAM:
+  Core  0: 0001116666666666gggggggggggggggcccccccccccccc111111111111111eeeeeee9999999994444-
+  Core  1: -12222218888888888888886aaaaaaaaaaaaffffffffffff55555555bbbbbbbbb33777hhhhhhhhhdd
+
+Average Waiting Time: 33.61
+Average Turnaround Time: 42.50
+Average Response Time: 31.06
